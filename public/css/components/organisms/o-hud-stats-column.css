@@ -1,0 +1,288 @@
+/* ==========================================================================
+   ORGANISM: HUD STATS COLUMN (<o-hud-stats-column>, <hud-stats-column>)
+   CyberHUD 4-color statistic column with header, slotted body, and 72px footer.
+   Native CSS Nesting (&) with root custom element selector.
+   ========================================================================== */
+
+o-hud-stats-column,
+o-stats-column,
+hud-stats-column {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  box-sizing: border-box;
+
+  /* Card Outer Frame */
+  & .hud-stats-column-card {
+    height: 100%;
+    background: #131722;
+    border: 1px solid rgba(43, 52, 69, 0.6);
+    border-radius: var(--sys-radius-lg, 12px);
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--sys-shadow-card, 0 8px 24px rgba(0, 0, 0, 0.4));
+    overflow: hidden;
+    transition: border-color var(--sys-transition-normal, 0.2s ease),
+                box-shadow var(--sys-transition-normal, 0.2s ease);
+  }
+
+  /* Card Inner Body */
+  & .hud-stats-column-inner {
+    padding: 14px 14px 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+    min-height: 0;
+  }
+
+  /* Header */
+  & .hud-stats-column-header {
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    border-bottom: 1px solid rgba(43, 52, 69, 0.4);
+    padding-bottom: 8px;
+  }
+
+  & .hud-col-title-group {
+    display: flex;
+    align-items: center;
+    gap: var(--sys-spacing-xs, 8px);
+    min-width: 0;
+  }
+
+  & .hud-col-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  & .hud-col-title {
+    font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+    font-size: 13px;
+    font-weight: var(--sys-font-weight-bold, 700);
+    letter-spacing: var(--sys-font-tracking-wide, 0.05em);
+    text-transform: uppercase;
+    color: var(--sys-color-text-white, #ffffff);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  & .hud-col-badge {
+    padding: 2px 7px;
+    border-radius: var(--sys-radius-sm, 4px);
+    font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+    font-size: 10px;
+    font-weight: var(--sys-font-weight-bold, 700);
+    letter-spacing: var(--sys-font-tracking-wide, 0.05em);
+  }
+
+  /* Slotted Child Container */
+  & .hud-stats-column-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sys-spacing-xs, 8px);
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+  }
+
+  /* 72px Flush Footer */
+  & .hud-stats-column-footer {
+    height: 72px;
+    border-top: 1px solid;
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+
+  & .hud-col-footer-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sys-spacing-2xs, 4px);
+  }
+
+  & .hud-col-footer-label-group {
+    display: flex;
+    align-items: center;
+    gap: var(--sys-spacing-2xs, 6px);
+    min-width: 0;
+  }
+
+  & .hud-col-footer-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  & .hud-col-footer-title {
+    font-size: 11px;
+    font-weight: var(--sys-font-weight-bold, 700);
+    text-transform: uppercase;
+    letter-spacing: var(--sys-font-tracking-wider, 0.06em);
+  }
+
+  & .hud-col-footer-badge {
+    padding: 2px 6px;
+    font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+    font-size: 10px;
+    font-weight: var(--sys-font-weight-bold, 700);
+    border-radius: var(--sys-radius-sm, 4px);
+    line-height: var(--sys-font-leading-none, 1);
+  }
+
+  & .hud-col-footer-bottom {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  & .hud-col-footer-main {
+    font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+    font-size: 13px;
+    font-weight: var(--sys-font-weight-bold, 700);
+    color: var(--sys-color-text-white, #ffffff);
+    letter-spacing: 0.03em;
+  }
+
+  & .hud-col-footer-val {
+    font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+    font-size: 14px;
+    font-weight: var(--sys-font-weight-bold, 700);
+  }
+
+  /* ------------------------------------------------------------------------
+     4 THEME COLOR VARIANTS (Neon, Cyan, Amber, Crimson)
+     Supports both .variant-[color] class and &[color="[color]"] attribute
+     ------------------------------------------------------------------------ */
+
+  /* 1. Neon Variant */
+  & .hud-stats-column-card.variant-neon,
+  &[color="neon"] .hud-stats-column-card {
+    & .hud-col-icon {
+      color: var(--sys-color-primary, #00ff87);
+    }
+    & .hud-col-badge {
+      background: var(--sys-color-primary-alpha-15, rgba(0, 255, 135, 0.15));
+      color: var(--sys-color-primary, #00ff87);
+      border: 1px solid var(--sys-color-primary-alpha-35, rgba(0, 255, 135, 0.3));
+    }
+    & .hud-stats-column-footer {
+      background: var(--sys-color-primary-alpha-10, rgba(0, 255, 135, 0.12));
+      border-color: var(--sys-color-primary-alpha-35, rgba(0, 255, 135, 0.35));
+    }
+    & .hud-col-footer-icon,
+    & .hud-col-footer-title,
+    & .hud-col-footer-val {
+      color: var(--sys-color-primary, #00ff87);
+    }
+    & .hud-col-footer-badge {
+      background: var(--sys-color-primary, #00ff87);
+      color: var(--sys-color-primary-on, #003919);
+    }
+  }
+
+  /* 2. Cyan Variant */
+  & .hud-stats-column-card.variant-cyan,
+  &[color="cyan"] .hud-stats-column-card {
+    & .hud-col-icon {
+      color: var(--sys-color-secondary, #4cd7f6);
+    }
+    & .hud-col-badge {
+      background: var(--sys-color-secondary-alpha-15, rgba(76, 215, 246, 0.15));
+      color: var(--sys-color-secondary, #4cd7f6);
+      border: 1px solid var(--sys-color-secondary-alpha-35, rgba(76, 215, 246, 0.3));
+    }
+    & .hud-stats-column-footer {
+      background: var(--sys-color-secondary-alpha-10, rgba(76, 215, 246, 0.12));
+      border-color: var(--sys-color-secondary-alpha-35, rgba(76, 215, 246, 0.35));
+    }
+    & .hud-col-footer-icon,
+    & .hud-col-footer-title,
+    & .hud-col-footer-val {
+      color: var(--sys-color-secondary, #4cd7f6);
+    }
+    & .hud-col-footer-badge {
+      background: var(--sys-color-secondary-alpha-25, rgba(76, 215, 246, 0.25));
+      color: var(--sys-color-secondary, #4cd7f6);
+      border: 1px solid var(--sys-color-secondary-alpha-35, rgba(76, 215, 246, 0.4));
+    }
+  }
+
+  /* 3. Amber Variant */
+  & .hud-stats-column-card.variant-amber,
+  &[color="amber"] .hud-stats-column-card {
+    & .hud-col-icon {
+      color: var(--sys-color-warning, #ffd166);
+    }
+    & .hud-col-badge {
+      background: var(--sys-color-warning-alpha-15, rgba(255, 209, 102, 0.15));
+      color: var(--sys-color-warning, #ffd166);
+      border: 1px solid var(--sys-color-warning-alpha-35, rgba(255, 209, 102, 0.3));
+    }
+    & .hud-stats-column-footer {
+      background: var(--sys-color-warning-alpha-15, rgba(255, 209, 102, 0.10));
+      border-color: var(--sys-color-warning-alpha-35, rgba(255, 209, 102, 0.35));
+    }
+    & .hud-col-footer-icon,
+    & .hud-col-footer-title,
+    & .hud-col-footer-val {
+      color: var(--sys-color-warning, #ffd166);
+    }
+    & .hud-col-footer-badge {
+      background: var(--sys-color-warning-alpha-35, rgba(255, 209, 102, 0.25));
+      color: var(--sys-color-warning, #ffd166);
+      border: 1px solid var(--sys-color-warning-alpha-35, rgba(255, 209, 102, 0.4));
+    }
+  }
+
+  /* 4. Crimson Variant */
+  & .hud-stats-column-card.variant-crimson,
+  &[color="crimson"] .hud-stats-column-card {
+    & .hud-col-icon {
+      color: var(--sys-color-danger, #ff3366);
+    }
+    & .hud-col-badge {
+      background: var(--sys-color-danger-alpha-15, rgba(255, 51, 102, 0.15));
+      color: var(--sys-color-danger, #ff3366);
+      border: 1px solid var(--sys-color-danger-alpha-35, rgba(255, 51, 102, 0.3));
+    }
+    & .hud-stats-column-footer {
+      background: var(--sys-color-danger-alpha-15, rgba(255, 51, 102, 0.10));
+      border-color: var(--sys-color-danger-alpha-35, rgba(255, 51, 102, 0.35));
+    }
+    & .hud-col-footer-icon,
+    & .hud-col-footer-title,
+    & .hud-col-footer-val {
+      color: var(--sys-color-danger, #ff3366);
+    }
+    & .hud-col-footer-badge {
+      background: var(--sys-color-danger, #ff3366);
+      color: var(--sys-color-text-white, #ffffff);
+    }
+  }
+
+  /* Interactive States */
+  &:hover .hud-stats-column-card {
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: var(--sys-shadow-panel, 0 10px 30px rgba(0, 0, 0, 0.5));
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--sys-color-primary, #00ff87);
+    outline-offset: 2px;
+  }
+
+  &[disabled] {
+    opacity: 0.5;
+    pointer-events: none;
+    filter: grayscale(0.5);
+  }
+}

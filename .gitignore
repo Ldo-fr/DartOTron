@@ -1,0 +1,11 @@
+# Données d'exécution locales DartOTron (BDD SQLite, JSON de config, CSV)
+data/
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Système et logs
+.DS_Store
+*.log
+.agents/

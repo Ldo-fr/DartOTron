@@ -1,0 +1,418 @@
+{
+  "common": {
+    "ok": "OK",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "close": "Close",
+    "back": "Back",
+    "restart": "Restart",
+    "previous": "Previous",
+    "next": "Next",
+    "skip": "Skip",
+    "understood": "Understood",
+    "warning": "Warning",
+    "danger": "Danger",
+    "yes": "YES",
+    "no": "NO",
+    "loading": "Loading...",
+    "error": "Error",
+    "search": "Search",
+    "refresh": "Refresh",
+    "exit": "Exit",
+    "none": "None"
+  },
+  "topbar": {
+    "brand_badge": "CYBERHUD",
+    "players": "PLAYERS",
+    "records": "Records",
+    "simu": "SIMU",
+    "ui": "UI",
+    "qr_code_title": "Scan for mobile companion screen",
+    "settings_label": "Settings"
+  },
+  "lobby": {
+    "select_game": "CHOOSE A GAME",
+    "select_game_sub": "Select your game mode on the touch grid",
+    "selected_game_label": "SELECTED GAME",
+    "start_game": "START",
+    "start_game_sub": "THE MATCH",
+    "game_options": "Game Options",
+    "flip_variants": "Variants",
+    "min_players_warning": "Select at least one player to start the match",
+    "official_badge": "OFFICIAL"
+  },
+  "players": {
+    "modal_title": "Player Selection & Statistics",
+    "active_badge": "{count} ACTIVE",
+    "active_badge_singular": "1 ACTIVE",
+    "player_count": "{count} PLAYERS",
+    "player_count_singular": "1 PLAYER",
+    "toolbar_desc": "Tap a player to add or remove them from the turn order.",
+    "shuffle": "SHUFFLE (RANDOM)",
+    "add_player": "+ NEW PLAYER",
+    "input_placeholder": "New player name...",
+    "validate_selection": "CONFIRM SELECTION",
+    "active": "Active",
+    "inactive": "Inactive",
+    "confirm_delete_title": "Delete this player?",
+    "confirm_delete_desc": "Confirm permanent deletion of {name} and all associated statistics (scores, victories, and Chimay Bleu)?",
+    "delete_forever": "DELETE PERMANENTLY",
+    "already_exists": "A player with this name already exists",
+    "name_required": "Player name cannot be empty",
+    "rename_title": "RENAME « {name} »",
+    "new_player_title": "NEW PLAYER NAME"
+  },
+  "game_options": {
+    "modal_title": "Game Options",
+    "modal_tag": "CONFIGURATION",
+    "btn_rules": "RULES",
+    "save": "SAVE",
+    "empty_desc": "This game does not require any prior configuration.",
+    "meta": {
+      "max_round": {
+        "tag": "MATCH LIMIT",
+        "desc": "Maximum number of rounds allowed"
+      },
+      "double_out": {
+        "tag": "WDF PRO",
+        "desc": "Double ring checkout required to win"
+      },
+      "double_in": {
+        "tag": "START",
+        "desc": "Scoring only begins after hitting a Double"
+      },
+      "split_bull": {
+        "tag": "TARGET",
+        "desc": "Outer Bull at 25 pts / Double Bull inner core at 50 pts"
+      },
+      "equal": {
+        "tag": "EQUAL TURNS",
+        "desc": "Same number of darts for all players (draw & catch-up)"
+      }
+    }
+  },
+  "rules": {
+    "modal_title": "Game Rules",
+    "modal_tag": "GUIDE",
+    "understood": "UNDERSTOOD"
+  },
+  "match": {
+    "series_label": "PRO SERIES",
+    "series_x01": "X01 PRO SERIES",
+    "series_cricket": "CRICKET PRO",
+    "series_arcade": "ARCADE PRO",
+    "round_label": "ROUND",
+    "ammo_title": "Remaining darts",
+    "quit": "QUIT",
+    "undo": "UNDO",
+    "undo_sub": "DART",
+    "miss": "MISS",
+    "miss_sub": "OFF TARGET (0 PT)",
+    "miss_penalty": "PENALTY (+{penalty} PTS)",
+    "next_player": "NEXT PLAYER",
+    "next_turn": "NEXT ROUND",
+    "ready_to_throw": "READY TO THROW",
+    "validate_turn": "SUBMIT TURN",
+    "confirm_quit_title": "Quit match in progress?",
+    "confirm_quit_tag": "ALERT",
+    "confirm_quit_desc": "Are you sure you want to abort this match and return to the lobby?",
+    "continue_game": "RESUME MATCH",
+    "stop_game": "STOP MATCH",
+    "waiting_player": "NEXT PLAYER",
+    "release_darts": "Remove your darts",
+    "release_darts_and_press": "Remove darts and press Next Player",
+    "bust": "BUST!",
+    "draw": "DRAW!",
+    "interrupted": "Match interrupted",
+    "interrupted_title": "MATCH INTERRUPTED",
+    "interrupted_subtitle": "Returning to main menu",
+    "backup_turn": "Rewound to previous turn!",
+    "first_turn_cannot_undo": "Cannot rewind on the very first throw!",
+    "last_round_reached": "Final round reached...",
+    "winner_announcement": "Winner: {name}!",
+    "freeze_loss": "Frozen and reached zero! You lose!",
+    "average_ppd_ppr": "Average {ppd} PPD ({ppr} PPR) • {darts} darts thrown",
+    "average_mpr": "Average {mpr} MPR • {darts} darts thrown",
+    "average_pts_round": "Average {spr} pts/round • {darts} darts thrown",
+    "match_stopped": "• MATCH STOPPED",
+    "match_stopped_title": "MATCH STOPPED",
+    "match_not_finished": "{game} not finished",
+    "round_limit": "• ROUND LIMIT",
+    "no_winner": "NO WINNER",
+    "th_player": "PLAYER",
+    "th_score": "SCORE",
+    "th_points": "POINTS",
+    "th_last": "LAST",
+    "th_remaining": "REMAINING"
+  },
+  "hits": {
+    "simple": "SINGLE HIT",
+    "double": "DOUBLE HIT",
+    "triple": "TRIPLE HIT",
+    "bull": "BULLSEYE",
+    "double_bull": "DOUBLE BULLSEYE",
+    "miss": "OFF TARGET",
+    "penalty": "PENALTY",
+    "penalty_pts": "PENALTY • +{penalty}",
+    "bust": "BUST!",
+    "not_multiple_5": "NOT A MULTIPLE OF 5",
+    "double_in_required": "DOUBLE-IN REQUIRED",
+    "out_of_contract": "OFF CONTRACT"
+  },
+  "vk": {
+    "title": "INPUT",
+    "clear": "CLEAR",
+    "cancel": "CANCEL",
+    "validate": "CONFIRM",
+    "shift": "SHIFT",
+    "space": "SPACE",
+    "backspace": "DELETE"
+  },
+  "finished": {
+    "victory_badge": "VICTORY",
+    "match_end_badge": "• MATCH OVER",
+    "draw_badge": "DRAW",
+    "standings_title": "MATCH STANDINGS",
+    "hall_of_fame_title": "HALL OF FAME & RECORDS",
+    "main_menu": "MAIN MENU",
+    "replay": "REPLAY (Same Settings)",
+    "rank_col": "RANK",
+    "player_col": "PLAYER",
+    "score_col": "SCORE",
+    "stats_col": "STATS",
+    "winner_text": "Match won in great style!",
+    "draw_text": "Perfect draw between players!"
+  },
+  "settings": {
+    "modal_title": "System & Hardware Settings",
+    "quit_app": "EXIT APPLICATION",
+    "save_settings": "SAVE & CONNECT",
+    "save_calib": "SAVE CALIBRATION",
+    "saved_success": "CONFIGURATION SAVED",
+    "saved_desc": "System settings synchronized successfully",
+    "save_error": "SAVE ERROR",
+    "tabs": {
+      "system": "SYSTEM & CONTROLS",
+      "serial": "USB DARTBOARD",
+      "calib": "CALIBRATION"
+    },
+    "language": {
+      "title": "INTERFACE LANGUAGE",
+      "desc": "Select the display language for the kiosk and mobile companion",
+      "fr": "Français",
+      "en": "English",
+      "nl": "Nederlands",
+      "de": "Deutsch"
+    },
+    "audio": {
+      "title": "AUDIO & SOUND EFFECTS",
+      "mute_label": "Master Sound",
+      "mute_desc": "Mute or unmute all sound effects",
+      "volume_label": "Master Volume",
+      "volume_tag": "LEVEL"
+    },
+    "controls": {
+      "title": "CONTROLS & DISPLAY",
+      "onscreen_label": "Onscreen Bottom Buttons",
+      "onscreen_desc": "Action bar (Next Player, Undo, Miss...) at the bottom of the screen",
+      "release_label": "Dart Removal Timeout",
+      "release_desc": "Grace period allowed to remove darts before next player turn (end of turn, Bust, etc.)",
+      "release_tag": "TIME (S)"
+    },
+    "serial": {
+      "config_title": "SERIAL PORT CONFIGURATION",
+      "port_label": "System Device",
+      "port_tag": "USB PORT",
+      "port_desc": "Select the serial port corresponding to the connected Arduino",
+      "baud_label": "Transmission Speed",
+      "baud_tag": "BAUDRATE",
+      "baud_desc": "Serial port communication speed (9600 by default)",
+      "status_title": "CONNECTION & HARDWARE STATUS",
+      "status_label": "Dartboard Status",
+      "status_tag": "HARDWARE",
+      "status_desc": "Status of USB serial link with Arduino microcontroller",
+      "connected": "Connected",
+      "disconnected": "Disconnected",
+      "test_mode": "Test Mode (No Board)"
+    },
+    "calib": {
+      "step_badge": "Step {current} / {total}",
+      "signal_received": "Received signal:",
+      "none": "None",
+      "press_target": "Press target segment:",
+      "press_button": "Press button:",
+      "btn_player": "NEXT PLAYER BUTTON",
+      "btn_backup": "UNDO BUTTON",
+      "btn_game": "GAME BUTTON",
+      "btn_miss": "MISS BUTTON",
+      "prev": "PREVIOUS",
+      "skip": "SKIP",
+      "restart": "START (S20)"
+    }
+  },
+  "records": {
+    "modal_title": "Hall of Fame & Records",
+    "new_record": "NEW RECORD",
+    "tabs": {
+      "general": "GENERAL",
+      "players": "PLAYERS",
+      "definitions": "RECORD TYPES"
+    },
+    "telemetry": {
+      "games": "Matches",
+      "wins": "Victories"
+    },
+    "columns": {
+      "multi_game": "MULTI-GAME RECORDS",
+      "ho_one": "HO ONE (X01)",
+      "cricket": "CRICKET"
+    },
+    "def_toolbar": {
+      "title": "Record Types Catalogue",
+      "desc": "Browse, add or delete record types and throw patterns in DartOTron",
+      "btn_add": "New record"
+    },
+    "add_modal": {
+      "title": "New Record Type",
+      "tag": "CONFIGURATION",
+      "calc_type_label": "Calculation Type",
+      "calc_type_pattern": "Throw Pattern (3 darts in 1 turn)",
+      "calc_type_match": "Match Result (defeat, high score...)",
+      "calc_type_pref": "Player Affinity / Profile Statistic",
+      "game_label": "Target Game",
+      "all_games": "All Games (* Multi-game)",
+      "pattern_label": "Throw Pattern Condition (3 darts)",
+      "pattern_none": "No pattern condition (Free statistical record)",
+      "pattern_triples_same": "3 Identical Triples (e.g. Chimay Bleu)",
+      "pattern_triples_any": "3 Any Triples (e.g. White Horse)",
+      "pattern_hat_trick": "3 Bulls (Single or Double Bull)",
+      "pattern_consecutive_suite": "Consecutive 3-number straight (e.g. 18-19-20)",
+      "pattern_shanghai": "Shanghai (Single + Double + Triple on same number)",
+      "pattern_simple_double_triple": "Single + Double + Triple (any numbers)",
+      "pattern_ton_80": "Maximum Turn 180 (3 × T20)",
+      "match_cond_label": "Match Condition",
+      "match_cond_loss": "Defeat only",
+      "match_cond_win": "Victory only",
+      "match_cond_any": "Any result (All players)",
+      "match_metric_label": "Measured Metric",
+      "match_metric_total": "Raw Points Total (Final score)",
+      "match_metric_darts": "Total Thrown Darts",
+      "pref_label": "Affinity / Preference Type",
+      "pref_fav_triple": "Favorite Triple (most hit triple sector)",
+      "pref_fav_game": "Favorite Game (most played game)",
+      "pref_fav_double": "Favorite Double (most hit double sector)",
+      "pref_fav_number": "Favorite Number (most hit number 1-20)",
+      "name_label": "Record Display Name",
+      "name_placeholder": "e.g. Royal Straight",
+      "id_label": "Technical ID (Unique code)",
+      "id_placeholder": "e.g. royal_straight",
+      "unit_label": "Measurement Unit",
+      "sort_label": "Ranking Direction",
+      "sort_desc": "Descending (Highest wins)",
+      "sort_asc": "Ascending (Lowest wins)",
+      "backfill_label": "Scan past match history to backfill this record",
+      "btn_save": "SAVE"
+    },
+    "delete_modal": {
+      "title": "Delete this record?",
+      "tag": "DANGER",
+      "desc": "Confirm permanent deletion of record type {name}?",
+      "warning": "Warning: all player scores and achievements logged under this record type will be permanently removed from the database.",
+      "btn_confirm": "DELETE PERMANENTLY"
+    }
+  },
+  "companion": {
+    "title": "DartOTron Companion — Mobile Mirror Screen",
+    "brand_tag": "MIRROR",
+    "direct_pill": "LIVE",
+    "at_throw": "AT THROW",
+    "game": "GAME",
+    "round": "ROUND",
+    "recommended_checkout": "SUGGESTED CHECKOUT",
+    "waiting_title": "Dartboard In Lobby",
+    "waiting_desc": "The main kiosk is setting up a new game. This screen will sync automatically as soon as the match starts!",
+    "next_player_btn": "NEXT PLAYER",
+    "victory_title": "Victory!",
+    "victory_sub": "Match completed successfully",
+    "qr_modal_title": "Companion Screen",
+    "qr_modal_tag": "MOBILE VIEWER",
+    "qr_modal_desc": "Scan this QR code with your smartphone to view the live scoreboard on the same Wi-Fi network."
+  },
+  "games": {
+    "Ho_One": {
+      "title": "Ho One",
+      "category": "Classic X01",
+      "description": "The world famous 301, 501, 701 or 1001!\nChoose your starting score.\nThe first player to reach exactly zero wins the match.\nIf you bust below zero, your score resets to the start of the turn.",
+      "options": {
+        "startingat": "Starting score (301, 501, 701...)",
+        "max_round": "Maximum rounds",
+        "double_in": "Double In (open with a Double)",
+        "double_out": "Double Out (finish with a Double)",
+        "master_in": "Master In (open with Double/Triple/Bull)",
+        "master_out": "Master Out (finish with Double/Triple/Bull)",
+        "split_bull": "Split Bull (Single Bull = 25 / Double = 50)",
+        "equal": "Equalizer (same number of darts)",
+        "startpercent": "Handicap ratio (%)",
+        "noout": "Unplayed dart penalty (+25 pts)",
+        "league": "League Mode (Freeze + Handicap, 4 players)"
+      }
+    },
+    "Cricket": {
+      "title": "Cricket",
+      "category": "Tactical",
+      "description": "The classic game of Cricket!\nHit each number (15 to 20 + Bull) 3 times to open it and score points.\nCut-Throat option: give points to opponents who haven't closed!\nCrazy option: active numbers change randomly each round!",
+      "options": {
+        "max_round": "Maximum rounds",
+        "optioncrazy": "Crazy Mode (randomized numbers)",
+        "optioncutthroat": "Cut-Throat Mode (points to opponents)",
+        "drinkscore": "\"Buy a round!\" penalty score (Cut-Throat)",
+        "Teaming": "Team Mode (minimum 4 players, even)",
+        "optionteamscore": "Shared team marks",
+        "optionhandicap": "Automatic handicap (4 players)",
+        "optionmaster": "Master Mode (unclosed numbers reset to zero)",
+        "optioncrazycutthroatmaster": "Crazy Master Cut-Throat Total Mode!"
+      }
+    },
+    "Practice": {
+      "title": "Practice",
+      "category": "Training",
+      "description": "Practice hitting targets called out by the computer each round!\nIn Normal mode, simply hit the requested number.\nIn Master mode, you must precisely hit Single, Double or Triple!",
+      "options": {
+        "max_round": "Number of rounds",
+        "master": "Master Mode (enforces Single/Double/Triple)"
+      }
+    },
+    "Kinito": {
+      "title": "Kinito",
+      "category": "Party Game",
+      "description": "Start at 0 and reach 210 points.\nGolden rule: never score less than the minimum contract left by the previous player!\nHit the special Kinito score (21 or T7) to spawn a bonus target on your opponents and halve their score!",
+      "options": {
+        "max_round": "Maximum rounds",
+        "winscore": "Winning score",
+        "kinito": "Special Kinito target score",
+        "master": "Master Mode (exact score required)"
+      }
+    },
+    "By_Fives": {
+      "title": "By Fives",
+      "category": "Mental Math",
+      "description": "Make the sum of your 3 darts in each turn a multiple of 5!\nIf the turn total is divisible by 5 (5, 10, 15, 20... 180), you score 1 point.\nOtherwise, no points are scored this turn.\nFirst player to reach target score wins!",
+      "options": {
+        "winscore": "Winning score (points)",
+        "startingat": "Winning score (points)"
+      }
+    },
+    "321_Zlip": {
+      "title": "321 Zlip",
+      "category": "Fun & Ruthless",
+      "description": "A reverse 301 full of twists and thrills!\nStart at 0 to reach exactly 321 points.\nIf you land exactly on an opponent's score, they get ZLIPPED back to zero!\nIn Master or Advanced mode, you must zlip at least once before you can win.",
+      "options": {
+        "max_round": "Maximum rounds",
+        "advanced": "Advanced Mode (321 without Zlip grants free Zlip)",
+        "master": "Master Mode (Zlip mandatory before reaching 321)"
+      }
+    }
+  }
+}

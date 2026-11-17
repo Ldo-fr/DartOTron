@@ -1,0 +1,155 @@
+/* ==========================================================================
+   DARTOTRON CYBERHUD — FOOTER ACTION BAR STYLESHEET
+   File: public/css/layout/footer.css
+   Architecture: Kiosk fixed 80px action bottom bar, game summary pill, start actions
+   Standard: Modern CSS Level 4 (Zero dependencies, native CSS Nesting)
+   ========================================================================== */
+
+.stitch-footer-bar,
+.lobby-footer-bar,
+.kiosk-footer,
+.footer-actions {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--sys-spacing-bar-height, 80px);
+  background: rgba(23, 27, 38, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(49, 53, 64, 0.5);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.5);
+  padding: 0 var(--sys-spacing-lg, 20px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: var(--sys-zindex-fixed, 50);
+  border-radius: 0;
+  box-sizing: border-box;
+
+  body.in-match-mode & {
+    display: none !important;
+  }
+
+  /* ------------------------------------------------------------------------
+     Left: Selected Game Summary Pill
+     ------------------------------------------------------------------------ */
+  & .selected-summary-pill {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: var(--sys-spacing-sm, 12px);
+  }
+
+  & .icon-selected-game {
+    font-size: 24px !important;
+    color: var(--sys-color-secondary, #4cd7f6);
+  }
+
+  & .selected-summary-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+  }
+
+  & .summary-label {
+    font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+    font-size: 0.72rem;
+    font-weight: var(--sys-font-weight-bold, 700);
+    color: var(--sys-color-text-muted, #849585);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  & .summary-title {
+    font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+    font-size: 1.25rem;
+    font-weight: var(--sys-font-weight-extrabold, 800);
+    color: var(--sys-color-text-primary, #dfe2f1);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   TACTILE KIOSK HIGH-IMPACT LAUNCH BUTTONS (MIN 64px TARGET)
+   -------------------------------------------------------------------------- */
+.btn-launch-neon,
+.btn-touch-next.btn-launch-neon,
+.btn-launch-touch.btn-launch-neon {
+  height: 64px !important;
+  padding: 0 44px !important;
+  background: var(--sys-color-primary, #00ff87) !important;
+  color: var(--sys-color-primary-on, #003919) !important;
+  border: none !important;
+  border-radius: var(--sys-radius-lg, 12px) !important;
+  font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+  font-size: 1.15rem !important;
+  font-weight: var(--sys-font-weight-extrabold, 800) !important;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: var(--sys-shadow-button-primary, 0 0 25px rgba(0, 255, 135, 0.45)) !important;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sys-spacing-sm, 12px);
+  cursor: pointer;
+  user-select: none;
+  transition: all var(--sys-transition-fast, 0.15s ease);
+
+  &:hover {
+    box-shadow: 0 0 35px var(--sys-color-primary, #00ff87) !important;
+    background: var(--sys-color-primary-bright, #60ff98) !important;
+  }
+
+  &:active {
+    transform: scale(0.96);
+  }
+
+  & .icon-arrow,
+  & .material-symbols-outlined {
+    font-size: 28px !important;
+    font-weight: 800;
+    color: var(--sys-color-primary-on, #003919);
+  }
+}
+
+/* Secondary Navigation & Back Actions */
+#btn-step2-back,
+.btn-step-back {
+  background: var(--sys-color-surface-high, #262a35);
+  border: none;
+  outline: none;
+  color: var(--sys-color-text-secondary, #b9cbb9);
+  height: 56px;
+  padding: 0 var(--sys-spacing-lg, 20px);
+  border-radius: var(--sys-radius-lg, 12px);
+  font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+  font-weight: var(--sys-font-weight-bold, 700);
+  font-size: 14px;
+  line-height: 18px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sys-spacing-xs, 8px);
+  cursor: pointer;
+  user-select: none;
+  transition: all var(--sys-transition-fast, 0.15s ease);
+
+  &:hover {
+    background: var(--sys-color-surface-highest, #313540);
+    color: var(--sys-color-text-primary, #dfe2f1);
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+
+  & .material-symbols-outlined {
+    font-size: 24px;
+  }
+}

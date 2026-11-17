@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=DartOTron Kiosk
+Comment=Lance l'interface web DartOTron en plein écran au démarrage du Raspberry Pi
+Exec=__WORKDIR__/scripts/start-kiosk.sh
+Terminal=false
+X-GNOME-Autostart-enabled=true
+

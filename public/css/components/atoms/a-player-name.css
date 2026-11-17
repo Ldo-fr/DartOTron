@@ -1,0 +1,102 @@
+/* ==========================================================================
+   ATOM: Player Name Component (<a-player-name>, <player-name>)
+   Standard W3C Custom Element with Native CSS Nesting
+   ========================================================================== */
+
+a-player-name,
+player-name {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  min-width: 0;
+  max-width: 100%;
+
+  & .player-name-wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sys-spacing-xs);
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  & .player-name-text {
+    font-family: var(--sys-font-family-display);
+    font-weight: var(--sys-font-weight-bold);
+    letter-spacing: var(--sys-font-tracking-wide);
+    text-transform: uppercase;
+    color: var(--sys-color-text-white);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+  }
+
+  & .player-name-stat {
+    padding: 2px 7px;
+    border-radius: var(--sys-radius-sm);
+    font-family: var(--sys-font-family-display);
+    font-size: 11px;
+    font-weight: var(--sys-font-weight-bold);
+    letter-spacing: var(--sys-font-tracking-wider);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    line-height: 1.1;
+    background: var(--sys-color-secondary);
+    color: var(--sys-color-secondary-on);
+    transition: background var(--sys-transition-fast), color var(--sys-transition-fast);
+
+    &.is-highlight {
+      background: var(--sys-color-warning);
+      color: var(--sys-color-warning-on);
+    }
+
+    &.is-empty {
+      background: var(--sys-color-border-ghost);
+      color: var(--sys-color-text-muted);
+    }
+  }
+
+  &[highlight] .player-name-stat {
+    background: var(--sys-color-warning);
+    color: var(--sys-color-warning-on);
+  }
+
+  /* Size variants */
+  &[size="sm"],
+  & .player-name-wrapper[data-size="sm"] {
+    & .player-name-text {
+      font-size: 13px;
+    }
+    & .player-name-stat {
+      font-size: 10px;
+      padding: 1px 5px;
+      border-radius: var(--sys-radius-xs);
+    }
+  }
+
+  &[size="md"],
+  & .player-name-wrapper[data-size="md"] {
+    & .player-name-text {
+      font-size: 16px;
+    }
+    & .player-name-stat {
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: var(--sys-radius-sm);
+    }
+  }
+
+  &[size="lg"],
+  & .player-name-wrapper[data-size="lg"] {
+    & .player-name-text {
+      font-size: 1.15rem;
+    }
+    & .player-name-stat {
+      font-size: 0.82rem;
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+  }
+}

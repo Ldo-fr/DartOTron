@@ -1,0 +1,39 @@
+/* ==========================================================================
+   ATOM: High-Contrast CyberHUD Input (<a-input>, .cyber-input-field)
+   ========================================================================== */
+
+a-input,
+.cyber-input-field {
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  height: 48px;
+  padding: 0 var(--sys-spacing-md);
+  border-radius: var(--sys-radius-md);
+  background: var(--sys-color-surface-lowest);
+  border: 1.5px solid var(--sys-color-border-subtle);
+  color: var(--sys-color-text-white);
+  font-family: var(--sys-font-family-display);
+  font-size: var(--sys-font-size-sm);
+  font-weight: var(--sys-font-weight-medium);
+  box-sizing: border-box;
+  transition: border-color var(--sys-transition-fast), box-shadow var(--sys-transition-fast);
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+
+  &:focus,
+  &:focus-visible {
+    outline: none;
+    border-color: var(--sys-color-primary);
+    box-shadow: 0 0 12px var(--sys-color-primary-alpha-35);
+  }
+
+  &:disabled,
+  &[disabled] {
+    opacity: 0.45;
+    cursor: not-allowed;
+    background: var(--sys-color-surface-dim);
+  }
+}

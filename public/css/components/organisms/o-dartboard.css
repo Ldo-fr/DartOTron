@@ -1,0 +1,146 @@
+/* ==========================================================================
+   ORGANISM: Interactive Dartboard Matrix (<dart-board>, <dartboard-matrix>)
+   CyberHUD Interactive Dartboard Component.
+   ========================================================================== */
+
+@keyframes pulseHitGlow {
+  0%, 100% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@keyframes dropPinPop {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes pulseHighlight {
+  0%, 100% {
+    filter: brightness(1.3) drop-shadow(0 0 8px var(--sys-color-primary));
+  }
+  50% {
+    filter: brightness(1.7) drop-shadow(0 0 16px var(--sys-color-primary));
+  }
+}
+
+dart-board,
+o-dartboard,
+dartboard-matrix,
+.dartboard-container {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+
+  & .dartboard-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  & svg,
+  & .dartboard-svg {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: visible;
+    filter: drop-shadow(0 12px 30px rgba(0, 0, 0, 0.85));
+  }
+
+  & .dart-segment {
+    transition: fill var(--sys-transition-fast), filter var(--sys-transition-fast), opacity var(--sys-transition-fast), stroke var(--sys-transition-fast);
+  }
+
+  &.is-interactive .dart-segment,
+  &[interactive] .dart-segment {
+    cursor: pointer;
+
+    &:hover {
+      filter: brightness(1.35) drop-shadow(0 0 8px var(--sys-color-primary-alpha-50));
+      stroke: #ffffff;
+      stroke-width: 2px;
+    }
+
+    &:active,
+    &.is-clicked {
+      filter: brightness(1.8) drop-shadow(0 0 12px #ffffff);
+    }
+  }
+
+  /* Segment activement illuminé (ex: étape demandée lors de la calibration ou sélection) */
+  & .dart-segment.is-highlighted {
+    filter: brightness(1.4) drop-shadow(0 0 12px var(--sys-color-primary));
+    stroke: #ffffff;
+    stroke-width: 2.5px;
+    animation: pulseHighlight 1.5s infinite ease-in-out;
+  }
+
+  /* Contours extérieurs fusionnés pour les numéros actifs */
+  & .target-merged-contour {
+    fill: none;
+    stroke: var(--sys-color-primary);
+    stroke-width: 3.5px;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    filter: url(#neon-glow-filter);
+    pointer-events: none;
+  }
+
+  & .target-bull-contour {
+    stroke-width: 3px;
+  }
+
+  /* Numéros en bordure */
+  & .num-label {
+    font-family: var(--sys-font-family-display);
+    font-size: 26px;
+    font-weight: var(--sys-font-weight-bold);
+    fill: #DFE2F1;
+    text-anchor: middle;
+    user-select: none;
+    pointer-events: none;
+    transition: fill var(--sys-transition-normal), filter var(--sys-transition-normal), opacity var(--sys-transition-normal);
+
+    &.is-active-target {
+      fill: var(--sys-color-primary);
+      filter: drop-shadow(0 0 10px var(--sys-color-primary));
+      font-weight: var(--sys-font-weight-black);
+    }
+  }
+
+  /* Points d'impacts (Hit Dots) */
+  & .hit-dot-group {
+    pointer-events: none;
+    animation: dropPinPop 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+    & .hit-dot-glow {
+      fill: var(--sys-color-danger-alpha-50);
+      filter: url(#neon-glow-filter);
+    }
+
+    &.is-latest-hit .hit-dot-glow {
+      animation: pulseHitGlow 1.4s infinite ease-in-out;
+    }
+
+    & .hit-dot-core {
+      fill: var(--sys-color-danger);
+      stroke: #ffffff;
+      stroke-width: 1.5px;
+    }
+
+    & .hit-dot-pin {
+      fill: #ffffff;
+    }
+  }
+}

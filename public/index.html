@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>DartOTron — Console Tactile 7"</title>
+  <link rel="icon" type="image/png" href="/images/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <!-- ==================== STITCH CYBERHUD TOPBAR (80px) ==================== -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-brand u-flex u-items-center u-gap-xs">
+        <img src="/images/logo.webp" alt="DartOTron" class="topbar-brand-logo" />
+        <span class="topbar-brand-title">DartOTron</span>
+        <span class="topbar-brand-badge">CYBERHUD</span>
+      </div>
+    </div>
+
+    <nav class="topbar-right">
+      <a href="/simulator" target="_blank" rel="noopener noreferrer" class="nav-btn nav-btn-companion hidden" id="btn-dev-simulator" title="Simulateur Matériel (Mode Dev)" data-i18n="topbar.simu">SIMU</a>
+      <a href="/showcase" target="_blank" rel="noopener noreferrer" class="nav-btn nav-btn-companion hidden" id="btn-dev-showcase" title="Ouvrir la vitrine Web Components (Mode Dev)" data-i18n="topbar.ui">UI</a>
+      <button type="button" class="nav-btn nav-btn-players" id="btn-open-players">
+        <span class="material-symbols-outlined text-secondary">group</span>
+        <div class="nav-btn-content">
+          <span class="nav-btn-text" data-i18n="topbar.players">JOUEURS</span>
+          <span class="nav-badge-pill" id="topbar-players-count">1</span>
+        </div>
+      </button>
+      <button type="button" class="nav-btn" id="btn-open-records">
+        <span class="material-symbols-outlined text-tournament-amber">emoji_events</span>
+        <span class="nav-btn-text" data-i18n="topbar.records">Records</span>
+      </button>
+      <button type="button" class="nav-btn icon-only" id="btn-lobby-qr" title="Scanner pour écran compagnon mobile" aria-label="Écran compagnon mobile" data-i18n-attr="title:topbar.qr_code_title;aria-label:topbar.qr_code_title">
+        <span class="material-symbols-outlined text-cyan">qr_code_2</span>
+      </button>
+      <button type="button" class="nav-btn icon-only" id="btn-open-settings" aria-label="Réglages" data-i18n-attr="aria-label:topbar.settings_label">
+        <span class="material-symbols-outlined">settings</span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- ==================== MAIN CONTAINER ==================== -->
+  <main id="app-shell" class="main-container kiosk-container">
+
+    <!-- ==================== 1. LOBBY VIEW (CYBERHUD 3D FLIP WORKFLOW) ==================== -->
+    <section id="view-lobby" class="view active">
+      <div id="games-grid" class="games-grid-stitch"></div>
+
+      <!-- FOOTER FIXE DU LOBBY : RÉCAPITULATIF & BOUTON DÉMARRER -->
+      <footer class="stitch-footer-bar lobby-footer-bar">
+        <div class="selected-summary-pill">
+          <span class="material-symbols-outlined icon-selected-game" id="footer-game-icon">sports_score</span>
+          <div class="selected-summary-text">
+            <span class="summary-label" id="footer-game-category" data-i18n="lobby.selected_game_label">JEU SÉLECTIONNÉ</span>
+            <span class="summary-title" id="footer-game-title">501</span>
+          </div>
+        </div>
+        <button type="button" class="btn btn-launch-touch btn-launch-neon" id="btn-start-match">
+          <span class="material-symbols-outlined">rocket_launch</span>
+          <div class="btn-launch-text-wrap text-left">
+            <span class="btn-launch-main" data-i18n="lobby.start_game">DÉMARRER</span>
+            <span class="btn-launch-sub" data-i18n="lobby.start_game_sub">LA PARTIE</span>
+          </div>
+        </button>
+      </footer>
+    </section>
+
+    <!-- ==================== 2. IN-GAME VIEW (7" CYBERHUD STITCH) ==================== -->
+    <section id="view-game" class="view in-game-view">
+      <!-- TOP BAR HUD (Cyber Arcade HUD Pro) -->
+      <header class="game-hud-stitch">
+        <!-- Left: Mode Title + Tag & Round Status -->
+        <div class="hud-left-group">
+          <div class="hud-series-badge">
+            <span class="hud-pulse-dot"></span>
+            <span id="hud-series-label">X01 SÉRIE PRO</span>
+          </div>
+          <span id="hud-game-title" class="hud-mode-title">501 DOUBLE-OUT</span>
+          <div class="hud-divider"></div>
+          <div class="hud-round-pill">
+            <span class="hud-round-label" data-i18n="match.round_label">TOUR</span>
+            <span id="hud-round" class="hud-round-num">01<span class="hud-round-max"> / 20</span></span>
+          </div>
+        </div>
+
+        <!-- Center-Right & Right: Dart Impacts, Ammo Icons, Quit Button -->
+        <div class="hud-right-group">
+          <!-- 3 Darts Current Turn Impacts -->
+          <div id="hud-round-history" class="hud-impacts-row"></div>
+          <!-- 3 Darts Ammo remaining -->
+          <div id="hud-darts-icons" class="hud-ammo-row" title="Fléchettes restantes" data-i18n-attr="title:match.ammo_title"></div>
+          <!-- High-Contrast Quit Button -->
+          <button type="button" class="btn-hud-quit" id="btn-hud-abort" aria-label="Quitter la partie" data-i18n-attr="aria-label:match.quit">
+            <span class="material-symbols-outlined">close</span>
+            <span data-i18n="match.quit">QUITTER</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- MIDDLE BOARD: TABLEAU CENTRAL (HTML Table CyberHUD) -->
+      <div class="game-board-container" id="game-board-container">
+        <table class="game-board-table" id="scoreboard-table">
+          <thead id="scoreboard-thead"></thead>
+          <tbody id="scoreboard-tbody"></tbody>
+        </table>
+      </div>
+
+      <!-- BOTTOM ACTION BAR: Tactile Touch Arcade Buttons (Min 64px height) -->
+      <footer class="game-bottom-bar-stitch">
+        <button type="button" class="btn-game-touch btn-touch-undo" id="btn-game-undo">
+          <span class="material-symbols-outlined text-laser-crimson">undo</span>
+          <div class="btn-touch-text-wrap text-left">
+            <span class="btn-touch-main" data-i18n="match.undo">ANNULER</span>
+            <span class="btn-touch-sub" data-i18n="match.undo_sub">FLÉCHETTE</span>
+          </div>
+        </button>
+        <button type="button" class="btn-game-touch btn-touch-miss text-laser-crimson" id="btn-game-miss">
+          <span class="material-symbols-outlined">cancel</span>
+          <div class="btn-touch-text-wrap text-center">
+            <span class="btn-touch-main" data-i18n="match.miss">MANQUÉ</span>
+            <span class="btn-touch-sub" id="hud-miss-sub" data-i18n="match.miss_sub">HORS CIBLE (0 PT)</span>
+          </div>
+        </button>
+        <button type="button" class="btn-game-touch btn-touch-next" id="btn-game-next">
+          <div class="btn-touch-text-wrap text-left">
+            <span class="btn-touch-sub opacity-80" id="btn-game-next-sub" data-i18n="match.validate_turn">VALIDER TOUR</span>
+            <span class="btn-touch-main" id="btn-game-next-main" data-i18n="match.next_player">JOUEUR SUIVANT</span>
+          </div>
+          <span class="material-symbols-outlined icon-arrow-lg">arrow_forward</span>
+        </button>
+      </footer>
+    </section>
+
+    <!-- ==================== 3. FINISHED / VICTORY VIEW (STITCH CYBERHUD) ==================== -->
+    <section id="view-finished" class="view">
+      <div class="finished-layout-stitch">
+        <!-- LIGNE 1 : BANDEAU HORIZONTAL PLEINE LARGEUR VICTOIRE -->
+        <div class="winner-banner-stitch">
+          <div class="winner-banner-left">
+            <div class="winner-medal-box">
+              <span class="material-symbols-outlined">military_tech</span>
+            </div>
+            <div class="winner-meta">
+              <div class="winner-tags">
+                <span class="badge-victory-stitch" id="finished-title" data-i18n="finished.victory_badge">VICTOIRE</span>
+                <span class="badge-match-end-stitch" id="finished-match-status" data-i18n="finished.match_end_badge">• FIN DE PARTIE</span>
+              </div>
+              <h1 class="winner-name-display" id="finished-winner-name">JOUEUR 1</h1>
+            </div>
+          </div>
+          <div class="winner-banner-right">
+            <div class="winner-match-summary" id="finished-winner-summary"></div>
+            <p class="winner-match-details" id="finished-winner-details"></p>
+          </div>
+        </div>
+
+        <!-- LIGNE 2 : DEUX COLONNES (CLASSEMENT GAUCHE / RECORDS DROITE) -->
+        <div class="finished-grid-stitch">
+          <!-- COLONNE GAUCHE: CLASSEMENT DU MATCH -->
+          <div class="finished-card-stitch">
+            <div class="finished-card-header">
+              <div class="card-header-title">
+                <span class="material-symbols-outlined text-secondary">leaderboard</span>
+                <h2 data-i18n="finished.standings_title">CLASSEMENT DU MATCH</h2>
+              </div>
+            </div>
+            <div class="standings-list-stitch" id="finished-standings-list"></div>
+          </div>
+
+          <!-- COLONNE DROITE: HALL OF FAME & RECORDS -->
+          <div class="finished-card-stitch">
+            <div class="finished-card-header">
+              <div class="card-header-title">
+                <span class="material-symbols-outlined text-tournament-amber u-icon-filled">stars</span>
+                <h2 data-i18n="finished.hall_of_fame_title">HALL OF FAME &amp; RECORDS</h2>
+              </div>
+            </div>
+            <div class="records-list-stitch" id="finished-records-list"></div>
+          </div>
+        </div>
+
+        <!-- LIGNE 3 : BARRE D'ACTIONS INFERIEURE -->
+        <div class="step-bottom-bar stitch-footer-bar">
+          <button type="button" class="nav-btn btn-step-back" id="btn-back-lobby">
+            <span class="material-symbols-outlined text-secondary">home</span>
+            <span data-i18n="finished.main_menu">MENU PRINCIPAL</span>
+          </button>
+          <button type="button" class="btn btn-launch-touch btn-launch-neon" id="btn-rematch">
+            <span class="material-symbols-outlined">replay</span>
+            <span data-i18n="finished.replay">REJOUER (Mêmes réglages)</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== CENTER ANNOUNCEMENT OVERLAY ==================== -->
+  <div id="announcement-overlay" class="announcement-overlay hidden">
+    <div class="announcement-box" id="announcement-box">
+      <div class="announcement-text" id="announcement-text">TRIPLE 20 !</div>
+      <div class="announcement-progress-track">
+        <div class="announcement-progress-bar" id="announcement-progress-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== HIT IMPACT ANIMATION OVERLAY (STITCH CYBERHUD) ==================== -->
+  <div id="hit-animation-overlay" class="hit-animation-overlay hidden pointer-events-none" aria-hidden="true">
+    <m-hit-impact id="hit-impact-widget"></m-hit-impact>
+  </div>
+
+  <!-- ==================== MODAL: PLAYERS & MULTI-SESSION STATS (STITCH MODAL-LARGE) ==================== -->
+  <div id="modal-players" class="modal-backdrop hidden">
+    <div class="modal-large-stitch">
+      <!-- HEADER (H: 72px) -->
+      <header class="modal-large-header">
+        <div class="modal-large-header-left">
+          <div class="modal-large-icon-box">
+            <span class="material-symbols-outlined">group</span>
+          </div>
+          <h2 class="modal-large-title" data-i18n="players.modal_title">Sélection des Joueurs &amp; Statistiques</h2>
+        </div>
+        <button type="button" class="modal-large-close-btn" data-close="modal-players" aria-label="Fermer la modale" data-i18n-attr="aria-label:common.close">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </header>
+
+      <!-- BODY (Modular Grid / Single List - Stitch CyberHUD) -->
+      <main class="modal-large-body players-select-modal-body">
+        <!-- ACTION TOOLBAR ROW (Under header) -->
+        <div class="players-action-toolbar">
+          <div class="players-toolbar-left">
+            <span class="badge-active-players" id="players-active-badge">2 ACTIFS</span>
+            <span class="players-toolbar-desc" data-i18n="players.toolbar_desc">Touchez un joueur pour l'ajouter dans l'ordre de jeu ou le retirer.</span>
+          </div>
+          <div class="players-toolbar-right">
+            <button type="button" class="btn-player-toolbar btn-player-toolbar-shuffle" id="btn-shuffle-players">
+              <span class="material-symbols-outlined">shuffle</span>
+              <span data-i18n="players.shuffle">MÉLANGER (RANDOM)</span>
+            </button>
+            <button type="button" class="btn-player-toolbar btn-player-toolbar-add" id="btn-new-player-vk">
+              <span class="material-symbols-outlined">person_add</span>
+              <span data-i18n="players.add_player">+ NOUVEAU JOUEUR</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- PLAYERS SELECTION GRID -->
+        <div id="players-select-grid" class="players-cards-grid"></div>
+      </main>
+
+      <!-- FOOTER (H: 80px) -->
+      <footer class="modal-large-footer">
+        <div class="modal-large-footer-left"></div>
+        <div class="modal-large-footer-right">
+          <button type="button" class="btn btn-launch-touch btn-launch-neon" id="btn-validate-players" data-close="modal-players">
+            <span class="material-symbols-outlined">check</span>
+            <span data-i18n="players.validate_selection">VALIDER LA SÉLECTION</span>
+          </button>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: GAME OPTIONS (CYBERHUD TACTILE) ==================== -->
+  <div id="modal-game-options" class="modal-backdrop hidden" data-backdrop-dismiss="false">
+    <div class="modal-window modal-dialog-stitch u-max-w-620">
+      <div class="modal-trim-bar"></div>
+      <div class="modal-header">
+        <div class="modal-header-left">
+          <div class="modal-icon-badge">
+            <span class="material-symbols-outlined text-bullseye-neon" id="modal-game-options-icon">tune</span>
+          </div>
+          <div class="modal-title-wrap">
+            <h2 id="modal-game-options-title" data-i18n="game_options.modal_title">Options de Jeu</h2>
+            <span class="modal-tag-badge" data-i18n="game_options.modal_tag">CONFIGURATION</span>
+          </div>
+        </div>
+        <div class="modal-header-actions u-flex u-items-center u-gap-xs">
+          <button type="button" class="btn-rules-info" id="btn-modal-open-rules" title="Consulter les règles officielles" data-i18n-attr="title:rules.modal_title">
+            <span class="material-symbols-outlined">menu_book</span>
+            <span data-i18n="game_options.btn_rules">RÈGLES</span>
+          </button>
+          <button type="button" class="modal-dialog-close-btn" data-close="modal-game-options" aria-label="Fermer la modale" data-i18n-attr="aria-label:common.close">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+      </div>
+      <div class="modal-body u-py-md u-px-lg">
+        <div id="modal-game-options-form" class="touch-options-grid u-grid-1col"></div>
+      </div>
+      <div class="modal-footer u-flex u-justify-end u-gap-sm">
+        <button type="button" class="btn-dialog-stitch btn-dialog-neon" id="btn-save-game-options">
+          <span class="material-symbols-outlined">check_circle</span>
+          <span data-i18n="game_options.save">ENREGISTRER</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: GAME RULES (INFORMATIVE) ==================== -->
+  <div id="modal-rules" class="modal-backdrop hidden">
+    <div class="modal-window modal-dialog-stitch modal-info">
+      <div class="modal-trim-bar"></div>
+      <div class="modal-header">
+        <div class="modal-header-left">
+          <div class="modal-icon-badge">
+            <span class="material-symbols-outlined">menu_book</span>
+          </div>
+          <div class="modal-title-wrap">
+            <h2 id="rules-modal-title" data-i18n="rules.modal_title">Règles du jeu</h2>
+            <span class="modal-tag-badge" data-i18n="rules.modal_tag">GUIDE</span>
+          </div>
+        </div>
+        <button type="button" class="modal-dialog-close-btn" data-close="modal-rules" aria-label="Fermer la modale" data-i18n-attr="aria-label:common.close">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-body-card">
+          <p id="selected-game-desc" class="rules-text-body"></p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-dialog-stitch btn-dialog-neon" data-close="modal-rules">
+          <span class="material-symbols-outlined">check</span>
+          <span data-i18n="rules.understood">COMPRIS</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: COMPANION MOBILE QR CODE ==================== -->
+  <div id="modal-companion-qr" class="modal-backdrop hidden">
+    <div class="modal-window modal-dialog-stitch u-max-w-440">
+      <div class="modal-trim-bar"></div>
+      <div class="modal-header">
+        <div class="modal-header-left">
+          <div class="modal-icon-badge modal-icon-badge--cyan">
+            <span class="material-symbols-outlined">qr_code_2</span>
+          </div>
+          <div class="modal-title-wrap">
+            <h2 data-i18n="companion.qr_modal_title">Écran Compagnon</h2>
+            <span class="modal-tag-badge modal-tag-badge--cyan" data-i18n="companion.qr_modal_tag">SPECTATEUR MOBILE</span>
+          </div>
+        </div>
+        <button type="button" class="modal-dialog-close-btn" data-close="modal-companion-qr" aria-label="Fermer la modale" data-i18n-attr="aria-label:common.close">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="modal-body u-flex u-flex-col u-items-center u-gap-md u-px-xl u-py-lg u-text-center">
+        <p class="u-text-secondary u-m-0" data-i18n="companion.qr_modal_desc">
+          Scannez ce QR Code avec votre smartphone pour afficher le tableau des scores en direct sur le même réseau Wi-Fi.
+        </p>
+        
+        <!-- QR Code Container -->
+        <div id="companion-qr-container" class="companion-qr-box">
+          <!-- QR SVG injecté dynamiquement -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-dialog-stitch btn-dialog-neon" data-close="modal-companion-qr">
+          <span class="material-symbols-outlined">check</span>
+          <span data-i18n="rules.understood">COMPRIS</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: CONFIRM QUIT MATCH (DANGER) ==================== -->
+  <div id="modal-confirm-quit" class="modal-backdrop hidden" data-backdrop-dismiss="false">
+    <div class="modal-window modal-dialog-stitch modal-danger">
+      <div class="modal-trim-bar"></div>
+      <div class="modal-header">
+        <div class="modal-header-left">
+          <div class="modal-icon-badge">
+            <span class="material-symbols-outlined">warning</span>
+          </div>
+          <div class="modal-title-wrap">
+            <h2 data-i18n="match.confirm_quit_title">Quitter la partie en cours ?</h2>
+            <span class="modal-tag-badge" data-i18n="match.confirm_quit_tag">ALERTE</span>
+          </div>
+        </div>
+        <button type="button" class="modal-dialog-close-btn" data-close="modal-confirm-quit" aria-label="Fermer la modale" data-i18n-attr="aria-label:common.close">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-body-card">
+          <p class="modal-warning-text" data-i18n="match.confirm_quit_desc">
+            Voulez-vous vraiment interrompre cette partie et revenir à l'accueil ?
+          </p>
+        </div>
+      </div>
+      <div class="modal-footer modal-footer-grid">
+        <button type="button" class="btn-dialog-stitch btn-dialog-cancel" data-close="modal-confirm-quit">
+          <span class="material-symbols-outlined">arrow_back</span>
+          <span data-i18n="match.continue_game">CONTINUER LA PARTIE</span>
+        </button>
+        <button type="button" class="btn-dialog-stitch btn-dialog-danger" id="btn-confirm-abort-yes">
+          <span class="material-symbols-outlined">stop_circle</span>
+          <span data-i18n="match.stop_game">ARRÊTER LA PARTIE</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: CONFIRM DELETE PLAYER (DANGER) ==================== -->
+  <div id="modal-confirm-delete-player" class="modal-backdrop hidden" data-backdrop-dismiss="false">
+    <div class="modal-window modal-dialog-stitch modal-danger">
+      <div class="modal-trim-bar"></div>
+      <div class="modal-header">
+        <div class="modal-header-left">
+          <div class="modal-icon-badge">
+            <span class="material-symbols-outlined">delete_forever</span>
+          </div>
+          <div class="modal-title-wrap">
+            <h2 data-i18n="players.confirm_delete_title">Supprimer ce joueur ?</h2>
+            <span class="modal-tag-badge" data-i18n="common.danger">DANGER</span>
+          </div>
+        </div>
+        <button type="button" class="modal-dialog-close-btn" data-close="modal-confirm-delete-player" aria-label="Fermer la modale" data-i18n-attr="aria-label:common.close">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-body-card">
+          <p class="modal-warning-text">
+            Confirmer la suppression définitive de <strong id="delete-player-modal-name" class="text-gold"></strong> et de toutes ses statistiques (scores, victoires et Chimay Bleu) ?
+          </p>
+        </div>
+      </div>
+      <div class="modal-footer modal-footer-grid">
+        <button type="button" class="btn-dialog-stitch btn-dialog-cancel" data-close="modal-confirm-delete-player">
+          <span class="material-symbols-outlined">close</span>
+          <span data-i18n="common.cancel">ANNULER</span>
+        </button>
+        <button type="button" class="btn-dialog-stitch btn-dialog-danger" id="btn-confirm-delete-player-yes">
+          <span class="material-symbols-outlined">delete_forever</span>
+          <span data-i18n="players.delete_forever">SUPPRIMER DÉFINITIVEMENT</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: UNIFIED SETTINGS, USB & CALIBRATION (STITCH MODAL-LARGE + TABS) ==================== -->
+  <div id="modal-settings" class="modal-backdrop hidden">
+    <div class="modal-large-stitch">
+      <!-- HEADER (H: 72px) -->
+      <header class="modal-large-header">
+        <div class="modal-large-header-left">
+          <div class="modal-large-icon-box">
+            <span class="material-symbols-outlined">settings</span>
+          </div>
+          <h2 class="modal-large-title" data-i18n="settings.modal_title">Réglages Système &amp; Matériel</h2>
+        </div>
+        <button type="button" class="modal-large-close-btn" data-close="modal-settings" aria-label="Fermer la modale" data-i18n-attr="aria-label:common.close">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </header>
+
+      <!-- BODY : DOSSIER TABS (H: 52px) + PANEL CONTAINER -->
+      <main class="modal-large-body">
+        <hud-tabs id="settings-tabs" active="audio" aria-label="Onglets Réglages">
+          <!-- TAB 1: SYSTÈME & CONTRÔLES (LANGUE, AUDIO, AFFICHAGE) -->
+          <hud-tab-panel tab="audio" label="SYSTÈME &amp; CONTRÔLES" data-i18n-attr="label:settings.tabs.system" icon="tune" button-id="tab-btn-settings-audio" class="tab-panel-view" id="settings-view-audio">
+            <!-- BLOC 1 : LANGUE DE L'INTERFACE -->
+            <div class="hud-settings-block">
+              <div class="settings-block-header">
+                <div class="settings-header-title">
+                  <span class="material-symbols-outlined text-bullseye-neon">language</span>
+                  <h3 data-i18n="settings.language.title">LANGUE DE L'INTERFACE</h3>
+                </div>
+              </div>
+              <div class="hud-card-desc" data-i18n="settings.language.desc">Sélectionnez la langue d'affichage de la borne et du compagnon mobile</div>
+              <div class="settings-lang-grid" id="settings-lang-selector">
+                <button type="button" class="btn-lang-toggle active" data-lang="fr" id="btn-lang-fr">
+                  <span class="lang-flag">🇫🇷</span>
+                  <span class="lang-label" data-i18n="settings.language.fr">Français</span>
+                </button>
+                <button type="button" class="btn-lang-toggle" data-lang="en" id="btn-lang-en">
+                  <span class="lang-flag">🇬🇧</span>
+                  <span class="lang-label" data-i18n="settings.language.en">English</span>
+                </button>
+                <button type="button" class="btn-lang-toggle" data-lang="nl" id="btn-lang-nl">
+                  <span class="lang-flag">🇳🇱</span>
+                  <span class="lang-label" data-i18n="settings.language.nl">Nederlands</span>
+                </button>
+                <button type="button" class="btn-lang-toggle" data-lang="de" id="btn-lang-de">
+                  <span class="lang-flag">🇩🇪</span>
+                  <span class="lang-label" data-i18n="settings.language.de">Deutsch</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- BLOC 2 : AUDIO & EFFETS SONORES -->
+            <div class="hud-settings-block">
+              <div class="settings-block-header">
+                <div class="settings-header-title">
+                  <span class="material-symbols-outlined text-cyber-cyan">volume_up</span>
+                  <h3 data-i18n="settings.audio.title">AUDIO &amp; EFFETS SONORES</h3>
+                </div>
+              </div>
+
+              <!-- SON GLOBAL -->
+              <hud-boolean-card
+                id="setting-sound-mute"
+                label="Son Global"
+                tag="MASTER"
+                desc="Activer ou couper l'ensemble des sons du jeu"
+                data-i18n-attr="label:settings.audio.mute_label;desc:settings.audio.mute_desc"
+                checked
+              ></hud-boolean-card>
+
+              <!-- VOLUME PRINCIPAL -->
+              <hud-stepper
+                id="setting-sound-volume"
+                label="Volume Principal"
+                tag="NIVEAU"
+                data-i18n-attr="label:settings.audio.volume_label;tag:settings.audio.volume_tag"
+                value="100"
+                min="0"
+                max="100"
+                step="10"
+                presets="0,50,75,100"
+                unit="%"
+              ></hud-stepper>
+            </div>
+
+            <!-- BLOC 3 : CONTRÔLES & AFFICHAGE -->
+            <div class="hud-settings-block">
+              <div class="settings-block-header">
+                <div class="settings-header-title">
+                  <span class="material-symbols-outlined text-secondary">touch_app</span>
+                  <h3 data-i18n="settings.controls.title">CONTRÔLES &amp; AFFICHAGE</h3>
+                </div>
+              </div>
+
+              <!-- BOUTONS TACTILES BAS D'ÉCRAN -->
+              <hud-boolean-card
+                id="setting-onscreen-buttons"
+                label="Boutons tactiles bas d'écran"
+                tag="INTERFACE"
+                desc="Barre d'actions (Joueur Suivant, Annuler, Manqué...) en bas de l'écran"
+                data-i18n-attr="label:settings.controls.onscreen_label;desc:settings.controls.onscreen_desc"
+                checked
+              ></hud-boolean-card>
+
+              <!-- TEMPS DE RETRAIT DES FLÉCHETTES -->
+              <hud-stepper
+                id="setting-release-darts"
+                label="Temps de retrait des fléchettes"
+                tag="TEMPS (S)"
+                desc="Délai accordé pour retirer les fléchettes avant le joueur suivant (fin de tour, Bust, etc.)"
+                data-i18n-attr="label:settings.controls.release_label;desc:settings.controls.release_desc;tag:settings.controls.release_tag"
+                value="10"
+                min="3"
+                max="30"
+                step="1"
+                presets="5,8,10,15"
+                unit="s"
+              ></hud-stepper>
+            </div>
+          </hud-tab-panel>
+
+          <!-- TAB 2: CIBLE ARDUINO USB -->
+          <hud-tab-panel tab="serial" label="CIBLE USB" data-i18n-attr="label:settings.tabs.serial" icon="usb" button-id="tab-btn-settings-serial" class="tab-panel-view hidden" id="settings-view-serial">
+            <!-- COLONNE GAUCHE : SÉLECTION DU PORT & VITESSE -->
+            <div class="hud-settings-block">
+              <div class="settings-block-header">
+                <div class="settings-header-title">
+                  <span class="material-symbols-outlined text-cyber-cyan">settings_ethernet</span>
+                  <h3 data-i18n="settings.serial.config_title">CONFIGURATION DU PORT SÉRIE</h3>
+                </div>
+              </div>
+
+              <!-- 1. PÉRIPHÉRIQUE SYSTÈME (PORTS DISPONIBLES) -->
+              <div class="hud-card">
+                <div class="hud-card-header">
+                  <div class="hud-card-title-group">
+                    <span class="hud-card-title" data-i18n="settings.serial.port_label">Périphérique Système</span>
+                    <span class="hud-card-tag-badge" data-i18n="settings.serial.port_tag">PORT USB</span>
+                  </div>
+                </div>
+                <div class="hud-card-desc u-mb-xs" data-i18n="settings.serial.port_desc">Sélectionnez le port correspondant à l'Arduino connecté</div>
+                <div class="hud-ports-grid" id="settings-port-pills"></div>
+              </div>
+
+              <!-- 2. VITESSE EN BAUDS -->
+              <div class="hud-card">
+                <div class="hud-card-header">
+                  <div class="hud-card-title-group">
+                    <span class="hud-card-title" data-i18n="settings.serial.baud_label">Vitesse de transmission</span>
+                    <span class="hud-card-tag-badge" data-i18n="settings.serial.baud_tag">BAUDRATE</span>
+                  </div>
+                </div>
+                <div class="hud-card-desc u-mb-xs" data-i18n="settings.serial.baud_desc">Vitesse de communication du port série (9600 par défaut)</div>
+                <div class="hud-presets" id="settings-baud-pills">
+                  <button type="button" class="hud-preset-pill active" data-baud="9600">9600</button>
+                  <button type="button" class="hud-preset-pill" data-baud="19200">19200</button>
+                  <button type="button" class="hud-preset-pill" data-baud="57600">57600</button>
+                  <button type="button" class="hud-preset-pill" data-baud="115200">115200</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- COLONNE DROITE : ÉTAT MATÉRIEL DE LA CIBLE -->
+            <div class="hud-settings-block">
+              <div class="settings-block-header">
+                <div class="settings-header-title">
+                  <span class="material-symbols-outlined text-bullseye-neon">usb</span>
+                  <h3 data-i18n="settings.serial.status_title">CONNEXION &amp; STATUT MATÉRIEL</h3>
+                </div>
+              </div>
+
+              <!-- ÉTAT DE LA CIBLE -->
+              <div class="hud-card">
+                <div class="hud-card-header">
+                  <div class="hud-card-title-group">
+                    <span class="hud-card-title" data-i18n="settings.serial.status_label">État de la Cible</span>
+                    <span class="hud-card-tag-badge" data-i18n="settings.serial.status_tag">MATÉRIEL</span>
+                  </div>
+                </div>
+                <div class="hud-card-desc u-mb-xs" data-i18n="settings.serial.status_desc">Statut du lien série USB avec le microcontrôleur Arduino</div>
+                <div class="hud-serial-status-pill" id="btn-serial-status">
+                  <span class="status-dot" id="serial-dot"></span>
+                  <span id="serial-text">Cible USB</span>
+                </div>
+              </div>
+            </div>
+          </hud-tab-panel>
+
+          <!-- TAB 3: CALIBRATION DE LA CIBLE -->
+          <hud-tab-panel tab="calib" label="CALIBRATION" data-i18n-attr="label:settings.tabs.calib" icon="adjust" button-id="tab-btn-settings-calib" class="tab-panel-view calibration-layout-7 hidden" id="settings-view-calib">
+            <div class="calibration-visual-7">
+              <div id="wizard-dartboard-container" class="wizard-dartboard-7">
+                <dart-board id="wizard-dartboard"></dart-board>
+              </div>
+            </div>
+            <div class="calibration-controls-7">
+              <div class="calib-status-box">
+                <div class="calib-top-row">
+                  <span class="calib-step-badge" id="calib-step-counter">Étape 1 / 67</span>
+                  <span class="calib-last-raw"><span data-i18n="settings.calib.signal_received">Signal reçu :</span> <code id="calib-last-char">Aucun</code></span>
+                </div>
+                <div class="calib-target-banner">
+                  <span data-i18n="settings.calib.press_target">Appuyez sur la cible :</span> <strong id="calib-target-key" class="highlight-target">S20</strong>
+                </div>
+              </div>
+
+              <div class="calib-progress-bar">
+                <div id="calib-progress-fill" class="calib-progress-fill"></div>
+              </div>
+
+              <div class="calib-nav-buttons">
+                <button type="button" class="calib-action-btn calib-btn-prev" id="btn-calib-prev">
+                  <span class="material-symbols-outlined">arrow_back</span>
+                  <span data-i18n="settings.calib.prev">PRÉCÉDENT</span>
+                </button>
+                <button type="button" class="calib-action-btn calib-btn-skip" id="btn-calib-skip">
+                  <span data-i18n="settings.calib.skip">PASSER</span>
+                  <span class="material-symbols-outlined">skip_next</span>
+                </button>
+                <button type="button" class="calib-action-btn calib-btn-restart" id="btn-calib-restart">
+                  <span class="material-symbols-outlined">restart_alt</span>
+                  <span data-i18n="settings.calib.restart">DÉBUT (S20)</span>
+                </button>
+              </div>
+
+              <div id="calib-keys-grid" class="calib-keys-grid-7"></div>
+            </div>
+          </hud-tab-panel>
+        </hud-tabs>
+      </main>
+
+      <!-- FOOTER (H: 80px) -->
+      <footer class="modal-large-footer">
+        <div class="modal-large-footer-left">
+          <button type="button" class="btn-danger-stitch" id="btn-quit-app">
+            <span class="material-symbols-outlined">power_settings_new</span>
+            <span data-i18n="settings.quit_app">QUITTER L'APPLICATION</span>
+          </button>
+        </div>
+        <div class="modal-large-footer-right">
+          <button type="button" class="btn btn-launch-touch btn-launch-neon" id="btn-save-settings">
+            <span class="material-symbols-outlined">save</span>
+            <span data-i18n="settings.save_settings">ENREGISTRER &amp; CONNECTER</span>
+          </button>
+          <button type="button" class="btn btn-launch-touch btn-launch-neon hidden" id="btn-save-calibration">
+            <span class="material-symbols-outlined">save</span>
+            <span data-i18n="settings.save_calib">ENREGISTRER CALIBRATION</span>
+          </button>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: ADD RECORD DEFINITION ==================== -->
+  <div id="modal-add-record-def" class="modal-backdrop hidden" data-backdrop-dismiss="false">
+    <div class="modal-window modal-dialog-stitch u-max-w-580">
+      <div class="modal-trim-bar"></div>
+      <div class="modal-header">
+        <div class="modal-header-left">
+          <div class="modal-icon-badge">
+            <span class="material-symbols-outlined">emoji_events</span>
+          </div>
+          <div class="modal-title-wrap">
+            <h2 data-i18n="records.add_modal.title">Nouveau Type de Record</h2>
+            <span class="modal-tag-badge" data-i18n="records.add_modal.tag">CONFIGURATION</span>
+          </div>
+        </div>
+        <button type="button" class="modal-dialog-close-btn" data-close="modal-add-record-def" aria-label="Fermer la modale" data-i18n-attr="aria-label:common.close">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+
+      <div class="modal-body u-flex u-flex-col u-gap-sm u-py-md u-px-lg">
+        <div class="form-field-group">
+          <label for="record-def-calc-type" class="form-field-label" data-i18n="records.add_modal.calc_type_label">Nature du calcul</label>
+          <select id="record-def-calc-type" class="cyber-select-field">
+            <option value="pattern" data-i18n="records.add_modal.calc_type_pattern">Motif de volée (3 fléchettes en 1 tour)</option>
+            <option value="match_result" data-i18n="records.add_modal.calc_type_match">Résultat de match / Fin de partie (défaite, score...)</option>
+            <option value="preference" data-i18n="records.add_modal.calc_type_pref">Statistique de préférence / Profil joueur</option>
+          </select>
+        </div>
+
+        <div class="form-field-group" id="group-record-def-game">
+          <label for="record-def-game" class="form-field-label" data-i18n="records.add_modal.game_label">Jeu concerné</label>
+          <select id="record-def-game" class="cyber-select-field">
+            <option value="*" data-i18n="records.add_modal.all_games">Tous les jeux (* Multi-jeux)</option>
+            <option value="Ho_One">Ho One (X01)</option>
+            <option value="Cricket">Cricket</option>
+            <option value="321_Zlip">321 Zlip</option>
+            <option value="By_Fives">By Fives</option>
+            <option value="Kinito">Kinito</option>
+            <option value="Practice">Practice</option>
+          </select>
+        </div>
+
+        <!-- CONDITION 1 : MOTIF DE VOLÉE -->
+        <div class="form-field-group" id="group-record-def-pattern">
+          <label for="record-def-pattern" class="form-field-label" data-i18n="records.add_modal.pattern_label">Condition / Motif de volée (3 fléchettes)</label>
+          <select id="record-def-pattern" class="cyber-select-field">
+            <option value="none" data-i18n="records.add_modal.pattern_none">Aucune condition de volée (Record statistique libre)</option>
+            <option value="triples_same" data-i18n="records.add_modal.pattern_triples_same">3 Triples identiques (ex: Chimay Bleu)</option>
+            <option value="triples_any" data-i18n="records.add_modal.pattern_triples_any">3 Triples quelconques (ex: White Horse)</option>
+            <option value="hat_trick" data-i18n="records.add_modal.pattern_hat_trick">3 Bulls (Simple ou Double Bull)</option>
+            <option value="consecutive_suite" data-i18n="records.add_modal.pattern_consecutive_suite">Suite consécutive de 3 chiffres (ex: 18-19-20)</option>
+            <option value="shanghai" data-i18n="records.add_modal.pattern_shanghai">Shanghai (Simple + Double + Triple sur le même numéro)</option>
+            <option value="simple_double_triple" data-i18n="records.add_modal.pattern_simple_double_triple">Simple + Double + Triple (chiffres quelconques)</option>
+            <option value="ton_80" data-i18n="records.add_modal.pattern_ton_80">Volée maximale 180 (3 × T20)</option>
+          </select>
+        </div>
+
+        <!-- CONDITION 2 : RÉSULTAT DE MATCH (DÉFAITE, VICTOIRE, SCORE) -->
+        <div id="group-record-def-match" class="form-row-2col hidden">
+          <div class="form-field-group">
+            <label for="record-def-match-cond" class="form-field-label" data-i18n="records.add_modal.match_cond_label">Condition de match</label>
+            <select id="record-def-match-cond" class="cyber-select-field">
+              <option value="loss" data-i18n="records.add_modal.match_cond_loss">Défaite uniquement</option>
+              <option value="win" data-i18n="records.add_modal.match_cond_win">Victoire uniquement</option>
+              <option value="any" data-i18n="records.add_modal.match_cond_any">N'importe quel résultat (Tous les joueurs)</option>
+            </select>
+          </div>
+          <div class="form-field-group">
+            <label for="record-def-match-metric" class="form-field-label" data-i18n="records.add_modal.match_metric_label">Métrique mesurée</label>
+            <select id="record-def-match-metric" class="cyber-select-field">
+              <option value="total_points" data-i18n="records.add_modal.match_metric_total">Total brut de points (Score final)</option>
+              <option value="darts_thrown" data-i18n="records.add_modal.match_metric_darts">Nombre total de fléchettes</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- CONDITION 3 : PRÉFÉRENCE / AFFINITÉ JOUEUR -->
+        <div class="form-field-group hidden" id="group-record-def-pref">
+          <label for="record-def-pref" class="form-field-label" data-i18n="records.add_modal.pref_label">Type d'affinité / Préférence</label>
+          <select id="record-def-pref" class="cyber-select-field">
+            <option value="fav_triple" data-i18n="records.add_modal.pref_fav_triple">Triple préféré (secteur Triple le plus touché)</option>
+            <option value="fav_game" data-i18n="records.add_modal.pref_fav_game">Jeu préféré (jeu le plus souvent disputé)</option>
+            <option value="fav_double" data-i18n="records.add_modal.pref_fav_double">Double préféré (secteur Double le plus touché)</option>
+            <option value="fav_number" data-i18n="records.add_modal.pref_fav_number">Numéro préféré (chiffre 1-20 le plus touché)</option>
+          </select>
+        </div>
+
+        <div class="form-field-group">
+          <label for="record-def-name" class="form-field-label" data-i18n="records.add_modal.name_label">Nom affiché du record</label>
+          <input type="text" id="record-def-name" class="cyber-input-field" placeholder="Ex: Suite Royale" data-i18n-attr="placeholder:records.add_modal.name_placeholder" autocomplete="off">
+        </div>
+
+        <div class="form-field-group">
+          <label for="record-def-id" class="form-field-label" data-i18n="records.add_modal.id_label">Identifiant technique (Code unique)</label>
+          <input type="text" id="record-def-id" class="cyber-input-field" placeholder="Ex: suite_royale" data-i18n-attr="placeholder:records.add_modal.id_placeholder" autocomplete="off">
+        </div>
+
+        <div class="form-row-2col">
+          <div class="form-field-group">
+            <label for="record-def-unit" class="form-field-label" data-i18n="records.add_modal.unit_label">Unité de mesure</label>
+            <input type="text" id="record-def-unit" class="cyber-input-field" value="fois">
+          </div>
+          <div class="form-field-group">
+            <label for="record-def-sort" class="form-field-label" data-i18n="records.add_modal.sort_label">Sens du classement</label>
+            <select id="record-def-sort" class="cyber-select-field">
+              <option value="DESC" data-i18n="records.add_modal.sort_desc">Décroissant (Le plus grand l'emporte)</option>
+              <option value="ASC" data-i18n="records.add_modal.sort_asc">Croissant (Le plus petit l'emporte)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-field-group form-field-group--compact" id="record-def-backfill-group">
+          <label class="hud-checkbox-label">
+            <input type="checkbox" id="record-def-backfill" class="cyber-checkbox" checked>
+            <span class="hud-checkbox-text" data-i18n="records.add_modal.backfill_label">Analyser l'historique des anciennes parties pour attribuer ce record</span>
+          </label>
+        </div>
+
+        <div id="record-def-error" class="form-error-feedback hidden"></div>
+      </div>
+
+      <div class="modal-footer modal-footer-grid">
+        <button type="button" class="btn-dialog-stitch btn-dialog-cancel" data-close="modal-add-record-def">
+          <span class="material-symbols-outlined">close</span>
+          <span data-i18n="common.cancel">ANNULER</span>
+        </button>
+        <button type="button" class="btn-dialog-stitch btn-dialog-neon" id="btn-confirm-add-record-def">
+          <span class="material-symbols-outlined">check_circle</span>
+          <span data-i18n="records.add_modal.btn_save">ENREGISTRER</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: CONFIRM DELETE RECORD DEFINITION ==================== -->
+  <div id="modal-confirm-delete-record-def" class="modal-backdrop hidden" data-backdrop-dismiss="false">
+    <div class="modal-window modal-dialog-stitch modal-danger u-max-w-520">
+      <div class="modal-trim-bar"></div>
+      <div class="modal-header">
+        <div class="modal-header-left">
+          <div class="modal-icon-badge">
+            <span class="material-symbols-outlined">delete_forever</span>
+          </div>
+          <div class="modal-title-wrap">
+            <h2 data-i18n="records.delete_modal.title">Supprimer ce record ?</h2>
+            <span class="modal-tag-badge" data-i18n="records.delete_modal.tag">DANGER</span>
+          </div>
+        </div>
+        <button type="button" class="modal-dialog-close-btn" data-close="modal-confirm-delete-record-def" aria-label="Fermer la modale" data-i18n-attr="aria-label:common.close">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-body-card">
+          <p class="modal-warning-text">
+            Confirmer la suppression définitive du type de record <strong id="delete-record-def-modal-name" class="text-gold"></strong> ?
+          </p>
+          <p class="u-text-secondary u-mt-xs" data-i18n="records.delete_modal.warning">
+            Attention : l'ensemble des scores et accomplissements enregistrés sous ce type de record seront définitivement supprimés de la base de données.
+          </p>
+        </div>
+      </div>
+      <div class="modal-footer modal-footer-grid">
+        <button type="button" class="btn-dialog-stitch btn-dialog-cancel" data-close="modal-confirm-delete-record-def">
+          <span class="material-symbols-outlined">close</span>
+          <span data-i18n="common.cancel">ANNULER</span>
+        </button>
+        <button type="button" class="btn-dialog-stitch btn-dialog-danger" id="btn-confirm-delete-record-def-yes">
+          <span class="material-symbols-outlined">delete_forever</span>
+          <span data-i18n="records.delete_modal.btn_confirm">SUPPRIMER DÉFINITIVEMENT</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: STATS PAR JOUEUR & HALL OF FAME (STITCH MODAL-LARGE + TABS) ==================== -->
+  <div id="modal-records" class="modal-backdrop hidden">
+    <div class="modal-large-stitch">
+      <!-- HEADER (H: 72px) -->
+      <header class="modal-large-header">
+        <div class="modal-large-header-left">
+          <div class="modal-large-icon-box">
+            <span class="material-symbols-outlined">leaderboard</span>
+          </div>
+          <h2 class="modal-large-title" data-i18n="records.modal_title">Hall of Fame &amp; Records</h2>
+        </div>
+        <button type="button" class="modal-large-close-btn" data-close="modal-records" aria-label="Fermer la modale" data-i18n-attr="aria-label:common.close">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </header>
+
+      <!-- BODY : DOSSIER TABS (H: 52px) + PANEL CONTAINER -->
+      <main class="modal-large-body">
+        <hud-tabs id="records-tabs" active="general" aria-label="Onglets Records">
+          <!-- TAB 1: GÉNÉRAL (HALL OF FAME & RECORDS DU CLUB) -->
+          <hud-tab-panel tab="general" label="GÉNÉRAL" data-i18n-attr="label:records.tabs.general" icon="dashboard" button-id="tab-btn-records-general" class="tab-panel-view" id="records-view-general">
+            <div class="records-general-grid" id="records-general-cards-grid">
+              <!-- Dynamique via SettingsController et composant record-card -->
+            </div>
+          </hud-tab-panel>
+
+          <!-- TAB 2: STATISTIQUES JOUEURS (CYBERHUD STITCH) -->
+          <hud-tab-panel tab="player" label="JOUEURS" data-i18n-attr="label:records.tabs.players" icon="person" button-id="tab-btn-records-player" class="tab-panel-view hidden" id="records-view-player">
+            <!-- TOP BAR JOUEUR : SELECTEUR + TELEMETRIE -->
+            <div class="records-player-topbar">
+              <div class="records-player-topbar-left">
+                <hud-player-dropdown id="records-player-dropdown"></hud-player-dropdown>
+              </div>
+              <div class="records-player-telemetry">
+                <hud-stats-telemetry id="player-telemetry-games" icon="sports_score" label="Parties" data-i18n-attr="label:records.telemetry.games" value="0" color="default"></hud-stats-telemetry>
+                <div class="records-telemetry-divider"></div>
+                <hud-stats-telemetry id="player-telemetry-wins" icon="military_tech" label="Victoires" data-i18n-attr="label:records.telemetry.wins" value="0%" sub="(0)" color="neon"></hud-stats-telemetry>
+              </div>
+            </div>
+
+            <!-- GRILLE DES 3 COLONNES -->
+            <div class="records-player-columns-grid">
+              <!-- COLONNE 1 : RECORDS MULTI-JEUX -->
+              <hud-stats-column
+                id="records-col-custom"
+                color="amber"
+                icon="military_tech"
+                title="RECORDS MULTI-JEUX"
+                data-i18n-attr="title:records.columns.multi_game"
+                badge="PATTERNS"
+                footer-icon="workspace_premium"
+                footer-title="Exploit Ultime"
+                footer-badge="RECORD"
+                footer-main="Aucun exploit validé"
+                footer-val="0"
+              >
+              </hud-stats-column>
+
+              <!-- COLONNE 2 : HO_ONE (X01) -->
+              <hud-stats-column
+                id="records-col-ho-one"
+                color="neon"
+                icon="speed"
+                title="HO ONE (X01)"
+                data-i18n-attr="title:records.columns.ho_one"
+                badge="SCORING"
+                footer-icon="bolt"
+                footer-title="Moins de Fléchettes"
+                footer-badge="RECORD"
+                footer-main="Victoire la plus rapide"
+                footer-val="—"
+              >
+              </hud-stats-column>
+
+              <!-- COLONNE 3 : CRICKET -->
+              <hud-stats-column
+                id="records-col-cricket"
+                color="cyan"
+                icon="radar"
+                title="CRICKET"
+                data-i18n-attr="title:records.columns.cricket"
+                badge="TACTICAL"
+                footer-icon="timer"
+                footer-title="Tours pour Gagner"
+                footer-badge="RECORD"
+                footer-main="Clôture la plus rapide"
+                footer-val="—"
+              >
+              </hud-stats-column>
+            </div>
+          </hud-tab-panel>
+
+          <!-- TAB 3 : TYPES DE RECORDS (DÉPLACÉ DE RÉGLAGES) -->
+          <hud-tab-panel tab="definitions" label="TYPES DE RECORDS" data-i18n-attr="label:records.tabs.definitions" icon="emoji_events" button-id="tab-btn-records-definitions" class="tab-panel-view hidden" id="records-view-definitions">
+            <div class="records-def-toolbar">
+              <div class="records-def-toolbar-info">
+                <span class="material-symbols-outlined text-bullseye-neon u-icon-28">emoji_events</span>
+                <div>
+                  <h3 class="records-def-toolbar-title" data-i18n="records.def_toolbar.title">Catalogue des Types de Records</h3>
+                  <p class="records-def-toolbar-desc" data-i18n="records.def_toolbar.desc">Consultez, ajoutez ou supprimez les types de records et motifs de volée de DartOTron</p>
+                </div>
+              </div>
+              <button type="button" class="btn-stitch-record-add" id="btn-open-add-record-def">
+                <span class="material-symbols-outlined">add_circle</span>
+                <span data-i18n="records.def_toolbar.btn_add">Nouveau record</span>
+              </button>
+            </div>
+
+            <div id="records-definitions-list" class="records-definitions-container">
+              <!-- Rendu dynamique par app.js -->
+            </div>
+          </hud-tab-panel>
+        </hud-tabs>
+      </main>
+    </div>
+  </div>
+
+  <!-- ==================== HUD NOTIFICATION TOAST (BOTTOM-SHEET) ==================== -->
+  <hud-notification id="app-notification"></hud-notification>
+
+  <!-- ==================== HUD VIRTUAL KEYBOARD ==================== -->
+  <virtual-keyboard id="virtual-keyboard"></virtual-keyboard>
+
+  <script type="module" src="/components/index.js"></script>
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>

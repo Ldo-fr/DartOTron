@@ -1,0 +1,339 @@
+/* ==========================================================================
+   DARTOTRON CYBERHUD — BASE KEYFRAME ANIMATIONS & MOTION
+   File: public/css/base/animations.css
+   All 10 keyframes, shockwaves, impact pop, waiting-next, and motion helpers
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Live Mode Pulse Dot (hud-pulse-dot)
+   -------------------------------------------------------------------------- */
+@keyframes pulse-dot {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.85);
+  }
+}
+
+.hud-pulse-dot,
+.u-animate-pulse-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--sys-radius-full, 9999px);
+  background-color: var(--sys-color-primary, #00ff87);
+  box-shadow: 0 0 6px var(--sys-color-primary, #00ff87);
+  animation: pulse-dot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* --------------------------------------------------------------------------
+   2. Turn Finished Waiting-Next Button Pulse
+   -------------------------------------------------------------------------- */
+@keyframes pulse-waiting-next {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(0, 255, 135, 0.5), inset 0 0 6px rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 0 45px rgba(0, 255, 135, 0.95), inset 0 0 16px rgba(255, 255, 255, 0.6);
+  }
+}
+
+.btn-touch-next.is-waiting-next,
+.is-waiting-next {
+  animation: pulse-waiting-next 1.2s infinite ease-in-out !important;
+  background-color: var(--sys-color-primary, #00ff87) !important;
+  color: var(--sys-color-primary-on, #003919) !important;
+}
+
+/* --------------------------------------------------------------------------
+   3. Record Pod Position 1 Glow Pulse
+   -------------------------------------------------------------------------- */
+@keyframes pulse-record-glow {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(255, 209, 102, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 14px rgba(255, 209, 102, 0.7);
+  }
+}
+
+.record-pos-pill.pos-1,
+.u-animate-record-glow {
+  animation: pulse-record-glow 2s infinite ease-in-out;
+}
+
+/* --------------------------------------------------------------------------
+   4. Virtual Keyboard Cursor Blink
+   -------------------------------------------------------------------------- */
+@keyframes blinkCursor {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.vk-cursor,
+.u-animate-blink {
+  color: var(--sys-color-primary, #00ff87);
+  animation: blinkCursor 1s infinite;
+}
+
+/* --------------------------------------------------------------------------
+   5. Match Announcement Pop (Triple 20, Bullseye, etc.)
+   -------------------------------------------------------------------------- */
+@keyframes announcement-pop {
+  0% {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.announcement-box,
+.u-animate-pop {
+  animation: announcement-pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* --------------------------------------------------------------------------
+   6. Modal Dialog Zoom-In Entrance
+   -------------------------------------------------------------------------- */
+@keyframes modal-zoom-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal-dialog-stitch,
+.modal-window,
+.u-animate-modal-zoom {
+  animation: modal-zoom-in var(--sys-transition-modal, 0.22s cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+/* --------------------------------------------------------------------------
+   7. Modal Backdrop Click Shake / Reject Feedback
+   -------------------------------------------------------------------------- */
+@keyframes modalShakeReject {
+  0%, 100% {
+    transform: scale(1) translateX(0);
+  }
+  20%, 60% {
+    transform: scale(1.01) translateX(-6px);
+  }
+  40%, 80% {
+    transform: scale(1.01) translateX(6px);
+  }
+}
+
+.modal-shake-reject,
+.u-animate-modal-shake {
+  animation: modalShakeReject var(--sys-transition-bounce, 0.32s ease-in-out) !important;
+  box-shadow: 0 0 25px rgba(255, 51, 102, 0.4), var(--sys-shadow-modal) !important;
+}
+
+/* --------------------------------------------------------------------------
+   8. Dropdown Menu Fade-In & Slide Entrance
+   -------------------------------------------------------------------------- */
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cyber-dropdown-menu,
+.hud-player-dropdown-menu,
+.u-animate-dropdown {
+  animation: dropdownFadeIn var(--sys-transition-fast, 0.15s ease-out);
+}
+
+/* --------------------------------------------------------------------------
+   9. Dart Impact Shockwave Rings (Rings 1, 2, 3)
+   -------------------------------------------------------------------------- */
+@keyframes shockwaveRing1 {
+  0% {
+    transform: scale(0.35);
+    opacity: 0.95;
+  }
+  60% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(3.2);
+    opacity: 0;
+  }
+}
+
+@keyframes shockwaveRing2 {
+  0% {
+    transform: scale(0.2);
+    opacity: 0.85;
+  }
+  65% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: scale(3.8);
+    opacity: 0;
+  }
+}
+
+@keyframes shockwaveRing3 {
+  0% {
+    transform: scale(0.15);
+    opacity: 0.75;
+  }
+  70% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: scale(4.4);
+    opacity: 0;
+  }
+}
+
+/* Shockwave Ring Layer Elements */
+.hit-animation-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--sys-zindex-overlay, 150);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hit-animation-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hit-shockwave-ring {
+  position: absolute;
+  border-radius: var(--sys-radius-full, 9999px);
+  pointer-events: none;
+}
+
+.hit-shockwave-ring.ring-wave-1 {
+  width: 208px;
+  height: 208px;
+  border: 2px solid var(--sys-color-danger, #ff3366);
+  box-shadow: 0 0 25px rgba(255, 51, 102, 0.6), inset 0 0 18px rgba(255, 51, 102, 0.35);
+  animation: shockwaveRing1 1.2s cubic-bezier(0.1, 0.85, 0.25, 1) forwards;
+}
+
+.hit-shockwave-ring.ring-wave-2 {
+  width: 176px;
+  height: 176px;
+  border: 3px dashed var(--sys-color-danger, #ff3366);
+  box-shadow: 0 0 30px rgba(255, 51, 102, 0.5), inset 0 0 15px rgba(255, 51, 102, 0.25);
+  animation: shockwaveRing2 1.2s cubic-bezier(0.1, 0.85, 0.25, 1) 0.18s forwards;
+}
+
+.hit-shockwave-ring.ring-wave-3 {
+  width: 144px;
+  height: 144px;
+  border: 1px solid var(--sys-color-danger, #ff3366);
+  box-shadow: 0 0 20px rgba(255, 51, 102, 0.45);
+  animation: shockwaveRing3 1.2s cubic-bezier(0.1, 0.85, 0.25, 1) 0.36s forwards;
+}
+
+/* --------------------------------------------------------------------------
+   10. Dart Impact Score Pop
+   -------------------------------------------------------------------------- */
+@keyframes dartImpactPop {
+  0% {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  12% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  22% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  78% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.1);
+    opacity: 0;
+  }
+}
+
+.hit-pop-content.impact-pop {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  z-index: var(--sys-zindex-nav, 20);
+  animation: dartImpactPop 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* --------------------------------------------------------------------------
+   11. General Motion Utilities (FadeIn, SlideUp)
+   -------------------------------------------------------------------------- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.u-animate-fade-in  { animation: fadeIn var(--sys-transition-normal, 0.2s ease); }
+.u-animate-fade-out { animation: fadeOut var(--sys-transition-normal, 0.2s ease); }
+.u-animate-slide-up { animation: slideUp var(--sys-transition-normal, 0.25s ease-out); }
+
+/* --------------------------------------------------------------------------
+   12. Accessibility: Prefers Reduced Motion
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

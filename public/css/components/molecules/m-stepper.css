@@ -1,0 +1,161 @@
+/* ==========================================================================
+   MOLECULE: Stepper Numeric Control (<m-stepper>, <hud-stepper>)
+   ========================================================================== */
+
+m-stepper,
+hud-stepper {
+  display: block;
+  width: 100%;
+  min-width: 0;
+
+  & .hud-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+
+  & .hud-card-title-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  & .hud-card-title {
+    font-family: var(--sys-font-family-display);
+    font-size: 12px;
+    font-weight: var(--sys-font-weight-bold);
+    color: var(--sys-color-text-white);
+    letter-spacing: var(--sys-font-tracking-wide);
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+
+  & .hud-card-tag-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 1.5px 6px;
+    border-radius: var(--sys-radius-sm);
+    background: var(--sys-color-primary-alpha-15);
+    border: 1px solid var(--sys-color-primary-alpha-35);
+    color: var(--sys-color-primary);
+    font-family: var(--sys-font-family-display);
+    font-size: 10px;
+    font-weight: var(--sys-font-weight-extrabold);
+    letter-spacing: var(--sys-font-tracking-wider);
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  & .hud-card-desc {
+    font-size: 10px;
+    color: var(--sys-color-text-secondary);
+    margin-top: 2px;
+    line-height: 1.25;
+  }
+
+  & .hud-numeric-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sys-spacing-xs);
+  }
+
+  & .hud-stepper {
+    display: inline-flex;
+    align-items: center;
+    background: var(--sys-color-surface-lowest);
+    border: 1px solid var(--sys-color-primary-alpha-50);
+    border-radius: var(--sys-radius-md);
+    padding: 2px;
+  }
+
+  & .hud-step-btn {
+    width: 36px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--sys-radius-sm);
+    background: var(--sys-color-surface-high);
+    color: var(--sys-color-text-primary);
+    font-family: var(--sys-font-family-display);
+    font-weight: var(--sys-font-weight-extrabold);
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    transition: all var(--sys-transition-instant);
+
+    &:hover {
+      background: var(--sys-color-surface-highest);
+      color: var(--sys-color-text-white);
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--sys-color-primary);
+      outline-offset: 2px;
+    }
+  }
+
+  & .hud-step-val {
+    min-width: 60px;
+    text-align: center;
+    font-family: var(--sys-font-family-display);
+    font-size: 19px;
+    font-weight: var(--sys-font-weight-extrabold);
+    color: var(--sys-color-primary);
+    letter-spacing: var(--sys-font-tracking-wide);
+    font-variant-numeric: tabular-nums;
+  }
+
+  & .hud-presets {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: 1;
+    justify-content: flex-end;
+  }
+
+  & .hud-preset-pill {
+    height: 32px;
+    padding: 0 10px;
+    border-radius: var(--sys-radius-md);
+    background: var(--sys-color-surface-high);
+    color: var(--sys-color-text-primary);
+    font-family: var(--sys-font-family-display);
+    font-weight: var(--sys-font-weight-bold);
+    font-size: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    cursor: pointer;
+    transition: all var(--sys-transition-fast);
+
+    &:hover {
+      background: var(--sys-color-surface-highest);
+      color: var(--sys-color-text-white);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    &.active,
+    &[selected] {
+      background: var(--sys-color-primary);
+      color: var(--sys-color-primary-on-dark) !important;
+      font-weight: var(--sys-font-weight-extrabold);
+      border: none;
+      box-shadow: var(--sys-shadow-button-primary);
+    }
+  }
+
+  &:disabled,
+  &[disabled] {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}

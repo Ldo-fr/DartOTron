@@ -1,0 +1,437 @@
+/* ==========================================================================
+   DARTOTRON CYBERHUD — SETTINGS VIEW STYLESHEET
+   File: public/css/views/view-settings.css
+   Architecture: 1024x600 settings chassis, tabs, audio sliders, USB diagnostics,
+                 calibration wizard, companion QR modal
+   Standard: Modern CSS Level 4 (Zero dependencies, native CSS Nesting)
+   ========================================================================== */
+
+#modal-settings {
+  & .modal-large-stitch {
+    width: 100%;
+    height: calc(100vh - 16px);
+    max-width: 100%;
+    max-height: calc(100vh - 16px);
+    background: var(--sys-color-surface-base, #0f131d);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--sys-radius-xl, 16px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: var(--sys-shadow-modal, 0 24px 60px rgba(0, 0, 0, 0.85));
+  }
+}
+
+.modal-large-header {
+  height: 72px;
+  padding: 0 var(--sys-spacing-xl, 24px);
+  background: var(--sys-color-surface-low, #171b26);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+
+  & .modal-large-header-left {
+    display: flex;
+    align-items: center;
+    gap: var(--sys-spacing-md, 16px);
+  }
+
+  & .modal-large-icon-box {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--sys-radius-md, 10px);
+    background: var(--sys-color-surface-high, #262a35);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--sys-color-secondary, #4cd7f6);
+  }
+
+  & .modal-large-title {
+    font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+    font-size: 1.35rem;
+    font-weight: var(--sys-font-weight-bold, 700);
+    color: var(--sys-color-text-white, #ffffff);
+    margin: 0;
+  }
+
+  & .modal-large-close-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--sys-radius-md, 10px);
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--sys-color-text-muted, #849585);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--sys-transition-fast, 0.15s ease);
+
+    &:hover {
+      background: var(--sys-color-surface-high, #262a35);
+      color: #ffffff;
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+   FOLDER TABS BAR & PANELS (Stitch CyberHUD - o-hud-tabs.css)
+   -------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   SETTINGS BLOCKS & HARDWARE STATUS
+   -------------------------------------------------------------------------- */
+.hud-settings-block {
+  background: var(--sys-color-surface-low, #171b26);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--sys-radius-lg, 12px);
+  padding: var(--sys-spacing-md, 16px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sys-spacing-md, 14px);
+
+  & .settings-block-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    & h3 {
+      font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+      font-size: 14px;
+      font-weight: var(--sys-font-weight-bold, 700);
+      color: var(--sys-color-text-primary, #dfe2f1);
+      margin: 0;
+    }
+  }
+
+  & .hud-card-desc {
+    font-size: 12px;
+    color: var(--sys-color-text-secondary, #b9cbb9);
+    margin-bottom: var(--sys-spacing-xs, 8px);
+  }
+}
+
+.settings-block-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sys-spacing-xs, 8px);
+}
+
+.record-def-empty {
+  color: var(--sys-color-text-secondary, #64748b);
+  font-size: var(--sys-font-size-xs, 0.88rem);
+  font-style: italic;
+  padding: 6px 0;
+}
+
+.hud-port-pill-icon {
+  font-size: 14px;
+  vertical-align: middle;
+  margin-right: 4px;
+  pointer-events: none;
+}
+
+.hud-port-pill-label {
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   MATRIX CALIBRATION WIZARD
+   -------------------------------------------------------------------------- */
+.calibration-layout-7 {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  gap: var(--sys-spacing-lg, 24px);
+  height: 100%;
+  align-items: stretch;
+  box-sizing: border-box;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  & .calibration-visual-7 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--sys-color-surface-lowest, #0a0e18);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--sys-radius-lg, 12px);
+    padding: var(--sys-spacing-md, 16px);
+    height: 100%;
+    box-sizing: border-box;
+  }
+
+  & .wizard-dartboard-7 {
+    width: 100%;
+    max-width: 480px;
+    max-height: 480px;
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  & .calibration-controls-7 {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 10px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  & .calib-status-box {
+    background: rgba(15, 19, 29, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--sys-radius-md, 8px);
+    padding: 10px 14px;
+  }
+
+  & .calib-progress-bar {
+    width: 100%;
+    height: 8px;
+    border-radius: var(--sys-radius-full, 9999px);
+    background: var(--sys-color-surface-highest, #313540);
+    overflow: hidden;
+    margin: 4px 0 6px 0;
+
+    & .calib-progress-fill {
+      width: 0%;
+      height: 100%;
+      background: var(--sys-color-primary, #00ff87);
+      box-shadow: 0 0 10px var(--sys-color-primary, #00ff87);
+      transition: width var(--sys-transition-fast, 0.15s ease);
+    }
+  }
+
+  & .calib-nav-buttons {
+    display: flex;
+    gap: 8px;
+  }
+
+  & .calib-action-btn {
+    flex: 1;
+    height: 38px;
+    background: var(--sys-color-surface-high, #1c2230);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--sys-radius-sm, 6px);
+    color: var(--sys-color-text-primary, #dfe2f1);
+    font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: all var(--sys-transition-fast, 0.15s ease);
+
+    &:hover {
+      background: var(--sys-color-surface-highest, #293245);
+      border-color: rgba(76, 215, 246, 0.4);
+      color: #ffffff;
+    }
+  }
+
+  & .calib-btn-skip {
+    color: var(--sys-color-warning, #ffd166);
+    &:hover { border-color: rgba(255, 209, 102, 0.5); }
+  }
+
+  & .calib-btn-restart {
+    color: var(--sys-color-danger, #ff3366);
+    &:hover { border-color: rgba(255, 51, 102, 0.5); }
+  }
+
+  & .calib-keys-grid-7 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    flex: 1;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  & .calib-column {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: rgba(15, 19, 29, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--sys-radius-md, 8px);
+    padding: 6px;
+    height: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  & .calib-col-header {
+    font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--sys-color-secondary, #4cd7f6);
+    padding: 2px 0 4px 0;
+    border-bottom: 1px solid rgba(76, 215, 246, 0.2);
+    margin-bottom: 2px;
+  }
+
+  & .calib-col-cells {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    justify-content: space-between;
+    overflow: hidden;
+  }
+
+  & .calib-column-speciaux .calib-col-cells,
+  & .calib-column:last-child .calib-col-cells {
+    justify-content: flex-start;
+    gap: 4px;
+  }
+
+  & .calib-key-cell {
+    background: var(--sys-color-surface-high, #1c2230);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 2px 6px;
+    border-radius: var(--sys-radius-sm, 4px);
+    font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+    font-size: 0.72rem;
+    font-variant-numeric: tabular-nums;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: all var(--sys-transition-fast, 0.15s ease);
+    color: var(--sys-color-text-primary, #dfe2f1);
+    line-height: 1.2;
+
+    &:hover {
+      background: var(--sys-color-surface-highest, #293245);
+      border-color: rgba(76, 215, 246, 0.4);
+    }
+
+    &.active-target {
+      border-color: var(--sys-color-primary, #00ff87);
+      background: rgba(0, 255, 135, 0.22);
+      box-shadow: 0 0 10px rgba(0, 255, 135, 0.4);
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    &.is-configured .calib-cell-val {
+      color: var(--sys-color-primary, #00ff87);
+      background: rgba(0, 255, 135, 0.12);
+      border: 1px solid rgba(0, 255, 135, 0.3);
+      padding: 0 4px;
+      border-radius: 3px;
+    }
+
+    & code {
+      font-family: var(--sys-font-family-mono, monospace);
+      font-size: 0.68rem;
+    }
+  }
+}
+
+.calib-progress-fill {
+  width: 0%;
+  height: 100%;
+  background: var(--sys-color-primary, #00ff87);
+  box-shadow: 0 0 10px var(--sys-color-primary, #00ff87);
+  transition: width 0.2s ease;
+}
+
+/* --------------------------------------------------------------------------
+   COMPANION QR MODAL STYLING
+   -------------------------------------------------------------------------- */
+.companion-qr-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sys-spacing-md, 16px);
+  padding: 20px 24px;
+  text-align: center;
+}
+
+.companion-qr-desc {
+  font-size: 13px;
+  color: var(--sys-color-text-secondary, #b9cbb9);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.companion-qr-box {
+  width: 220px;
+  height: 220px;
+  padding: 12px;
+  background: #060a12;
+  border: 2px solid rgba(76, 215, 246, 0.3);
+  border-radius: var(--sys-radius-xl, 16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 20px rgba(76, 215, 246, 0.15);
+}
+
+/* --------------------------------------------------------------------------
+   LANGUAGE SELECTOR (Neon CyberHUD Toggle Buttons)
+   -------------------------------------------------------------------------- */
+.settings-lang-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sys-spacing-sm, 12px);
+  margin-top: 4px;
+}
+
+.btn-lang-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 16px;
+  min-height: 48px;
+  background: var(--sys-color-surface-high, #212634);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--sys-radius-md, 10px);
+  color: var(--sys-color-text-secondary, #94a3b8);
+  font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+
+  & .lang-flag {
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  & .lang-label {
+    letter-spacing: 0.04em;
+  }
+
+  &:hover {
+    background: var(--sys-color-surface-highest, #2d3446);
+    border-color: rgba(76, 215, 246, 0.4);
+    color: #ffffff;
+  }
+
+  &.active {
+    background: rgba(0, 255, 135, 0.12);
+    border-color: var(--sys-color-primary, #00ff87);
+    color: var(--sys-color-primary, #00ff87);
+    box-shadow: 0 0 16px rgba(0, 255, 135, 0.25), inset 0 0 10px rgba(0, 255, 135, 0.1);
+  }
+}
+

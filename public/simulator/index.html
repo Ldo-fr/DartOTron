@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>DartOTron Simulator — Simulateur Cible Arduino</title>
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/simulator/simulator.css">
+</head>
+<body>
+  <div class="companion-app">
+    <!-- HEADER COMPANION -->
+    <header class="companion-header">
+      <div class="companion-title-group">
+        <div class="companion-icon-box">
+          <img src="/images/logo.webp" alt="DartOTron" class="companion-brand-logo">
+        </div>
+        <div class="companion-title-meta">
+          <div class="companion-badge-row">
+            <span class="badge-tag-neon">SIMULATEUR SÉRIE USB</span>
+            <span class="status-indicator-pill" id="conn-pill">
+              <span class="status-dot-blink" id="conn-dot"></span>
+              <span id="conn-status-text">CONNEXION...</span>
+            </span>
+          </div>
+          <h1 class="companion-title">DartOTron Simulator</h1>
+        </div>
+      </div>
+
+      <!-- MATCH LIVE FEEDBACK -->
+      <div class="live-match-box" id="live-match-box">
+        <div class="live-meta-unit">
+          <span class="live-lbl">STATUT</span>
+          <span class="live-val live-status" id="live-status">LOBBY</span>
+        </div>
+        <div class="live-meta-unit">
+          <span class="live-lbl">JOUEUR</span>
+          <span class="live-val highlight-neon" id="live-player">—</span>
+        </div>
+        <div class="live-meta-unit">
+          <span class="live-lbl">SCORE</span>
+          <span class="live-val digital-number highlight-cyan" id="live-score">—</span>
+        </div>
+        <div class="live-meta-unit">
+          <span class="live-lbl">FLÉCHETTE</span>
+          <span class="live-val highlight-amber" id="live-dart">1 / 3</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- PHYSICAL CABINET BUTTONS (BARRE RAPIDE) -->
+    <section class="cabinet-buttons-bar">
+      <button type="button" class="cab-btn btn-player-next" data-sim-key="PLAYERBUTTON">
+        <span class="material-symbols-outlined">skip_next</span>
+        <div class="cab-btn-labels">
+          <span class="cab-btn-title">JOUEUR SUIVANT</span>
+          <span class="cab-btn-sub">PLAYERBUTTON</span>
+        </div>
+      </button>
+
+      <button type="button" class="cab-btn btn-backup-undo" data-sim-key="BACKUPBUTTON">
+        <span class="material-symbols-outlined">undo</span>
+        <div class="cab-btn-labels">
+          <span class="cab-btn-title">ANNULER FLÉCHETTE</span>
+          <span class="cab-btn-sub">BACKUPBUTTON</span>
+        </div>
+      </button>
+
+      <button type="button" class="cab-btn btn-miss-dart" data-sim-key="MISSDART">
+        <span class="material-symbols-outlined">close</span>
+        <div class="cab-btn-labels">
+          <span class="cab-btn-title">FLÉCHETTE MANQUÉE</span>
+          <span class="cab-btn-sub">MISSDART (0 PT)</span>
+        </div>
+      </button>
+
+      <button type="button" class="cab-btn btn-game-abort" data-sim-key="GAMEBUTTON">
+        <span class="material-symbols-outlined">stop_circle</span>
+        <div class="cab-btn-labels">
+          <span class="cab-btn-title">INTERROMPRE</span>
+          <span class="cab-btn-sub">GAMEBUTTON</span>
+        </div>
+      </button>
+    </section>
+
+    <!-- MAIN TWO-COLUMN WORKSPACE: DARTBOARD ON LEFT, QUICK MATRIX ON RIGHT -->
+    <main class="companion-main">
+      <!-- COLUMN LEFT: INTERACTIVE SVG DARTBOARD -->
+      <section class="board-column">
+        <div class="panel-card board-card">
+          <div class="panel-card-header">
+            <div class="panel-header-title">
+              <span class="material-symbols-outlined text-bullseye-neon">adjust</span>
+              <h2>CIBLE INTERACTIVE HAUTE PRÉCISION</h2>
+            </div>
+            <div class="last-hit-pill" id="last-hit-badge">
+              <span>DERNIER IMPACT : </span>
+              <strong id="last-hit-name">—</strong>
+              <code id="last-hit-char"></code>
+            </div>
+          </div>
+
+          <div class="dartboard-container">
+            <dart-board id="interactive-dartboard" interactive></dart-board>
+          </div>
+        </div>
+      </section>
+
+      <!-- COLUMN RIGHT: QUICK HITS & DIRECT MATRIX -->
+      <section class="controls-column">
+        <!-- QUICK SPECIAL SHOTS -->
+        <div class="panel-card quick-card">
+          <div class="panel-card-header">
+            <div class="panel-header-title">
+              <span class="material-symbols-outlined text-cyber-cyan">bolt</span>
+              <h2>IMPACTS CLÉS &amp; POPULAIRES</h2>
+            </div>
+          </div>
+          <div class="quick-buttons-grid">
+            <button type="button" class="quick-btn btn-triple-heavy" data-sim-key="T20">TRIPLE 20 (60)</button>
+            <button type="button" class="quick-btn btn-triple-heavy" data-sim-key="T19">TRIPLE 19 (57)</button>
+            <button type="button" class="quick-btn btn-triple-heavy" data-sim-key="T18">TRIPLE 18 (54)</button>
+            <button type="button" class="quick-btn btn-triple-heavy" data-sim-key="T17">TRIPLE 17 (51)</button>
+            <button type="button" class="quick-btn btn-double-bull-heavy" data-sim-key="DB">DOUBLE BULL (50)</button>
+            <button type="button" class="quick-btn btn-single-bull-heavy" data-sim-key="SB">BULLSEYE (25)</button>
+          </div>
+        </div>
+
+        <!-- MATRIX NUMBER PICKER (1 TO 20 S / D / T) -->
+        <div class="panel-card matrix-card">
+          <div class="panel-card-header">
+            <div class="panel-header-title">
+              <span class="material-symbols-outlined text-tournament-amber">grid_view</span>
+              <h2>MATRICE INTÉGRALE DES 20 CHIFFRES</h2>
+            </div>
+            <div class="multiplier-tabs" id="mult-tabs">
+              <button type="button" class="mult-tab" data-mult="S">SIMPLE</button>
+              <button type="button" class="mult-tab" data-mult="D">DOUBLE</button>
+              <button type="button" class="mult-tab active" data-mult="T">TRIPLE</button>
+            </div>
+          </div>
+          <div class="numbers-keypad-grid" id="numbers-grid"></div>
+        </div>
+
+        <!-- RAW ARDUINO CHAR SENDER -->
+        <div class="panel-card raw-card">
+          <div class="panel-card-header">
+            <div class="panel-header-title">
+              <span class="material-symbols-outlined text-outline">terminal</span>
+              <h2>INJECTION DE SIGNAL BRUT (TEST SÉRIE / CALIBRATION)</h2>
+            </div>
+          </div>
+          <div class="raw-input-row">
+            <input type="text" id="raw-char-input" maxlength="2" placeholder="Caractère (ex: A, 0, *...)" class="raw-char-field" autocomplete="off">
+            <button type="button" id="btn-send-raw" class="btn-send-raw">
+              <span class="material-symbols-outlined">send</span>
+              <span>INJECTER CARACTÈRE</span>
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="companion-toast" class="companion-toast hidden"></div>
+  </div>
+
+  <script src="/simulator/simulator.js" type="module"></script>
+</body>
+</html>
+

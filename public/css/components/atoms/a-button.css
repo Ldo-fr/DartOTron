@@ -1,0 +1,83 @@
+/* ==========================================================================
+   ATOM: Tactile Arcade Button Component (<a-button>, .btn, .touch-btn)
+   64px Minimum Target, Haptic Scale Depression, Accessible Focus Rings
+   ========================================================================== */
+
+a-button,
+.btn,
+.touch-btn,
+.btn-touch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sys-spacing-xs);
+  min-height: 48px;
+  min-width: 48px;
+  padding: 0 var(--sys-spacing-lg);
+  border-radius: var(--sys-radius-md);
+  font-family: var(--sys-font-family-display);
+  font-size: var(--sys-font-size-sm);
+  font-weight: var(--sys-font-weight-bold);
+  letter-spacing: var(--sys-font-tracking-wide);
+  text-transform: uppercase;
+  user-select: none;
+  cursor: pointer;
+  touch-action: manipulation;
+  border: 1px solid var(--sys-color-border-subtle);
+  background: var(--sys-color-surface-high);
+  color: var(--sys-color-text-primary);
+  box-shadow: var(--sys-shadow-panel);
+  transition: transform var(--sys-transition-instant), background var(--sys-transition-fast), border-color var(--sys-transition-fast), box-shadow var(--sys-transition-fast);
+
+  &:hover {
+    background: var(--sys-color-surface-highest);
+    color: var(--sys-color-text-white);
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--sys-color-primary);
+    outline-offset: 2px;
+  }
+
+  &:disabled,
+  &[disabled] {
+    opacity: 0.45;
+    cursor: not-allowed;
+    pointer-events: none;
+    box-shadow: none;
+  }
+
+  &[data-variant="primary"],
+  &.btn-primary {
+    background: var(--sys-color-primary);
+    color: var(--sys-color-primary-on-dark);
+    border-color: var(--sys-color-primary);
+    box-shadow: var(--sys-shadow-button-primary);
+
+    &:hover {
+      background: var(--sys-color-primary-bright);
+      box-shadow: var(--sys-shadow-glow-neon);
+    }
+  }
+
+  &[data-variant="secondary"],
+  &.btn-secondary {
+    background: var(--sys-color-secondary);
+    color: var(--sys-color-secondary-on);
+    border-color: var(--sys-color-secondary);
+    box-shadow: var(--sys-shadow-glow-cyan);
+  }
+
+  &[data-variant="danger"],
+  &.btn-danger {
+    background: var(--sys-color-danger);
+    color: var(--sys-color-text-white);
+    border-color: var(--sys-color-danger);
+    box-shadow: var(--sys-shadow-glow-crimson);
+  }
+}

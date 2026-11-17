@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>DartOTron Compagnon — Écran Miroir Mobile</title>
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  
+  <!-- Fonts Google CyberHUD -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <!-- Styles CyberHUD & Composants -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/companion/companion.css">
+
+  <!-- Web Components DartOTron -->
+  <script src="/components/index.js" type="module"></script>
+</head>
+<body class="companion-body">
+  <div class="companion-container">
+    
+    <!-- HEADER MINI-HUD COMPAGNON -->
+    <header class="companion-header">
+      <div class="companion-brand">
+        <img src="/images/logo.webp" alt="DartOTron" class="companion-brand-logo">
+        <div class="companion-brand-title">DartOTron</div>
+        <span class="companion-tag" data-i18n="companion.brand_tag">MIROIR</span>
+      </div>
+
+      <div class="companion-status-pill" id="companion-conn-pill">
+        <span class="status-dot-pulse"></span>
+        <span id="companion-conn-text" data-i18n="companion.direct_pill">DIRECT</span>
+      </div>
+    </header>
+
+    <!-- BANNIÈRE TÉLÉMÉTRIE EN DIRECT (Visible quand un match est actif) -->
+    <section class="companion-live-banner hidden" id="companion-live-banner">
+      <div class="live-player-info">
+        <span class="live-player-label" data-i18n="companion.at_throw">AU LANCER</span>
+        <div class="live-player-name is-active-pulse" id="companion-active-player">
+          —
+        </div>
+        <div class="live-darts-pills" id="companion-darts-pills">
+          <span class="live-dart-dot" id="dart-dot-1"></span>
+          <span class="live-dart-dot" id="dart-dot-2"></span>
+          <span class="live-dart-dot" id="dart-dot-3"></span>
+        </div>
+      </div>
+
+      <div class="live-match-meta">
+        <div class="live-meta-badge">
+          <span class="live-meta-title" data-i18n="companion.game">JEU</span>
+          <span class="live-meta-val" id="companion-game-title">X01</span>
+        </div>
+        <div class="live-meta-badge">
+          <span class="live-meta-title" data-i18n="companion.round">TOUR</span>
+          <span class="live-meta-val" id="companion-round-info">1 / 20</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- BANNIÈRE GUIDE CHECKOUT (Pour X01 si combinaison disponible) -->
+    <div class="companion-checkout-bar hidden" id="companion-checkout-bar">
+      <span class="checkout-lbl" data-i18n="companion.recommended_checkout">CHECKOUT CONSEILLÉ</span>
+      <span class="checkout-path" id="companion-checkout-path">—</span>
+    </div>
+
+    <!-- ==================== VUE 1 : LOBBY / ATTENTE ==================== -->
+    <main class="companion-lobby-view" id="companion-view-lobby">
+      <div class="lobby-waiting-icon-box">
+        <span class="material-symbols-outlined">sensors</span>
+      </div>
+      <h2 class="lobby-waiting-title" data-i18n="companion.waiting_title">Borne en Attente</h2>
+      <p class="lobby-waiting-desc" data-i18n="companion.waiting_desc">
+        La borne principale prépare une nouvelle partie. L'écran basculera automatiquement dès le coup d'envoi !
+      </p>
+      <div class="lobby-game-chip">
+        <span class="material-symbols-outlined text-cyan">sports_esports</span>
+        <span id="companion-lobby-game-badge">X01 Classic</span>
+      </div>
+    </main>
+
+    <!-- ==================== VUE 2 : SCOREBOARD EN COURS ==================== -->
+    <main class="companion-match-view hidden" id="companion-view-match">
+      <div class="companion-match-layout">
+        <!-- Colonne Gauche : Cible Interactive CyberHUD -->
+        <div class="companion-dartboard-panel" id="companion-dartboard-panel">
+          <dart-board id="companion-dartboard" hide-inactive-numbers></dart-board>
+        </div>
+
+        <!-- Colonne Droite : Scoreboard Miroir -->
+        <div class="scoreboard-mirror-wrapper" id="companion-scoreboard-container">
+          <!-- <scoreboard-x01> ou <scoreboard-cricket> injecté dynamiquement -->
+        </div>
+      </div>
+
+      <!-- FOOTER MINI-HUD AVEC BOUTON JOUEUR SUIVANT (Visible uniquement en phase waiting_player) -->
+      <footer class="companion-footer hidden" id="companion-footer">
+        <button type="button" class="companion-btn-next" id="companion-btn-next-player" aria-label="Passer au joueur suivant" data-i18n-attr="aria-label:match.next_player">
+          <span class="material-symbols-outlined">skip_next</span>
+          <span data-i18n="companion.next_player_btn">JOUEUR SUIVANT</span>
+        </button>
+      </footer>
+    </main>
+
+    <!-- ==================== VUE 3 : MATCH TERMINÉ / VICTOIRE ==================== -->
+    <main class="companion-finished-view hidden" id="companion-view-finished">
+      <div class="winner-cup-badge">
+        <span class="material-symbols-outlined">emoji_events</span>
+      </div>
+      <h2 class="winner-title" id="companion-winner-name" data-i18n="companion.victory_title">Victoire !</h2>
+      <p class="winner-sub" id="companion-winner-sub" data-i18n="companion.victory_sub">Partie terminée avec succès</p>
+
+      <div class="companion-standings-card" id="companion-standings-list">
+        <!-- Lignes du classement final injectées dynamiquement -->
+      </div>
+    </main>
+
+  </div>
+
+  <script src="/companion/companion.js" type="module"></script>
+</body>
+</html>

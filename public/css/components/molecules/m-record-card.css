@@ -1,0 +1,172 @@
+/* ==========================================================================
+   MOLECULE: Record Card Component (<m-record-card>, <record-card>, <hud-record-card>)
+   ========================================================================== */
+
+m-record-card,
+record-card,
+hud-record-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  width: 100%;
+
+  & .record-cat-card {
+    background: rgba(10, 14, 24, 0.7);
+    border: 1px solid rgba(49, 53, 64, 0.5);
+    border-radius: var(--sys-radius-md);
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  & .record-cat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 4px;
+    border-bottom: 1px solid rgba(49, 53, 64, 0.4);
+  }
+
+  & .record-cat-title-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    & .material-symbols-outlined {
+      font-size: 16px;
+      color: var(--sys-color-secondary);
+    }
+  }
+
+  & .record-cat-title {
+    font-family: var(--sys-font-family-display);
+    font-size: 11px;
+    font-weight: var(--sys-font-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--sys-color-secondary);
+  }
+
+  & .record-cat-badge {
+    font-family: var(--sys-font-family-display);
+    font-size: 10px;
+    color: var(--sys-color-text-muted);
+    text-transform: uppercase;
+  }
+
+  & .record-card-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  & .record-row-entry {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 3px 8px;
+    border-radius: var(--sys-radius-sm);
+    background: rgba(23, 27, 38, 0.6);
+    font-family: var(--sys-font-family-display);
+    font-size: 12px;
+
+    &.is-hiscore {
+      background: var(--sys-color-surface-container);
+      border: 1px solid var(--sys-color-primary-alpha-35);
+      box-shadow: 0 0 10px var(--sys-color-primary-alpha-25);
+    }
+  }
+
+  & .record-entry-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  & .record-entry-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  & .record-detail-highlight {
+    font-weight: var(--sys-font-weight-bold);
+    color: var(--sys-color-primary);
+  }
+
+  & .record-detail-sub {
+    font-size: 0.82em;
+    opacity: 0.85;
+  }
+
+  & .record-pos-pill {
+    width: 18px;
+    height: 18px;
+    border-radius: var(--sys-radius-xs);
+    background: var(--sys-color-surface-variant);
+    color: var(--sys-color-text-primary);
+    font-size: 10px;
+    font-weight: var(--sys-font-weight-bold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  & .record-row-entry.is-hiscore .record-pos-pill {
+    background: var(--sys-color-warning);
+    color: var(--sys-color-warning-on);
+    font-weight: var(--sys-font-weight-extrabold);
+  }
+
+  & .record-badge-new {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 6px;
+    border-radius: var(--sys-radius-xs);
+    background: var(--sys-color-warning);
+    color: var(--sys-color-warning-on);
+    font-family: var(--sys-font-family-display);
+    font-size: 10px;
+    font-weight: var(--sys-font-weight-extrabold);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    line-height: 1;
+    box-shadow: 0 0 8px rgba(255, 209, 102, 0.4);
+    flex-shrink: 0;
+  }
+
+  /* Color Theme Modifiers */
+  & .record-cat-card[data-color="neon"],
+  &[color="neon"] {
+    & .record-cat-title,
+    & .record-cat-title-group .material-symbols-outlined {
+      color: var(--sys-color-primary);
+    }
+  }
+
+  & .record-cat-card[data-color="cyan"],
+  &[color="cyan"] {
+    & .record-cat-title,
+    & .record-cat-title-group .material-symbols-outlined {
+      color: var(--sys-color-secondary);
+    }
+  }
+
+  & .record-cat-card[data-color="amber"],
+  &[color="amber"] {
+    & .record-cat-title,
+    & .record-cat-title-group .material-symbols-outlined {
+      color: var(--sys-color-warning);
+    }
+  }
+
+  & .record-cat-card[data-color="crimson"],
+  &[color="crimson"] {
+    & .record-cat-title,
+    & .record-cat-title-group .material-symbols-outlined {
+      color: var(--sys-color-danger);
+    }
+  }
+}

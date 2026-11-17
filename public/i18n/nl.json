@@ -1,0 +1,418 @@
+{
+  "common": {
+    "ok": "OK",
+    "cancel": "Annuleren",
+    "save": "Opslaan",
+    "delete": "Verwijderen",
+    "confirm": "Bevestigen",
+    "close": "Sluiten",
+    "back": "Terug",
+    "restart": "Herstarten",
+    "previous": "Vorige",
+    "next": "Volgende",
+    "skip": "Overslaan",
+    "understood": "Begrepen",
+    "warning": "Waarschuwing",
+    "danger": "Gevaar",
+    "yes": "JA",
+    "no": "NEE",
+    "loading": "Laden...",
+    "error": "Fout",
+    "search": "Zoeken",
+    "refresh": "Vernieuwen",
+    "exit": "Afsluiten",
+    "none": "Geen"
+  },
+  "topbar": {
+    "brand_badge": "CYBERHUD",
+    "players": "SPELERS",
+    "records": "Records",
+    "simu": "SIMU",
+    "ui": "UI",
+    "qr_code_title": "Scan voor mobiel companionscherm",
+    "settings_label": "Instellingen"
+  },
+  "lobby": {
+    "select_game": "KIES EEN SPEL",
+    "select_game_sub": "Selecteer je spelmodus op het aanraakscherm",
+    "selected_game_label": "GESELECTEERD SPEL",
+    "start_game": "START",
+    "start_game_sub": "DE WEDSTRIJD",
+    "game_options": "Spelopties",
+    "flip_variants": "Varianten",
+    "min_players_warning": "Selecteer minimaal één speler om de wedstrijd te starten",
+    "official_badge": "OFFICIEEL"
+  },
+  "players": {
+    "modal_title": "Spelersselectie & Statistieken",
+    "active_badge": "{count} ACTIEF",
+    "active_badge_singular": "1 ACTIEF",
+    "player_count": "{count} SPELERS",
+    "player_count_singular": "1 SPELER",
+    "toolbar_desc": "Tik op een speler om toe te voegen aan de beurtvolgorde of te verwijderen.",
+    "shuffle": "SCHUDDEN (WILLEKEURIG)",
+    "add_player": "+ NIEUWE SPELER",
+    "input_placeholder": "Naam van de nieuwe speler...",
+    "validate_selection": "SELECTIE BEVESTIGEN",
+    "active": "Actief",
+    "inactive": "Inactief",
+    "confirm_delete_title": "Deze speler verwijderen?",
+    "confirm_delete_desc": "Definitieve verwijdering bevestigen van {name} en alle bijbehorende statistieken (scores, overwinningen en Chimay Bleu)?",
+    "delete_forever": "DEFINITIEF VERWIJDEREN",
+    "already_exists": "Er bestaat al een speler met deze naam",
+    "name_required": "De spelersnaam mag niet leeg zijn",
+    "rename_title": "HERNOEMEN « {name} »",
+    "new_player_title": "NAAM NIEUWE SPELER"
+  },
+  "game_options": {
+    "modal_title": "Spelopties",
+    "modal_tag": "CONFIGURATIE",
+    "btn_rules": "REGELS",
+    "save": "OPSLAAN",
+    "empty_desc": "Dit spel vereist geen voorafgaande configuratie.",
+    "meta": {
+      "max_round": {
+        "tag": "MATCHLIMIET",
+        "desc": "Maximaal aantal beurten toegestaan"
+      },
+      "double_out": {
+        "tag": "WDF PRO",
+        "desc": "Dubbel finish verplicht om te winnen"
+      },
+      "double_in": {
+        "tag": "START",
+        "desc": "Scoren begint pas na het gooien van een Dubbel"
+      },
+      "split_bull": {
+        "tag": "DOEL",
+        "desc": "Buitenste Bull op 25 ptn / Dubbele Bull kern op 50 ptn"
+      },
+      "equal": {
+        "tag": "GELIJKE BEURTEN",
+        "desc": "Zelfde aantal pijlen voor alle spelers (gelijkmaker & gelijkspel)"
+      }
+    }
+  },
+  "rules": {
+    "modal_title": "Spelregels",
+    "modal_tag": "GIDS",
+    "understood": "BEGREPEN"
+  },
+  "match": {
+    "series_label": "PRO SERIE",
+    "series_x01": "X01 PRO SERIE",
+    "series_cricket": "CRICKET PRO",
+    "series_arcade": "ARCADE PRO",
+    "round_label": "BEURT",
+    "ammo_title": "Resterende pijlen",
+    "quit": "VERLATEN",
+    "undo": "HERSTEL",
+    "undo_sub": "PIJL",
+    "miss": "MIS",
+    "miss_sub": "NAAST DOEL (0 PT)",
+    "miss_penalty": "STRAF (+{penalty} PTN)",
+    "next_player": "VOLGENDE SPELER",
+    "next_turn": "VOLGENDE BEURT",
+    "ready_to_throw": "KLAAR OM TE GOOIEN",
+    "validate_turn": "BEURT BEVESTIGEN",
+    "confirm_quit_title": "Huidige wedstrijd verlaten?",
+    "confirm_quit_tag": "WAARSCHUWING",
+    "confirm_quit_desc": "Weet je zeker dat je deze wedstrijd wilt afbreken en wilt terugkeren naar het menu?",
+    "continue_game": "WEDSTRIJD HERVATTEN",
+    "stop_game": "WEDSTRIJD STOPPEN",
+    "waiting_player": "VOLGENDE SPELER",
+    "release_darts": "Haal je pijlen uit het bord",
+    "release_darts_and_press": "Haal pijlen uit het bord en druk op Volgende Speler",
+    "bust": "BUST!",
+    "draw": "GELIJKSPEL!",
+    "interrupted": "Wedstrijd onderbroken",
+    "interrupted_title": "WEDSTRIJD ONDERBROKEN",
+    "interrupted_subtitle": "Terugkeren naar het hoofdmenu",
+    "backup_turn": "Teruggekeerd naar vorige beurt!",
+    "first_turn_cannot_undo": "Kan niet teruggaan bij de allereerste pijl!",
+    "last_round_reached": "Laatste beurt bereikt...",
+    "winner_announcement": "Winnaar: {name}!",
+    "freeze_loss": "Geblokkeerd (Freeze) en op nul gekomen! Je verliest!",
+    "average_ppd_ppr": "Gemiddelde {ppd} PPD ({ppr} PPR) • {darts} pijlen gegooid",
+    "average_mpr": "Gemiddelde {mpr} MPR • {darts} pijlen gegooid",
+    "average_pts_round": "Gemiddelde {spr} ptn/beurt • {darts} pijlen gegooid",
+    "match_stopped": "• WEDSTRIJD GESTOPT",
+    "match_stopped_title": "WEDSTRIJD GESTOPT",
+    "match_not_finished": "{game} niet voltooid",
+    "round_limit": "• BEURTENLIMIET",
+    "no_winner": "GEEN WINNAAR",
+    "th_player": "SPELER",
+    "th_score": "SCORE",
+    "th_points": "PUNTEN",
+    "th_last": "LAATSTE",
+    "th_remaining": "RESTEREND"
+  },
+  "hits": {
+    "simple": "ENKELE TREFFER",
+    "double": "DUBBELE TREFFER",
+    "triple": "DRIEDUBBELE TREFFER",
+    "bull": "BULLSEYE",
+    "double_bull": "DUBBELE BULLSEYE",
+    "miss": "NAAST DOEL",
+    "penalty": "STRAF",
+    "penalty_pts": "STRAF • +{penalty}",
+    "bust": "BUST!",
+    "not_multiple_5": "GEEN VEELVOUD VAN 5",
+    "double_in_required": "DUBBEL-IN VEREIST",
+    "out_of_contract": "BUITEN CONTRACT"
+  },
+  "vk": {
+    "title": "INVOER",
+    "clear": "WISSEN",
+    "cancel": "ANNULEREN",
+    "validate": "BEVESTIGEN",
+    "shift": "SHIFT",
+    "space": "SPATIE",
+    "backspace": "WISSEN"
+  },
+  "finished": {
+    "victory_badge": "OVERWINNING",
+    "match_end_badge": "• EINDE WEDSTRIJD",
+    "draw_badge": "GELIJKSPEL",
+    "standings_title": "EINDKLASSEMENT",
+    "hall_of_fame_title": "HALL OF FAME & RECORDS",
+    "main_menu": "HOOFDMENU",
+    "replay": "OPNIEUW (Zelfde instellingen)",
+    "rank_col": "RANG",
+    "player_col": "SPELER",
+    "score_col": "SCORE",
+    "stats_col": "STATS",
+    "winner_text": "Wedstrijd met verve gewonnen!",
+    "draw_text": "Perfect gelijkspel tussen de spelers!"
+  },
+  "settings": {
+    "modal_title": "Systeem- & Hardware-instellingen",
+    "quit_app": "APPLICATIE AFSLUITEN",
+    "save_settings": "OPSLAAN & VERBINDEN",
+    "save_calib": "KALIBRATIE OPSLAAN",
+    "saved_success": "CONFIGURATIE OPGESLAGEN",
+    "saved_desc": "Systeeminstellingen succesvol gesynchroniseerd",
+    "save_error": "FOUT BIJ OPSLAAN",
+    "tabs": {
+      "system": "SYSTEEM & BEDIENING",
+      "serial": "USB DARTSBORD",
+      "calib": "KALIBRATIE"
+    },
+    "language": {
+      "title": "TAAL VAN DE INTERFACE",
+      "desc": "Selecteer de weergavetaal voor het bord en de mobiele companion",
+      "fr": "Français",
+      "en": "English",
+      "nl": "Nederlands",
+      "de": "Deutsch"
+    },
+    "audio": {
+      "title": "AUDIO & GELUIDSEFFECTEN",
+      "mute_label": "Hoofdgeluid",
+      "mute_desc": "Alle geluidseffecten in- of uitschakelen",
+      "volume_label": "Hoofdvolume",
+      "volume_tag": "NIVEAU"
+    },
+    "controls": {
+      "title": "BEDIENING & WEERGAVE",
+      "onscreen_label": "Touchknoppen onderaan scherm",
+      "onscreen_desc": "Actiebalk (Volgende speler, Herstel, Mis...) onderaan het scherm",
+      "release_label": "Tijd voor pijlen weghalen",
+      "release_desc": "Toegestane tijd om pijlen te verwijderen vóór de volgende speler (einde beurt, Bust, etc.)",
+      "release_tag": "TIJD (S)"
+    },
+    "serial": {
+      "config_title": "SERIËLE POORTCONFIGURATIE",
+      "port_label": "Systeemapparaat",
+      "port_tag": "USB-POORT",
+      "port_desc": "Selecteer de seriële poort van de aangesloten Arduino",
+      "baud_label": "Transmissiesnelheid",
+      "baud_tag": "BAUDRATE",
+      "baud_desc": "Communicatiesnelheid van de seriële poort (standaard 9600)",
+      "status_title": "VERBINDING & HARDWARESTATUS",
+      "status_label": "Dartsbord Status",
+      "status_tag": "HARDWARE",
+      "status_desc": "Status van de USB-verbinding met de Arduino-microcontroller",
+      "connected": "Verbonden",
+      "disconnected": "Niet verbonden",
+      "test_mode": "Testmodus (Zonder bord)"
+    },
+    "calib": {
+      "step_badge": "Stap {current} / {total}",
+      "signal_received": "Ontvangen signaal:",
+      "none": "Geen",
+      "press_target": "Druk op het doelsegment:",
+      "press_button": "Druk op de knop:",
+      "btn_player": "KNOP VOLGENDE SPELER",
+      "btn_backup": "KNOP HERSTEL",
+      "btn_game": "SPELKNOP",
+      "btn_miss": "MISKNOP",
+      "prev": "VORIGE",
+      "skip": "OVERSLAAN",
+      "restart": "BEGIN (S20)"
+    }
+  },
+  "records": {
+    "modal_title": "Hall of Fame & Records",
+    "new_record": "NIEUW RECORD",
+    "tabs": {
+      "general": "ALGEMEEN",
+      "players": "SPELERS",
+      "definitions": "RECORDTYPES"
+    },
+    "telemetry": {
+      "games": "Wedstrijden",
+      "wins": "Overwinningen"
+    },
+    "columns": {
+      "multi_game": "MULTI-SPEL RECORDS",
+      "ho_one": "HO ONE (X01)",
+      "cricket": "CRICKET"
+    },
+    "def_toolbar": {
+      "title": "Catalogus van Recordtypes",
+      "desc": "Bekijk, voeg toe of verwijder recordtypes en worppatronen in DartOTron",
+      "btn_add": "Nieuw record"
+    },
+    "add_modal": {
+      "title": "Nieuw Recordtype",
+      "tag": "CONFIGURATIE",
+      "calc_type_label": "Type berekening",
+      "calc_type_pattern": "Worppatroon (3 pijlen in 1 beurt)",
+      "calc_type_match": "Wedstrijdresultaat (nederlaag, topscore...)",
+      "calc_type_pref": "Spelersaffiniteit / Profielstatistiek",
+      "game_label": "Doelspel",
+      "all_games": "Alle spellen (* Multi-spel)",
+      "pattern_label": "Voorwaarde worppatroon (3 pijlen)",
+      "pattern_none": "Geen patroonvoorwaarde (Vrij statistisch record)",
+      "pattern_triples_same": "3 Identieke Triples (bijv. Chimay Bleu)",
+      "pattern_triples_any": "3 Willekeurige Triples (bijv. White Horse)",
+      "pattern_hat_trick": "3 Bulls (Single of Double Bull)",
+      "pattern_consecutive_suite": "Opeenvolgende straat van 3 nummers (bijv. 18-19-20)",
+      "pattern_shanghai": "Shanghai (Single + Double + Triple op zelfde nummer)",
+      "pattern_simple_double_triple": "Single + Double + Triple (willekeurige nummers)",
+      "pattern_ton_80": "Maximale Beurt 180 (3 × T20)",
+      "match_cond_label": "Wedstrijdvoorwaarde",
+      "match_cond_loss": "Alleen nederlaag",
+      "match_cond_win": "Alleen overwinning",
+      "match_cond_any": "Elk resultaat (Alle spelers)",
+      "match_metric_label": "Gemeten maatstaf",
+      "match_metric_total": "Totaal aantal punten (Eindscore)",
+      "match_metric_darts": "Totaal gegooide pijlen",
+      "pref_label": "Affiniteit / Voorkeurstype",
+      "pref_fav_triple": "Favoriete Triple (meest geraakt)",
+      "pref_fav_game": "Favoriete Spel (meest gespeeld)",
+      "pref_fav_double": "Favoriete Dubbel (meest geraakt)",
+      "pref_fav_number": "Favoriete Nummer (meest geraakt 1-20)",
+      "name_label": "Weergavenaam record",
+      "name_placeholder": "bijv. Royal Straight",
+      "id_label": "Technische ID (Unieke code)",
+      "id_placeholder": "bijv. royal_straight",
+      "unit_label": "Meeteenheid",
+      "sort_label": "Sorteervolgorde",
+      "sort_desc": "Aflopend (Hoogste wint)",
+      "sort_asc": "Oplopend (Laagste wint)",
+      "backfill_label": "Wedstrijdgeschiedenis scannen om dit record met terugwerkende kracht toe te kennen",
+      "btn_save": "OPSLAAN"
+    },
+    "delete_modal": {
+      "title": "Dit record verwijderen?",
+      "tag": "GEVAAR",
+      "desc": "Definitieve verwijdering bevestigen van recordtype {name}?",
+      "warning": "Waarschuwing: alle spelersscores en prestaties onder dit recordtype worden permanent verwijderd uit de database.",
+      "btn_confirm": "DEFINITIEF VERWIJDEREN"
+    }
+  },
+  "companion": {
+    "title": "DartOTron Companion — Mobiel Spiegelscherm",
+    "brand_tag": "SPIEGEL",
+    "direct_pill": "LIVE",
+    "at_throw": "AAN DE BEURT",
+    "game": "SPEL",
+    "round": "BEURT",
+    "recommended_checkout": "AANBEVOLEN FINISH",
+    "waiting_title": "Dartsbord In Lobby",
+    "waiting_desc": "De hoofdterminal bereidt een nieuw spel voor. Dit scherm synchroniseert automatisch zodra de wedstrijd start!",
+    "next_player_btn": "VOLGENDE SPELER",
+    "victory_title": "Overwinning!",
+    "victory_sub": "Wedstrijd succesvol voltooid",
+    "qr_modal_title": "Companionscherm",
+    "qr_modal_tag": "MOBIEL KIJKER",
+    "qr_modal_desc": "Scan deze QR-code met je smartphone om het live scorebord te bekijken op hetzelfde Wi-Fi-netwerk."
+  },
+  "games": {
+    "Ho_One": {
+      "title": "Ho One",
+      "category": "Klassiek X01",
+      "description": "De wereldberoemde 301, 501, 701 of 1001!\nKies je startscore.\nDe eerste speler die precies nul bereikt, wint de wedstrijd.\nAls je over de nul heen gooit (Bust), wordt je score teruggezet naar het begin van de beurt.",
+      "options": {
+        "startingat": "Startscore (301, 501, 701...)",
+        "max_round": "Maximaal aantal beurten",
+        "double_in": "Double In (openen met een Dubbel)",
+        "double_out": "Double Out (finishen met een Dubbel)",
+        "master_in": "Master In (openen met Dubbel/Triple/Bull)",
+        "master_out": "Master Out (finishen met Dubbel/Triple/Bull)",
+        "split_bull": "Gesplitste Bull (Single Bull = 25 / Dubbel = 50)",
+        "equal": "Gelijke beurten / Gelijkmaker (zelfde aantal pijlen)",
+        "startpercent": "Handicapverhouding (%)",
+        "noout": "Straf voor niet-gespeelde pijl (+25 ptn)",
+        "league": "Competitiemodus (Freeze + Handicap, 4 spelers)"
+      }
+    },
+    "Cricket": {
+      "title": "Cricket",
+      "category": "Tactisch",
+      "description": "Het klassieke Cricket-spel!\nGooi elk nummer (15 t/m 20 + Bull) 3 keer om het te openen en punten te scoren.\nOptie Cut-Throat: geef punten aan tegenstanders die het nummer nog niet gesloten hebben!\nOptie Crazy: actieve nummers veranderen willekeurig in elke beurt!",
+      "options": {
+        "max_round": "Maximaal aantal beurten",
+        "optioncrazy": "Crazy Modus (willekeurige nummers)",
+        "optioncutthroat": "Cut-Throat Modus (punten naar tegenstanders)",
+        "drinkscore": "\"Rondje geven!\" strafscore (Cut-Throat)",
+        "Teaming": "Teammodus (minimaal 4 spelers, even aantal)",
+        "optionteamscore": "Gedeelde teamscores",
+        "optionhandicap": "Automatische handicap (4 spelers)",
+        "optionmaster": "Master Modus (niet-gesloten nummers gereset naar nul)",
+        "optioncrazycutthroatmaster": "Crazy Master Cut-Throat Totaalmodus!"
+      }
+    },
+    "Practice": {
+      "title": "Practice",
+      "category": "Training",
+      "description": "Oefen met het raken van de doelen die de computer elke beurt aangeeft!\nIn de normale modus raak je simpelweg het gevraagde getal.\nIn de Master-modus moet je heel precies Single, Double of Triple raken!",
+      "options": {
+        "max_round": "Aantal beurten",
+        "master": "Master Modus (vereist Single/Double/Triple)"
+      }
+    },
+    "Kinito": {
+      "title": "Kinito",
+      "category": "Gezelschapsspel",
+      "description": "Begin op 0 en bereik 210 punten.\nGouden regel: scoor nooit lager dan het minimumcontract van de vorige speler!\nGooi de speciale Kinito-score (21 of T7) om een bonusdoel op je tegenstanders te activeren en hun score te halveren!",
+      "options": {
+        "max_round": "Maximaal aantal beurten",
+        "winscore": "Winnende score",
+        "kinito": "Speciale Kinito doelscore",
+        "master": "Master Modus (exacte score vereist)"
+      }
+    },
+    "By_Fives": {
+      "title": "By Fives",
+      "category": "Hoofdrekenen",
+      "description": "Zorg dat de som van je 3 pijlen in elke beurt een veelvoud van 5 is!\nAls het totaal deelbaar is door 5 (5, 10, 15, 20... 180), scoor je 1 punt.\nZo niet, scoor je deze beurt geen punten.\nDe eerste speler die de doelscore bereikt, wint!",
+      "options": {
+        "winscore": "Winnende score (punten)",
+        "startingat": "Winnende score (punten)"
+      }
+    },
+    "321_Zlip": {
+      "title": "321 Zlip",
+      "category": "Leuk & Meedogenloos",
+      "description": "Een omgekeerde 301 vol spanning en sensatie!\nBegin op 0 en bereik exact 321 punten.\nAls je precies op de score van een tegenstander landt, wordt deze GEZLIPT en valt terug naar nul!\nIn de Master- of Advanced-modus moet je minimaal één keer gezlipt hebben om te kunnen winnen.",
+      "options": {
+        "max_round": "Maximaal aantal beurten",
+        "advanced": "Advanced Modus (321 zonder Zlip geeft gratis Zlip)",
+        "master": "Master Modus (Zlip verplicht voor bereiken van 321)"
+      }
+    }
+  }
+}

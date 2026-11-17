@@ -1,0 +1,294 @@
+/* ==========================================================================
+   ORGANISM: VIRTUAL KEYBOARD (<o-virtual-keyboard>, <virtual-keyboard>)
+   CyberHUD full-screen arcade keyboard overlay (AZERTY & Numeric).
+   Tactile 64px touch targets, active key scale depression, high-contrast glow.
+   Native CSS Nesting (&) with root custom element selector.
+   ========================================================================== */
+
+o-virtual-keyboard,
+virtual-keyboard {
+  display: block;
+  box-sizing: border-box;
+
+  /* Hidden Overlay */
+  &.hidden,
+  &.vk-overlay.hidden {
+    display: none !important;
+  }
+
+  /* Fullscreen Modal Backdrop */
+  &.vk-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(11, 15, 25, 0.92);
+    z-index: var(--sys-zindex-toast, 2000) !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--sys-spacing-xs, 10px);
+    touch-action: manipulation;
+  }
+
+  /* Keyboard Shell Container */
+  & .vk-container {
+    width: 100%;
+    max-width: 980px;
+    height: 100%;
+    max-height: 480px;
+    background: var(--sys-color-surface-container, #1c1f2a);
+    border: 1.5px solid var(--sys-color-primary, #00ff87);
+    border-radius: var(--sys-radius-lg, 12px);
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+    box-shadow: var(--sys-shadow-glow-neon, 0 0 35px rgba(0, 255, 135, 0.25)),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  /* Header Section */
+  & .vk-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  & .vk-title {
+    font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+    font-size: 0.85rem;
+    font-weight: var(--sys-font-weight-bold, 700);
+    text-transform: uppercase;
+    letter-spacing: var(--sys-font-tracking-widest, 0.08em);
+    color: var(--sys-color-primary, #00ff87);
+    white-space: nowrap;
+  }
+
+  & .vk-display-box {
+    flex: 1;
+    height: 48px;
+    background: var(--sys-color-surface-lowest, #0a0e18);
+    border: 1.5px solid var(--sys-color-secondary, #4cd7f6);
+    border-radius: var(--sys-radius-md, 8px);
+    padding: 0 14px;
+    display: flex;
+    align-items: center;
+    font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+    font-size: 1.4rem;
+    font-weight: var(--sys-font-weight-bold, 700);
+    color: var(--sys-color-text-primary, #dfe2f1);
+  }
+
+  & .vk-cursor {
+    color: var(--sys-color-primary, #00ff87);
+    animation: blinkCursor 1s infinite;
+    margin-left: 2px;
+  }
+
+  /* Tactile Action Buttons (Clear, Cancel, OK) */
+  & .vk-header-actions {
+    display: flex;
+    gap: 10px;
+  }
+
+  & .vk-btn-action {
+    min-height: 48px;
+    height: 48px;
+    padding: 0 18px;
+    border-radius: var(--sys-radius-md, 10px);
+    font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+    font-size: 0.84rem;
+    font-weight: var(--sys-font-weight-bold, 700);
+    text-transform: uppercase;
+    letter-spacing: var(--sys-font-tracking-wider, 0.06em);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: all var(--sys-transition-fast, 0.15s ease);
+    user-select: none;
+    touch-action: manipulation;
+
+    &:hover {
+      filter: brightness(1.15);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--sys-color-primary, #00ff87);
+      outline-offset: 2px;
+    }
+
+    &:active {
+      transform: scale(0.94);
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4);
+    }
+
+    &:disabled,
+    &[disabled] {
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    & .material-symbols-outlined {
+      font-size: 20px;
+    }
+  }
+
+  & .vk-btn-clear {
+    background: var(--sys-color-danger-alpha-15, rgba(255, 51, 102, 0.12));
+    border: 1.5px solid var(--sys-color-danger-alpha-35, rgba(255, 51, 102, 0.4));
+    color: var(--sys-color-danger, #ff3366);
+
+    &:hover {
+      background: var(--sys-color-danger, #ff3366);
+      color: #ffffff;
+      border-color: var(--sys-color-danger, #ff3366);
+      box-shadow: 0 0 16px var(--sys-color-danger-alpha-35, rgba(255, 51, 102, 0.4));
+    }
+  }
+
+  & .vk-btn-cancel {
+    background: var(--sys-color-surface-high, #262a35);
+    border: 1.5px solid var(--sys-color-border-subtle, rgba(255, 255, 255, 0.15));
+    color: var(--sys-color-text-primary, #dfe2f1);
+
+    &:hover {
+      background: var(--sys-color-surface-highest, #313540);
+      border-color: rgba(255, 255, 255, 0.3);
+      color: #ffffff;
+    }
+  }
+
+  & .vk-btn-ok {
+    background: var(--sys-color-primary, #00ff87);
+    border: none;
+    color: var(--sys-color-primary-on, #003919);
+    font-weight: var(--sys-font-weight-extrabold, 800);
+    box-shadow: 0 0 16px var(--sys-color-primary-alpha-35, rgba(0, 255, 135, 0.35));
+
+    &:hover {
+      background: var(--sys-color-primary-dim, #00e478);
+      box-shadow: 0 0 25px var(--sys-color-primary-alpha-50, rgba(0, 255, 135, 0.6));
+    }
+  }
+
+  /* Board & Grid Matrix */
+  & .vk-board {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  & .vk-board-numeric {
+    max-width: 440px;
+    margin: 0 auto;
+    width: 100%;
+
+    & .vk-key {
+      font-size: 1.6rem;
+      font-weight: var(--sys-font-weight-extrabold, 800);
+      min-height: 64px;
+    }
+  }
+
+  & .vk-row {
+    flex: 1;
+    display: flex;
+    gap: 6px;
+  }
+
+  /* Tactile Arcade Keys (64px Target / Active Scale Depression) */
+  & .vk-key {
+    flex: 1;
+    min-height: 54px;
+    background: var(--sys-color-surface-container, #1c1f2a);
+    border: 1.5px solid var(--sys-color-border-subtle, rgba(255, 255, 255, 0.1));
+    border-radius: var(--sys-radius-md, 8px);
+    color: var(--sys-color-text-primary, #dfe2f1);
+    font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+    font-size: 1.25rem;
+    font-weight: var(--sys-font-weight-bold, 700);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    transition: all 0.1s ease;
+    user-select: none;
+    cursor: pointer;
+    touch-action: manipulation;
+
+    &:hover {
+      background: var(--sys-color-surface-high, #262a35);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--sys-color-primary, #00ff87);
+      outline-offset: 2px;
+    }
+
+    &:active {
+      transform: scale(0.94);
+      background: var(--sys-color-primary, #00ff87);
+      color: var(--sys-color-primary-on, #003919);
+      box-shadow: 0 0 16px var(--sys-color-primary-alpha-50, rgba(0, 255, 135, 0.45));
+    }
+
+    &:disabled,
+    &[disabled] {
+      opacity: 0.45;
+      pointer-events: none;
+    }
+  }
+
+  /* Special Action Keys */
+  & .vk-key-shift {
+    flex: 1.25;
+    font-size: 0.95rem;
+    gap: 4px;
+
+    &.active {
+      background: var(--sys-color-primary, #00ff87);
+      color: var(--sys-color-primary-on, #003919);
+      border-color: var(--sys-color-primary, #00ff87);
+      box-shadow: 0 0 12px var(--sys-color-primary-alpha-50, rgba(0, 255, 135, 0.4));
+    }
+  }
+
+  & .vk-key-space {
+    flex: 1.5;
+    font-size: 0.9rem;
+    letter-spacing: var(--sys-font-tracking-widest, 0.08em);
+  }
+
+  & .vk-key-back {
+    flex: 1.25;
+    background: var(--sys-color-danger-alpha-15, rgba(255, 51, 102, 0.1));
+    border: 1.5px solid var(--sys-color-danger-alpha-35, rgba(255, 51, 102, 0.4));
+    color: var(--sys-color-danger, #ff3366);
+    font-size: 0.88rem;
+    letter-spacing: var(--sys-font-tracking-wider, 0.06em);
+    gap: 6px;
+
+    &:hover {
+      background: var(--sys-color-danger, #ff3366);
+      color: #ffffff;
+      border-color: var(--sys-color-danger, #ff3366);
+      box-shadow: 0 0 16px var(--sys-color-danger-alpha-35, rgba(255, 51, 102, 0.35));
+    }
+
+    & .vk-back-icon {
+      font-size: 20px;
+    }
+  }
+
+  /* Modifiers */
+  &[disabled] {
+    opacity: 0.5;
+    pointer-events: none;
+    filter: grayscale(0.5);
+  }
+}

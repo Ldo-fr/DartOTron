@@ -1,0 +1,684 @@
+/* ==========================================================================
+   DARTOTRON CYBERHUD — MOBILE COMPANION STYLESHEET
+   File: public/companion/companion.css
+   Remote mirror display optimized for mobile touchscreens & tablets.
+   Standard W3C native CSS with zero build tools.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Design Tokens Import
+   -------------------------------------------------------------------------- */
+@import '../css/tokens/tokens.css';
+
+/* --------------------------------------------------------------------------
+   2. Contextual Satellite Aliases
+   -------------------------------------------------------------------------- */
+:root {
+  --mobile-bg: var(--sys-color-background-void);
+  --mobile-surface: var(--sys-color-surface-base);
+  --mobile-surface-high: var(--sys-color-surface-container);
+  --mobile-border: var(--sys-color-border-ghost);
+}
+
+/* --------------------------------------------------------------------------
+   3. Body & Viewport Setup
+   -------------------------------------------------------------------------- */
+body.companion-body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--mobile-bg);
+  color: var(--sys-color-text-primary);
+  font-family: var(--sys-font-family-body);
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.companion-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--sys-spacing-sm) var(--sys-spacing-md) var(--sys-spacing-xl);
+  gap: var(--sys-spacing-sm);
+}
+
+/* ==================== HEADER COMPAGNON ==================== */
+.companion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--mobile-surface);
+  border: var(--sys-border-ghost);
+  border-radius: var(--sys-radius-lg);
+  padding: 10px 14px;
+  box-shadow: var(--sys-shadow-panel);
+}
+
+.companion-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--sys-spacing-xs);
+}
+
+.companion-brand-logo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.companion-logo-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--sys-radius-sm);
+  background: var(--sys-color-primary-alpha-15);
+  border: 1px solid var(--sys-color-primary-alpha-35);
+  color: var(--sys-color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.companion-brand-title {
+  font-family: var(--sys-font-family-display);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--sys-color-text-white);
+}
+
+.companion-tag {
+  font-family: var(--sys-font-family-mono);
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: var(--sys-radius-xs);
+  background: var(--sys-color-secondary-alpha-15);
+  border: 1px solid var(--sys-color-secondary-alpha-35);
+  color: var(--sys-color-secondary);
+  letter-spacing: 0.08em;
+}
+
+.companion-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--sys-radius-full);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  background: var(--sys-color-primary-alpha-10);
+  border: 1px solid var(--sys-color-primary-alpha-35);
+  color: var(--sys-color-primary);
+}
+
+.status-dot-pulse {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--sys-color-primary);
+  box-shadow: 0 0 8px var(--sys-color-primary);
+  animation: pulse-dot 1.6s infinite ease-in-out;
+}
+
+.companion-status-pill.is-offline {
+  background: var(--sys-color-danger-alpha-15);
+  border-color: var(--sys-color-danger-alpha-35);
+  color: var(--sys-color-danger);
+}
+
+.companion-status-pill.is-offline .status-dot-pulse {
+  background: var(--sys-color-danger);
+  box-shadow: none;
+  animation: none;
+}
+
+/* ==================== MINI TELEMETRIE ACTIVE ==================== */
+.companion-live-banner {
+  background: linear-gradient(135deg, var(--sys-color-surface-high), var(--sys-color-surface-low));
+  border: 1px solid var(--sys-color-secondary-alpha-25);
+  border-radius: var(--sys-radius-lg);
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--sys-shadow-panel);
+}
+
+.live-player-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.live-player-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--sys-color-text-secondary);
+}
+
+.live-player-name {
+  font-family: var(--sys-font-family-display);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--sys-color-text-white);
+  display: flex;
+  align-items: center;
+  gap: var(--sys-spacing-xs);
+}
+
+.live-player-name.is-active-pulse {
+  color: var(--sys-color-primary);
+  text-shadow: 0 0 12px var(--sys-color-primary-alpha-35);
+}
+
+.live-match-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--sys-spacing-sm);
+}
+
+.live-meta-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.live-meta-title {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--sys-color-text-secondary);
+  text-transform: uppercase;
+}
+
+.live-meta-val {
+  font-family: var(--sys-font-family-mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--sys-color-secondary);
+}
+
+/* Fléchettes lancées en direct */
+.live-darts-pills {
+  display: flex;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.live-dart-dot {
+  width: 18px;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--sys-color-border-subtle);
+  transition: all var(--sys-transition-normal);
+}
+
+.live-dart-dot.is-thrown {
+  background: var(--sys-color-primary);
+  box-shadow: 0 0 8px var(--sys-color-primary-alpha-50);
+}
+
+/* ==================== VUE 1 : LOBBY ATTENTE ==================== */
+.companion-lobby-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: var(--mobile-surface);
+  border: var(--sys-border-ghost);
+  border-radius: var(--sys-radius-xl);
+  padding: 36px 20px;
+  margin: auto 0;
+  gap: var(--sys-spacing-md);
+  box-shadow: var(--sys-shadow-card);
+}
+
+.lobby-waiting-icon-box {
+  width: 68px;
+  height: 68px;
+  border-radius: var(--sys-radius-xl);
+  background: var(--sys-color-secondary-alpha-15);
+  border: 1px solid var(--sys-color-secondary-alpha-35);
+  color: var(--sys-color-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--sys-shadow-glow-cyan);
+}
+
+.lobby-waiting-icon-box .material-symbols-outlined {
+  font-size: 36px;
+}
+
+.lobby-waiting-title {
+  font-family: var(--sys-font-family-display);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--sys-color-text-white);
+  margin: 0;
+  letter-spacing: 0.04em;
+}
+
+.lobby-waiting-desc {
+  font-size: 13px;
+  color: var(--sys-color-text-secondary);
+  margin: 0;
+  max-width: 320px;
+  line-height: 1.4;
+}
+
+.lobby-game-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sys-spacing-xs);
+  padding: 8px 16px;
+  border-radius: var(--sys-radius-full);
+  background: var(--sys-color-border-ghost);
+  border: var(--sys-border-subtle);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--sys-color-text-white);
+}
+
+/* ==================== VUE 2 : SCOREBOARD CONTENEUR ==================== */
+.companion-match-view {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sys-spacing-sm);
+  width: 100%;
+  flex: 1;
+}
+
+.companion-match-layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sys-spacing-md);
+  width: 100%;
+}
+
+.companion-dartboard-panel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 290px;
+  height: 290px;
+  margin: 0 auto;
+}
+
+.scoreboard-mirror-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: var(--sys-radius-lg);
+  flex: 1;
+}
+
+/* Disposition 2 colonnes sur tablette / desktop / mobile paysage */
+@media (min-width: 768px) {
+  .companion-match-layout {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--sys-spacing-lg);
+  }
+
+  .companion-dartboard-panel {
+    width: 340px;
+    height: 340px;
+    max-width: 340px;
+    flex-shrink: 0;
+    margin: 0;
+  }
+}
+
+/* Optimisation smartphone en mode paysage */
+@media (orientation: landscape) and (max-height: 520px) {
+  .companion-container {
+    padding: var(--sys-spacing-2xs) var(--sys-spacing-sm) var(--sys-spacing-2xs);
+    gap: var(--sys-spacing-2xs);
+    min-height: 100vh;
+  }
+
+  .companion-header {
+    padding: 4px 10px;
+  }
+
+  .companion-live-banner {
+    padding: 4px 10px;
+  }
+
+  .companion-match-layout {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--sys-spacing-sm);
+  }
+
+  .companion-dartboard-panel {
+    width: 200px;
+    height: 200px;
+    max-width: 200px;
+    flex-shrink: 0;
+    margin: 0;
+  }
+
+  .scoreboard-mirror-wrapper {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .companion-footer {
+    position: static;
+    margin-top: 4px;
+    padding: 0;
+  }
+
+  .companion-btn-next {
+    height: 38px;
+    font-size: 13px;
+  }
+
+  .companion-match-layout o-scoreboard-cricket,
+  .companion-match-layout scoreboard-cricket {
+    & .game-board-table {
+      font-size: 12px;
+    }
+
+    & thead th {
+      padding: 4px 2px;
+      font-size: 11px;
+    }
+
+    & th.th-target,
+    & td.td-target {
+      width: 40px;
+      min-width: 40px;
+      padding: 4px 2px;
+    }
+
+    & th.th-score,
+    & td.td-score {
+      min-width: 55px;
+      padding: 4px 6px;
+    }
+
+    & th.th-player,
+    & td.td-player {
+      min-width: 95px;
+      padding: 4px 6px;
+    }
+
+    & .player-identity-wrap {
+      gap: 6px;
+    }
+
+    & .player-num-badge {
+      width: 22px;
+      height: 22px;
+      font-size: 12px;
+    }
+
+    & .player-name-text {
+      font-size: 13px;
+    }
+
+    & .player-score-giant {
+      font-size: 20px !important;
+    }
+
+    & .cricket-header-num,
+    & .cricket-header-dead {
+      font-size: 18px;
+    }
+
+    & .cricket-capsule {
+      width: 12px;
+      height: 32px;
+    }
+
+    & .cricket-dot {
+      width: 14px;
+      height: 14px;
+    }
+  }
+}
+
+/* ==================== FOOTER COMPAGNON (BOUTON JOUEUR SUIVANT) ==================== */
+.companion-footer {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  margin-top: auto;
+  padding: 12px 0 max(8px, env(safe-area-inset-bottom));
+  background: linear-gradient(180deg, rgba(6, 10, 18, 0) 0%, rgba(6, 10, 18, 0.88) 35%, rgba(6, 10, 18, 0.98) 100%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: var(--sys-zindex-dropdown);
+  display: flex;
+  box-sizing: border-box;
+  animation: companion-slide-up var(--sys-transition-modal) forwards;
+}
+
+@keyframes companion-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.companion-btn-next {
+  width: 100%;
+  height: 60px;
+  border-radius: var(--sys-radius-lg);
+  background: var(--sys-color-primary);
+  color: var(--sys-color-primary-on);
+  font-family: var(--sys-font-family-display);
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: var(--sys-shadow-button-primary);
+  transition: all var(--sys-transition-fast);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.companion-btn-next .material-symbols-outlined {
+  font-size: 26px;
+  transition: transform var(--sys-transition-fast);
+}
+
+.companion-btn-next:hover {
+  background: var(--sys-color-primary-dim);
+  box-shadow: var(--sys-shadow-glow-neon);
+}
+
+.companion-btn-next:active {
+  transform: scale(0.97);
+  filter: brightness(1.1);
+}
+
+.companion-btn-next:active .material-symbols-outlined {
+  transform: translateX(4px);
+}
+
+/* État pulsant quand le tour est terminé */
+.companion-btn-next.is-waiting-player {
+  animation: companion-pulse-next 1.4s infinite ease-in-out;
+  background: var(--sys-color-primary);
+  color: var(--sys-color-primary-on-dark);
+}
+
+@keyframes companion-pulse-next {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(0, 255, 135, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 36px rgba(0, 255, 135, 0.85), 0 0 16px rgba(76, 215, 246, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    transform: scale(1.02);
+  }
+}
+
+/* État anti-rebond (busy) */
+.companion-btn-next.is-busy {
+  opacity: 0.65;
+  pointer-events: none;
+  transform: scale(0.98);
+}
+
+/* Guide checkout mobile */
+.companion-checkout-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--sys-color-warning-alpha-15);
+  border: 1px solid var(--sys-color-warning-alpha-35);
+  border-radius: var(--sys-radius-md);
+  padding: 8px 12px;
+}
+
+.checkout-lbl {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--sys-color-warning);
+  letter-spacing: 0.06em;
+}
+
+.checkout-path {
+  font-family: var(--sys-font-family-mono);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--sys-color-text-white);
+}
+
+/* ==================== VUE 3 : FIN DE PARTIE ==================== */
+.companion-finished-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: var(--mobile-surface);
+  border: 1px solid var(--sys-color-primary-alpha-35);
+  border-radius: var(--sys-radius-xl);
+  padding: 30px 18px;
+  gap: var(--sys-spacing-md);
+  box-shadow: var(--sys-shadow-card), 0 0 30px var(--sys-color-primary-alpha-10);
+}
+
+.winner-cup-badge {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--sys-radius-xl);
+  background: var(--sys-color-primary-alpha-15);
+  border: 1px solid var(--sys-color-primary-alpha-35);
+  color: var(--sys-color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+}
+
+.winner-title {
+  font-family: var(--sys-font-family-display);
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--sys-color-text-white);
+  margin: 0;
+}
+
+.winner-sub {
+  font-size: 13px;
+  color: var(--sys-color-text-secondary);
+  margin: 0;
+}
+
+.companion-standings-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.standings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--mobile-surface-high);
+  border: var(--sys-border-ghost);
+  border-radius: var(--sys-radius-md);
+  padding: 10px 14px;
+}
+
+.standings-row.is-first {
+  border-color: var(--sys-color-primary-alpha-35);
+  background: linear-gradient(90deg, var(--sys-color-primary-alpha-10), var(--sys-color-surface-container));
+}
+
+.standings-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.standings-rank {
+  font-family: var(--sys-font-family-display);
+  font-size: 14px;
+  font-weight: 800;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--sys-color-border-ghost);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.standings-row.is-first .standings-rank {
+  background: var(--sys-color-primary);
+  color: var(--sys-color-background-void);
+}
+
+.standings-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--sys-color-text-white);
+}
+
+.standings-score {
+  font-family: var(--sys-font-family-mono);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--sys-color-secondary);
+}
+
+.hidden {
+  display: none !important;
+}

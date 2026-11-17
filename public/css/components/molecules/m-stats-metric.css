@@ -1,0 +1,104 @@
+/* ==========================================================================
+   MOLECULE: Stats Metric Card (<m-stats-metric>, <hud-stats-metric>)
+   ========================================================================== */
+
+m-stats-metric,
+hud-stats-metric {
+  display: block;
+  width: 100%;
+  min-width: 0;
+
+  & .hud-stats-metric-card {
+    background: #181d2a;
+    border: 1px solid rgba(43, 52, 69, 0.5);
+    border-radius: var(--sys-radius-md);
+    padding: 8px 12px;
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    min-width: 0;
+    transition: border-color var(--sys-transition-fast), background var(--sys-transition-fast);
+
+    &:hover {
+      background: #202636;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  & .hud-stats-metric-card.layout-vertical {
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  & .hud-stats-metric-card.layout-horizontal,
+  &[horizontal] .hud-stats-metric-card {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  & .hud-metric-text-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  & .hud-metric-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: var(--sys-font-weight-bold);
+    letter-spacing: 0.05em;
+    color: #6b7a8d;
+  }
+
+  & .hud-metric-value-row {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    margin-top: 4px;
+  }
+
+  & .hud-metric-value {
+    font-family: var(--sys-font-family-display);
+    font-size: 26px;
+    font-weight: var(--sys-font-weight-bold);
+    line-height: 1;
+    color: var(--sys-color-text-white);
+  }
+
+  & .hud-metric-unit {
+    font-size: 11px;
+    font-weight: var(--sys-font-weight-bold);
+    opacity: 0.8;
+    color: #6b7a8d;
+  }
+
+  & .hud-metric-status-icon {
+    font-size: 24px;
+  }
+
+  /* Color Theme Modifiers */
+  & .hud-stats-metric-card.color-neon,
+  &[color="neon"] {
+    & .hud-metric-value { color: var(--sys-color-primary); }
+    & .hud-metric-unit { color: var(--sys-color-primary); }
+  }
+
+  & .hud-stats-metric-card.color-cyan,
+  &[color="cyan"] {
+    & .hud-metric-value { color: var(--sys-color-secondary); }
+    & .hud-metric-unit { color: var(--sys-color-secondary); }
+  }
+
+  & .hud-stats-metric-card.color-amber,
+  &[color="amber"] {
+    & .hud-metric-value { color: var(--sys-color-warning); }
+    & .hud-metric-unit { color: var(--sys-color-warning); }
+  }
+
+  & .hud-stats-metric-card.color-crimson,
+  &[color="crimson"] {
+    & .hud-metric-value { color: var(--sys-color-danger); }
+    & .hud-metric-unit { color: var(--sys-color-danger); }
+    & .hud-metric-status-icon { color: var(--sys-color-danger); }
+  }
+}

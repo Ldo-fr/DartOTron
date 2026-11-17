@@ -1,0 +1,337 @@
+/* ==========================================================================
+   DARTOTRON CYBERHUD — DESIGN SYSTEM DESIGN TOKENS
+   Strict Naming Convention: --sys-[concept]-[variante]
+   Standard: Modern CSS Level 4 (Vanilla Chromium / Zero-dependency)
+   Aesthetic: Dark Arcade CyberHUD (Deep Void, Neon Glows, Industrial Radii)
+   Target: public/css/tokens/tokens.css
+   ========================================================================== */
+
+:root {
+  /* ========================================================================
+     1. COLORS: Canvas, Surfaces & Insets
+     ======================================================================== */
+  --sys-color-background-void: #0a0e18;         /* Canvas deep void */
+  --sys-color-background: #0f131d;              /* Main viewport backdrop */
+
+  --sys-color-surface-lowest: #0a0e18;          /* Inset wells & score containers */
+  --sys-color-surface-low: #171b26;             /* Level 1: Resting panels, scoreboards */
+  --sys-color-surface-base: #0f131d;            /* Default neutral container surface */
+  --sys-color-surface-container: #1c1f2a;       /* Card body containers */
+  --sys-color-surface-high: #262a35;            /* Level 2: Interactive cards, buttons */
+  --sys-color-surface-highest: #313540;         /* Level 3: Active headers, popovers */
+  --sys-color-surface-bright: #353944;          /* Bright highlight surface */
+  --sys-color-surface-dim: #0f131d;             /* Dimmed backdrop surface */
+  --sys-color-surface-inverse: #dfe2f1;         /* Inverted contrast surface */
+  --sys-color-surface-inverse-on: #2c303b;      /* Inverted contrast foreground */
+  --sys-color-surface-variant: #262a35;         /* Alternative surface container */
+
+  /* ========================================================================
+     2. COLORS: Emissive Brand & Vector Accents
+     ======================================================================== */
+  /* Primary: Bullseye Neon (#00ff87) — Validated scores, active throws, winner */
+  --sys-color-primary: #00ff87;
+  --sys-color-primary-dim: #00e478;
+  --sys-color-primary-bright: #60ff98;
+  --sys-color-primary-container: #00ff87;
+  --sys-color-primary-on: #003919;
+  --sys-color-primary-on-container: #007138;
+  --sys-color-primary-on-dark: #00210c;
+  --sys-color-primary-alpha-10: rgba(0, 255, 135, 0.10);
+  --sys-color-primary-alpha-15: rgba(0, 255, 135, 0.15);
+  --sys-color-primary-alpha-25: rgba(0, 255, 135, 0.25);
+  --sys-color-primary-alpha-35: rgba(0, 255, 135, 0.35);
+  --sys-color-primary-alpha-50: rgba(0, 255, 135, 0.50);
+
+  /* Secondary: Cyber Cyan (#4cd7f6) — Player identities, settings, focus rings */
+  --sys-color-secondary: #4cd7f6;
+  --sys-color-secondary-dim: #03b5d4;
+  --sys-color-secondary-bright: #acedff;
+  --sys-color-secondary-container: #03b5d4;
+  --sys-color-secondary-on: #003640;
+  --sys-color-secondary-on-container: #00424e;
+  --sys-color-secondary-alpha-10: rgba(76, 215, 246, 0.10);
+  --sys-color-secondary-alpha-15: rgba(76, 215, 246, 0.15);
+  --sys-color-secondary-alpha-25: rgba(76, 215, 246, 0.25);
+  --sys-color-secondary-alpha-35: rgba(76, 215, 246, 0.35);
+  --sys-color-secondary-alpha-50: rgba(76, 215, 246, 0.50);
+
+  /* Warning / Multipliers: Tournament Amber (#ffd166) — Cricket marks, bonus, multiplier */
+  --sys-color-warning: #ffd166;
+  --sys-color-warning-dim: #ffb703;
+  --sys-color-warning-bright: #ffe08a;
+  --sys-color-warning-on: #400011;
+  --sys-color-warning-alpha-15: rgba(255, 209, 102, 0.15);
+  --sys-color-warning-alpha-35: rgba(255, 209, 102, 0.35);
+  --sys-color-warning-alpha-50: rgba(255, 209, 102, 0.50);
+
+  /* Danger / Busts: Laser Crimson (#ff3366) — Busts, misses, cancellations */
+  --sys-color-danger: #ff3366;
+  --sys-color-danger-dim: #c40044;
+  --sys-color-danger-bright: #ff668a;
+  --sys-color-danger-on: #670020;
+  --sys-color-danger-alpha-15: rgba(255, 51, 102, 0.15);
+  --sys-color-danger-alpha-35: rgba(255, 51, 102, 0.35);
+  --sys-color-danger-alpha-50: rgba(255, 51, 102, 0.50);
+
+  /* Status Error (Material / System status) */
+  --sys-color-error: #ffb4ab;
+  --sys-color-error-container: #93000a;
+  --sys-color-error-on: #690005;
+  --sys-color-error-on-container: #ffdad6;
+
+  /* Status Success & Info */
+  --sys-color-success: #00ff87;
+  --sys-color-success-on: #003919;
+  --sys-color-info: #4cd7f6;
+  --sys-color-info-on: #003640;
+
+  /* ========================================================================
+     3. COLORS: Typography & Foreground (> 7:1 Contrast on Dark Surfaces)
+     ======================================================================== */
+  --sys-color-text-primary: #dfe2f1;           /* Crisp primary high-contrast */
+  --sys-color-text-secondary: #b9cbb9;         /* Variant label text, captions */
+  --sys-color-text-muted: #849585;             /* Inactive / subtle hints */
+  --sys-color-text-white: #ffffff;             /* Pure white high-energy */
+  --sys-color-text-inverse: #2c303b;           /* Inverted dark text */
+
+  /* ========================================================================
+     4. COLORS: Borders & Outlines
+     ======================================================================== */
+  --sys-color-border-ghost: rgba(255, 255, 255, 0.08);
+  --sys-color-border-subtle: rgba(255, 255, 255, 0.12);
+  --sys-color-border-base: #3b4b3d;
+  --sys-color-border-outline: #849585;
+  --sys-color-border-primary: #00ff87;
+  --sys-color-border-secondary: #4cd7f6;
+  --sys-color-border-warning: #ffd166;
+  --sys-color-border-danger: #ff3366;
+
+  /* ========================================================================
+     5. SPACING SCALE (--sys-spacing-*)
+     ======================================================================== */
+  --sys-spacing-3xs: 0.125rem;  /* 2px */
+  --sys-spacing-2xs: 0.25rem;   /* 4px */
+  --sys-spacing-xs: 0.5rem;     /* 8px */
+  --sys-spacing-sm: 0.75rem;    /* 12px */
+  --sys-spacing-md: 1rem;       /* 16px */
+  --sys-spacing-lg: 1.25rem;    /* 20px */
+  --sys-spacing-xl: 1.5rem;     /* 24px */
+  --sys-spacing-2xl: 2rem;      /* 32px */
+  --sys-spacing-3xl: 2.5rem;    /* 40px */
+  --sys-spacing-4xl: 3rem;      /* 48px */
+
+  /* Semantic Layout Spacings */
+  --sys-spacing-gutter: 1.5rem;          /* 24px */
+  --sys-spacing-gutter-mobile: 1rem;     /* 16px */
+  --sys-spacing-margin: 2.5rem;          /* 40px Kiosk perimeter */
+  --sys-spacing-margin-mobile: 1.25rem;  /* 20px */
+  --sys-spacing-bar-height: 5rem;        /* 80px Topbar & Bottom bar */
+
+  /* ========================================================================
+     6. TYPOGRAPHY (--sys-font-*)
+     ======================================================================== */
+  --sys-font-family-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  --sys-font-family-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --sys-font-family-mono: 'Share Tech Mono', 'JetBrains Mono', monospace;
+
+  /* Font Sizes */
+  --sys-font-size-3xs: 0.625rem;  /* 10px */
+  --sys-font-size-2xs: 0.75rem;   /* 12px - label-sm */
+  --sys-font-size-xs: 0.875rem;   /* 14px - label-md */
+  --sys-font-size-sm: 1rem;       /* 16px - body-md / label-lg */
+  --sys-font-size-md: 1.125rem;   /* 18px - body-lg */
+  --sys-font-size-lg: 1.25rem;    /* 20px - title-lg */
+  --sys-font-size-xl: 1.5rem;     /* 24px - headline-sm */
+  --sys-font-size-2xl: 2rem;      /* 32px - headline-md */
+  --sys-font-size-3xl: 2.5rem;    /* 40px - headline-lg */
+  --sys-font-size-4xl: 4rem;      /* 64px - display-lg */
+  --sys-font-size-5xl: 6rem;      /* 96px - display-xl */
+
+  /* Font Weights */
+  --sys-font-weight-regular: 400;
+  --sys-font-weight-medium: 500;
+  --sys-font-weight-semibold: 600;
+  --sys-font-weight-bold: 700;
+  --sys-font-weight-extrabold: 800;
+  --sys-font-weight-black: 900;
+
+  /* Line Heights (Leading) */
+  --sys-font-leading-none: 1;
+  --sys-font-leading-tight: 1.15;
+  --sys-font-leading-snug: 1.25;
+  --sys-font-leading-normal: 1.5;
+  --sys-font-leading-relaxed: 1.625;
+
+  /* Tracking (Letter Spacing) */
+  --sys-font-tracking-tight: -0.02em;
+  --sys-font-tracking-normal: 0;
+  --sys-font-tracking-wide: 0.04em;
+  --sys-font-tracking-wider: 0.06em;
+  --sys-font-tracking-widest: 0.1em;
+
+  /* ========================================================================
+     7. RADII & BORDERS (--sys-radius-*, --sys-border-*)
+     ======================================================================== */
+  --sys-radius-none: 0;
+  --sys-radius-xs: 0.125rem;    /* 2px */
+  --sys-radius-sm: 0.25rem;     /* 4px */
+  --sys-radius-md: 0.5rem;      /* 8px - Arcade industrial standard */
+  --sys-radius-lg: 0.75rem;     /* 12px */
+  --sys-radius-xl: 1rem;        /* 16px - Parent cards, pods, numpads */
+  --sys-radius-2xl: 1.5rem;     /* 24px - Critical dialogs & victory ceremonies */
+  --sys-radius-full: 9999px;    /* Circular pills, capsules, avatars */
+
+  --sys-border-width-thin: 1px;
+  --sys-border-width-medium: 1.5px;
+  --sys-border-width-thick: 2px;
+
+  --sys-border-ghost: 1px solid var(--sys-color-border-ghost);
+  --sys-border-subtle: 1px solid var(--sys-color-border-subtle);
+  --sys-border-neon: 1.5px solid var(--sys-color-primary);
+  --sys-border-cyan: 1.5px solid var(--sys-color-secondary);
+  --sys-border-amber: 1.5px solid var(--sys-color-warning);
+  --sys-border-crimson: 1.5px solid var(--sys-color-danger);
+
+  /* ========================================================================
+     8. ELEVATIONS & SHADOWS (--sys-shadow-*)
+     ======================================================================== */
+  --sys-shadow-none: none;
+  --sys-shadow-rim: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  --sys-shadow-panel: 0 4px 16px rgba(0, 0, 0, 0.35);
+  --sys-shadow-card: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --sys-shadow-modal: 0 24px 60px rgba(0, 0, 0, 0.85);
+
+  /* CyberHUD Emissive Blooms */
+  --sys-shadow-glow-neon: 0 0 24px rgba(0, 255, 135, 0.35), 0 0 4px rgba(0, 255, 135, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  --sys-shadow-glow-cyan: 0 0 14px rgba(6, 182, 212, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  --sys-shadow-glow-amber: 0 0 16px rgba(255, 209, 102, 0.35);
+  --sys-shadow-glow-crimson: 0 0 14px rgba(255, 51, 102, 0.35);
+  --sys-shadow-button-primary: 0 0 16px rgba(0, 255, 135, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+
+  /* ========================================================================
+     9. TRANSITIONS & TIMING (--sys-transition-*)
+     ======================================================================== */
+  --sys-transition-instant: 0.08s ease;
+  --sys-transition-fast: 0.12s ease;
+  --sys-transition-normal: 0.2s ease;
+  --sys-transition-slow: 0.3s ease;
+  --sys-transition-flip: 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+  --sys-transition-modal: 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  --sys-transition-bounce: 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ========================================================================
+     10. Z-INDEX HIERARCHY (--sys-zindex-*)
+     ======================================================================== */
+  --sys-zindex-base: 0;
+  --sys-zindex-raised: 1;
+  --sys-zindex-content: 5;
+  --sys-zindex-nav: 20;
+  --sys-zindex-fixed: 50;
+  --sys-zindex-dropdown: 100;
+  --sys-zindex-overlay: 150;
+  --sys-zindex-modal: 300;
+  --sys-zindex-popover: 500;
+  --sys-zindex-keyboard: 1000;
+  --sys-zindex-toast: 2000;
+
+  /* ========================================================================
+     11. BACKWARD COMPATIBILITY ALIASES (Legacy Fallbacks)
+     Guarantees existing JS scripts and transitional CSS rules never break.
+     ======================================================================== */
+  /* Color Aliases */
+  --accent-primary: var(--sys-color-primary);
+  --accent-primary-dim: var(--sys-color-primary-dim);
+  --accent-secondary: var(--sys-color-secondary);
+  --accent-cyan-bright: var(--sys-color-secondary-bright);
+  --accent-gold: var(--sys-color-warning);
+  --accent-success: var(--sys-color-success);
+  --accent-danger: var(--sys-color-danger);
+  --accent-glow: var(--sys-color-primary-alpha-35);
+
+  --bullseye-neon: var(--sys-color-primary);
+  --cyber-cyan: var(--sys-color-secondary);
+  --tournament-amber: var(--sys-color-warning);
+  --laser-crimson: var(--sys-color-danger);
+  --neon-green: var(--sys-color-primary);
+
+  --primary: #f1ffef;
+  --secondary-fixed: var(--sys-color-secondary-bright);
+  --on-primary: var(--sys-color-primary-on);
+  --on-primary-dark: var(--sys-color-primary-on-dark);
+  --on-surface: var(--sys-color-text-primary);
+  --on-surface-variant: var(--sys-color-text-secondary);
+
+  /* Surface & Background Aliases */
+  --bg-main: var(--sys-color-background-void);
+  --bg-surface: var(--sys-color-background-void);
+  --bg-surface-low: var(--sys-color-surface-low);
+  --bg-surface-high: var(--sys-color-surface-high);
+  --bg-surface-highest: var(--sys-color-surface-highest);
+  --bg-panel: var(--sys-color-surface-low);
+  --bg-panel-elevated: var(--sys-color-surface-high);
+  --bg-input: var(--sys-color-surface-lowest);
+
+  --surface-void: var(--sys-color-background-void);
+  --surface-lowest: var(--sys-color-surface-lowest);
+  --surface-low: var(--sys-color-surface-low);
+  --surface: var(--sys-color-surface-base);
+  --surface-container-lowest: var(--sys-color-surface-lowest);
+  --surface-container-low: var(--sys-color-surface-low);
+  --surface-container: var(--sys-color-surface-container);
+  --surface-container-high: var(--sys-color-surface-high);
+  --surface-container-highest: var(--sys-color-surface-highest);
+  --surface-high: var(--sys-color-surface-high);
+  --surface-highest: var(--sys-color-surface-highest);
+  --surface-bright: var(--sys-color-surface-bright);
+  --surface-variant: var(--sys-color-surface-variant);
+
+  /* Mobile Companion & Satellite Aliases */
+  --mobile-bg: var(--sys-color-background-void);
+  --mobile-surface: var(--sys-color-surface-base);
+  --mobile-surface-high: var(--sys-color-surface-container);
+  --mobile-border: var(--sys-color-border-ghost);
+
+  --sc-bg: var(--sys-color-background-void);
+  --sc-panel: var(--sys-color-surface-low);
+  --sc-panel-border: var(--sys-color-border-ghost);
+  --sc-text-main: var(--sys-color-text-primary);
+  --sc-text-muted: var(--sys-color-text-muted);
+  --sc-neon: var(--sys-color-primary);
+  --sc-neon-dim: var(--sys-color-primary-alpha-15);
+  --sc-crimson: var(--sys-color-danger);
+  --sc-cyan: var(--sys-color-secondary);
+  --sc-amber: var(--sys-color-warning);
+  --sc-font: var(--sys-font-family-body);
+  --sc-font-mono: var(--sys-font-family-mono);
+
+  /* Border & Outline Aliases */
+  --ghost-border: var(--sys-color-border-ghost);
+  --border-color: var(--sys-color-border-base);
+  --outline: var(--sys-color-border-outline);
+
+  /* Typography Aliases */
+  --text-main: var(--sys-color-text-primary);
+  --text-primary: var(--sys-color-text-primary);
+  --text-secondary: var(--sys-color-text-secondary);
+  --text-muted: var(--sys-color-text-muted);
+  --font-display: var(--sys-font-family-display);
+  --font-body: var(--sys-font-family-body);
+  --font-mono: var(--sys-font-family-mono);
+  --font-digital: var(--sys-font-family-mono);
+
+  /* Radius Aliases */
+  --radius-sm: var(--sys-radius-sm);
+  --radius-base: var(--sys-radius-md);
+  --radius-md: var(--sys-radius-lg);
+  --radius-lg: var(--sys-radius-xl);
+  --radius-xl: var(--sys-radius-2xl);
+  --radius-full: var(--sys-radius-full);
+
+  /* Shadow & Bloom Aliases */
+  --bloom-active: var(--sys-shadow-glow-neon);
+  --bloom-primary-btn: var(--sys-shadow-button-primary);
+  --bloom-cyan: var(--sys-shadow-glow-cyan);
+  --bloom-gold: var(--sys-shadow-glow-amber);
+  --bloom-crimson: var(--sys-shadow-glow-crimson);
+  --rim-light: var(--sys-shadow-rim);
+}

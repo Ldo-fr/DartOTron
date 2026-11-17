@@ -1,0 +1,111 @@
+/* ==========================================================================
+   MOLECULE: Telemetry Indicator (<m-stats-telemetry>, <hud-stats-telemetry>)
+   ========================================================================== */
+
+m-stats-telemetry,
+hud-stats-telemetry {
+  display: inline-flex;
+
+  & .hud-stats-telemetry-root {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  & .hud-telemetry-icon-box {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--sys-radius-md);
+    background: #181d2a;
+    border: 1px solid rgba(43, 52, 69, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #6b7a8d;
+    transition: color var(--sys-transition-fast), border-color var(--sys-transition-fast);
+  }
+
+  & .hud-telemetry-icon {
+    font-size: 17px;
+  }
+
+  & .hud-telemetry-text-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  & .hud-telemetry-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: var(--sys-font-weight-bold);
+    letter-spacing: 0.08em;
+    color: #6b7a8d;
+  }
+
+  & .hud-telemetry-val-row {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+
+  & .hud-telemetry-value {
+    font-family: var(--sys-font-family-display);
+    font-size: 18px;
+    font-weight: var(--sys-font-weight-bold);
+    line-height: 1.1;
+    letter-spacing: 0.03em;
+    color: var(--sys-color-text-white);
+  }
+
+  & .hud-telemetry-sub {
+    font-size: 11px;
+    font-weight: var(--sys-font-weight-medium);
+    color: #6b7a8d;
+  }
+
+  /* Color Theme Modifiers */
+  & .hud-stats-telemetry-root.color-neon,
+  &[color="neon"] {
+    & .hud-telemetry-icon-box {
+      color: var(--sys-color-primary);
+      border-color: var(--sys-color-primary-alpha-35);
+    }
+    & .hud-telemetry-value {
+      color: var(--sys-color-primary);
+    }
+  }
+
+  & .hud-stats-telemetry-root.color-cyan,
+  &[color="cyan"] {
+    & .hud-telemetry-icon-box {
+      color: var(--sys-color-secondary);
+      border-color: var(--sys-color-secondary-alpha-35);
+    }
+    & .hud-telemetry-value {
+      color: var(--sys-color-secondary);
+    }
+  }
+
+  & .hud-stats-telemetry-root.color-amber,
+  &[color="amber"] {
+    & .hud-telemetry-icon-box {
+      color: var(--sys-color-warning);
+      border-color: var(--sys-color-warning-alpha-35);
+    }
+    & .hud-telemetry-value {
+      color: var(--sys-color-warning);
+    }
+  }
+
+  & .hud-stats-telemetry-root.color-crimson,
+  &[color="crimson"] {
+    & .hud-telemetry-icon-box {
+      color: var(--sys-color-danger);
+      border-color: var(--sys-color-danger-alpha-35);
+    }
+    & .hud-telemetry-value {
+      color: var(--sys-color-danger);
+    }
+  }
+}

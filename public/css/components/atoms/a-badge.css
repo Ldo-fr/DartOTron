@@ -1,0 +1,51 @@
+/* ==========================================================================
+   ATOM: CyberHUD Badge Pill Component (<a-badge>, .badge, .hit-badge)
+   ========================================================================== */
+
+a-badge,
+.badge,
+.hit-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--sys-radius-full);
+  font-family: var(--sys-font-family-display);
+  font-size: 11px;
+  font-weight: var(--sys-font-weight-bold);
+  letter-spacing: var(--sys-font-tracking-wider);
+  text-transform: uppercase;
+  line-height: 1.1;
+  background: var(--sys-color-surface-high);
+  color: var(--sys-color-text-primary);
+  border: 1px solid var(--sys-color-border-ghost);
+
+  &[color="neon"],
+  &.badge-neon {
+    color: var(--sys-color-primary);
+    background: var(--sys-color-primary-alpha-15);
+    border-color: var(--sys-color-primary-alpha-35);
+  }
+
+  &[color="cyan"],
+  &.badge-cyan {
+    color: var(--sys-color-secondary);
+    background: var(--sys-color-secondary-alpha-15);
+    border-color: var(--sys-color-secondary-alpha-35);
+  }
+
+  &[color="amber"],
+  &.badge-amber {
+    color: var(--sys-color-warning);
+    background: var(--sys-color-warning-alpha-15);
+    border-color: var(--sys-color-warning-alpha-35);
+  }
+
+  &[color="crimson"],
+  &.badge-crimson {
+    color: var(--sys-color-danger);
+    background: var(--sys-color-danger-alpha-15);
+    border-color: var(--sys-color-danger-alpha-35);
+  }
+}

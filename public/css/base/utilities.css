@@ -1,0 +1,345 @@
+/* ==========================================================================
+   DARTOTRON CYBERHUD — BASE UTILITIES
+   File: public/css/base/utilities.css
+   Modular helper classes to eliminate static inline styles
+   ========================================================================== */
+
+/* ==========================================================================
+   1. Layout & Flexbox Helpers
+   ========================================================================== */
+.u-flex           { display: flex !important; }
+.u-inline-flex    { display: inline-flex !important; }
+.u-block          { display: block !important; }
+.u-inline-block    { display: inline-block !important; }
+
+.u-flex-col       { flex-direction: column !important; }
+.u-flex-row       { flex-direction: row !important; }
+.u-flex-wrap      { flex-wrap: wrap !important; }
+.u-flex-nowrap    { flex-wrap: nowrap !important; }
+.u-flex-1         { flex: 1 1 0% !important; }
+.u-flex-auto      { flex: 1 1 auto !important; }
+.u-flex-none      { flex: none !important; }
+
+.u-items-start    { align-items: flex-start !important; }
+.u-items-center   { align-items: center !important; }
+.u-items-end      { align-items: flex-end !important; }
+.u-items-stretch  { align-items: stretch !important; }
+.u-items-baseline { align-items: baseline !important; }
+
+.u-justify-start   { justify-content: flex-start !important; }
+.u-justify-center  { justify-content: center !important; }
+.u-justify-end     { justify-content: flex-end !important; }
+.u-justify-between { justify-content: space-between !important; }
+.u-justify-around  { justify-content: space-around !important; }
+
+/* Grid Helpers */
+.u-grid           { display: grid !important; }
+.u-grid-1col      { display: grid !important; grid-template-columns: 1fr !important; }
+.u-grid-2col      { display: grid !important; grid-template-columns: 1fr 1fr !important; }
+.u-grid-3col      { display: grid !important; grid-template-columns: repeat(3, 1fr) !important; }
+.u-grid-4col      { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; }
+
+/* ==========================================================================
+   2. Spacing Helpers (Gaps, Margins, Paddings)
+   ========================================================================== */
+.u-gap-3xs { gap: var(--sys-spacing-3xs, 0.125rem) !important; } /* 2px */
+.u-gap-2xs { gap: var(--sys-spacing-2xs, 0.25rem) !important; }  /* 4px */
+.u-gap-xs  { gap: var(--sys-spacing-xs, 0.5rem) !important; }    /* 8px */
+.u-gap-sm  { gap: var(--sys-spacing-sm, 0.75rem) !important; }   /* 12px */
+.u-gap-md  { gap: var(--sys-spacing-md, 1rem) !important; }      /* 16px */
+.u-gap-lg  { gap: var(--sys-spacing-lg, 1.25rem) !important; }   /* 20px */
+.u-gap-xl  { gap: var(--sys-spacing-xl, 1.5rem) !important; }    /* 24px */
+.u-gap-2xl { gap: var(--sys-spacing-2xl, 2rem) !important; }     /* 32px */
+
+/* Margins */
+.u-m-0      { margin: 0 !important; }
+.u-m-auto   { margin: auto !important; }
+.u-mx-auto  { margin-left: auto !important; margin-right: auto !important; }
+.u-my-auto  { margin-top: auto !important; margin-bottom: auto !important; }
+.u-mt-2xs   { margin-top: var(--sys-spacing-2xs, 0.25rem) !important; }
+.u-mt-xs    { margin-top: var(--sys-spacing-xs, 0.5rem) !important; }
+.u-mt-sm    { margin-top: var(--sys-spacing-sm, 0.75rem) !important; }
+.u-mt-md    { margin-top: var(--sys-spacing-md, 1rem) !important; }
+.u-mt-lg    { margin-top: var(--sys-spacing-lg, 1.25rem) !important; }
+.u-mt-xl    { margin-top: var(--sys-spacing-xl, 1.5rem) !important; }
+.u-mb-2xs   { margin-bottom: var(--sys-spacing-2xs, 0.25rem) !important; }
+.u-mb-xs    { margin-bottom: var(--sys-spacing-xs, 0.5rem) !important; }
+.u-mb-sm    { margin-bottom: var(--sys-spacing-sm, 0.75rem) !important; }
+.u-mb-md    { margin-bottom: var(--sys-spacing-md, 1rem) !important; }
+.u-mb-lg    { margin-bottom: var(--sys-spacing-lg, 1.25rem) !important; }
+
+/* Paddings */
+.u-p-0      { padding: 0 !important; }
+.u-p-2xs    { padding: var(--sys-spacing-2xs, 0.25rem) !important; }
+.u-p-xs     { padding: var(--sys-spacing-xs, 0.5rem) !important; }
+.u-p-sm     { padding: var(--sys-spacing-sm, 0.75rem) !important; }
+.u-p-md     { padding: var(--sys-spacing-md, 1rem) !important; }
+.u-p-lg     { padding: var(--sys-spacing-lg, 1.25rem) !important; }
+.u-p-xl     { padding: var(--sys-spacing-xl, 1.5rem) !important; }
+.u-px-sm    { padding-left: var(--sys-spacing-sm, 0.75rem) !important; padding-right: var(--sys-spacing-sm, 0.75rem) !important; }
+.u-px-md    { padding-left: var(--sys-spacing-md, 1rem) !important; padding-right: var(--sys-spacing-md, 1rem) !important; }
+.u-py-xs    { padding-top: var(--sys-spacing-xs, 0.5rem) !important; padding-bottom: var(--sys-spacing-xs, 0.5rem) !important; }
+.u-py-sm    { padding-top: var(--sys-spacing-sm, 0.75rem) !important; padding-bottom: var(--sys-spacing-sm, 0.75rem) !important; }
+.u-py-md    { padding-top: var(--sys-spacing-md, 1rem) !important; padding-bottom: var(--sys-spacing-md, 1rem) !important; }
+
+/* ==========================================================================
+   3. Visibility & Display Helpers
+   ========================================================================== */
+/* Both .u-hidden and legacy .hidden to prevent JavaScript breakage */
+.u-hidden,
+.hidden {
+  display: none !important;
+}
+
+.u-invisible { visibility: hidden !important; }
+.u-visible   { visibility: visible !important; }
+
+/* ==========================================================================
+   4. Sizing & Overflow Helpers
+   ========================================================================== */
+.u-w-full    { width: 100% !important; }
+.u-h-full    { height: 100% !important; }
+.u-min-w-0   { min-width: 0 !important; }
+.u-min-h-0   { min-height: 0 !important; }
+
+/* Modal width constraints from surveyed dialogs */
+.u-max-w-440 { max-width: 440px !important; }
+.u-max-w-520 { max-width: 520px !important; }
+.u-max-w-580 { max-width: 580px !important; }
+.u-max-w-620 { max-width: 620px !important; }
+.u-max-w-640 { max-width: 640px !important; }
+
+.u-overflow-hidden { overflow: hidden !important; }
+.u-overflow-y-auto { overflow-y: auto !important; }
+.u-overflow-x-auto { overflow-x: auto !important; }
+
+/* ==========================================================================
+   5. Text Colors, Accents & Material Icons
+   ========================================================================== */
+/* Neon Primary (Bullseye Neon #00ff87) */
+.u-text-neon,
+.text-neon,
+.text-bullseye-neon {
+  color: var(--sys-color-primary, #00ff87) !important;
+}
+
+/* Cyan Secondary (Cyber Cyan #4cd7f6) */
+.u-text-cyan,
+.text-cyan,
+.text-cyber-cyan {
+  color: var(--sys-color-secondary, #4cd7f6) !important;
+}
+
+/* Amber Warning / Gold (Tournament Amber #ffd166) */
+.u-text-amber,
+.text-amber,
+.text-tournament-amber,
+.text-gold,
+.highlight-gold {
+  color: var(--sys-color-warning, #ffd166) !important;
+}
+
+/* Crimson Danger / Error (Laser Crimson #ff3366) */
+.u-text-crimson,
+.text-crimson,
+.text-laser-crimson,
+.highlight-crimson {
+  color: var(--sys-color-danger, #ff3366) !important;
+}
+
+/* Purple Accent (#d946ef) */
+.u-text-purple,
+.text-purple {
+  color: #d946ef !important;
+}
+
+/* Crisp White & Neutrals */
+.u-text-white,
+.text-white {
+  color: var(--sys-color-text-white, #ffffff) !important;
+}
+
+.u-text-muted,
+.text-muted {
+  color: var(--sys-color-text-muted, #849585) !important;
+}
+
+.u-text-primary {
+  color: var(--sys-color-text-primary, #dfe2f1) !important;
+}
+
+.u-text-secondary {
+  color: var(--sys-color-text-secondary, #b9cbb9) !important;
+}
+
+/* Text Alignment & Transformations */
+.u-text-left       { text-align: left !important; }
+.u-text-center     { text-align: center !important; }
+.u-text-right      { text-align: right !important; }
+.u-uppercase       { text-transform: uppercase !important; }
+.u-lowercase       { text-transform: lowercase !important; }
+
+.u-font-bold       { font-weight: var(--sys-font-weight-bold, 700) !important; }
+.u-font-extrabold  { font-weight: var(--sys-font-weight-extrabold, 800) !important; }
+.u-font-semibold   { font-weight: var(--sys-font-weight-semibold, 600) !important; }
+.u-font-medium     { font-weight: var(--sys-font-weight-medium, 500) !important; }
+.u-font-normal     { font-weight: var(--sys-font-weight-regular, 400) !important; }
+
+/* Pointer & User-Selection Utilities */
+.u-select-none     { user-select: none !important; -webkit-user-select: none !important; }
+.u-select-text     { user-select: text !important; -webkit-user-select: text !important; }
+.u-pointer         { cursor: pointer !important; }
+.u-pointer-events-none { pointer-events: none !important; }
+.u-pointer-events-auto { pointer-events: auto !important; }
+
+/* Material Icon Sizing Helpers */
+.u-icon-14, .u-icon-xs { font-size: 14px !important; }
+.u-icon-18, .u-icon-sm { font-size: 18px !important; }
+.u-icon-24, .u-icon-md { font-size: 24px !important; }
+.u-icon-28             { font-size: 28px !important; }
+.u-icon-32, .u-icon-lg { font-size: 32px !important; }
+.u-icon-40, .u-icon-xl { font-size: 40px !important; }
+.u-icon-48, .u-icon-2xl{ font-size: 48px !important; }
+
+/* ==========================================================================
+   6. Form & Semantic Component Helpers (Replaces Surveyed Inlines)
+   ========================================================================== */
+.form-row-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sys-spacing-sm, 0.75rem);
+}
+
+.form-row-1col {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sys-spacing-sm, 0.75rem);
+}
+
+.form-field-group--compact {
+  margin-top: var(--sys-spacing-2xs, 0.25rem);
+}
+
+.hud-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: var(--sys-spacing-xs, 0.5rem);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.cyber-checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--sys-color-primary, #00ff87);
+  cursor: pointer;
+}
+
+.hud-checkbox-text {
+  font-size: var(--sys-font-size-xs, 0.88rem);
+  color: var(--sys-color-text-primary, #dfe2f1);
+  font-weight: var(--sys-font-weight-medium, 500);
+}
+
+.form-error-feedback {
+  color: var(--sys-color-danger, #ff3366);
+  font-size: var(--sys-font-size-xs, 0.9rem);
+  font-weight: var(--sys-font-weight-semibold, 600);
+  padding: var(--sys-spacing-2xs, 0.25rem) 0;
+}
+
+/* Generic Cyber Input & Select Fields */
+.cyber-input-field,
+.cyber-select-field {
+  height: 46px;
+  background: var(--sys-color-surface-low, #171b26);
+  border: var(--sys-border-subtle, 1px solid rgba(255, 255, 255, 0.12));
+  border-radius: var(--sys-radius-md, 8px);
+  padding: 0 var(--sys-spacing-sm, 14px);
+  color: var(--sys-color-text-white, #ffffff);
+  font-family: inherit;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color var(--sys-transition-fast, 0.12s ease),
+              box-shadow var(--sys-transition-fast, 0.12s ease);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.cyber-input-field:focus,
+.cyber-select-field:focus {
+  border-color: var(--sys-color-primary, #00ff87);
+  box-shadow: 0 0 12px rgba(0, 255, 135, 0.25);
+}
+
+.cyber-select-field option {
+  background: var(--sys-color-surface-low, #171b26);
+  color: var(--sys-color-text-white, #ffffff);
+}
+
+/* Topbar Brand & Badge Helpers */
+.topbar-brand-title {
+  font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+  font-size: 20px;
+  font-weight: var(--sys-font-weight-extrabold, 800);
+  letter-spacing: 0.08em;
+  color: var(--sys-color-text-white, #ffffff);
+}
+
+.topbar-brand-badge,
+.u-badge-neon {
+  padding: 2px 7px;
+  border-radius: var(--sys-radius-sm, 4px);
+  background: var(--sys-color-primary-alpha-15, rgba(0, 255, 135, 0.15));
+  border: 1px solid var(--sys-color-primary-alpha-35, rgba(0, 255, 135, 0.35));
+  color: var(--sys-color-primary, #00ff87);
+  font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+  font-size: 10px;
+  font-weight: var(--sys-font-weight-extrabold, 800);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.modal-tag-badge--cyan,
+.u-badge-cyan {
+  padding: 2px 7px;
+  border-radius: var(--sys-radius-sm, 4px);
+  background: var(--sys-color-secondary-alpha-15, rgba(76, 215, 246, 0.15));
+  border: 1px solid var(--sys-color-secondary-alpha-35, rgba(76, 215, 246, 0.35));
+  color: var(--sys-color-secondary, #4cd7f6);
+  font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+  font-size: 10px;
+  font-weight: var(--sys-font-weight-extrabold, 800);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.modal-icon-badge--cyan {
+  background: var(--sys-color-secondary-alpha-15, rgba(76, 215, 246, 0.15));
+  border-color: var(--sys-color-secondary-alpha-35, rgba(76, 215, 246, 0.35));
+  color: var(--sys-color-secondary, #4cd7f6);
+}
+
+/* Companion QR Container */
+.companion-qr-box,
+#companion-qr-container {
+  width: 220px;
+  height: 220px;
+  padding: var(--sys-spacing-sm, 12px);
+  background: var(--sys-color-background-void, #060a12);
+  border: 2px solid var(--sys-color-secondary-alpha-35, rgba(76, 215, 246, 0.35));
+  border-radius: var(--sys-radius-xl, 16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), var(--sys-shadow-glow-cyan);
+}
+
+#companion-qr-container svg,
+.companion-qr-box svg {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--sys-radius-lg, 12px);
+}

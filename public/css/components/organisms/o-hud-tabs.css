@@ -1,0 +1,173 @@
+/* ==========================================================================
+   ORGANISM: Stitch CyberHUD Folder Tabs (<hud-tabs>, <o-hud-tabs>)
+   File: public/css/components/organisms/o-hud-tabs.css
+   Composant d'onglets dossier continu CyberHUD 1024x600 Kiosk.
+   ========================================================================== */
+
+hud-tabs,
+o-hud-tabs {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  min-height: 0;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* --------------------------------------------------------------------------
+   1. KIOSK TAB BAR (Ligne supérieure du dossier)
+   -------------------------------------------------------------------------- */
+.kiosk-tab-bar {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  position: relative;
+  z-index: 20;
+  padding-left: 0;
+  padding-right: 0;
+  margin-bottom: 0;
+  background: transparent;
+  border-bottom: none;
+}
+
+.kiosk-tab-bar .tab-btn,
+.tab-btn {
+  height: 52px;
+  min-width: 140px;
+  padding: 0 20px;
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  position: relative;
+  transition: all var(--sys-transition-fast, 0.15s ease);
+  outline: none;
+  box-sizing: border-box;
+  border: none;
+}
+
+.kiosk-tab-bar .tab-btn.active-tab,
+.tab-btn.active-tab {
+  background: var(--sys-color-surface-low, #171b26) !important;
+  border-top: 2px solid var(--sys-color-primary, #00ff87) !important;
+  border-left: 2px solid var(--sys-color-primary, #00ff87) !important;
+  border-right: 2px solid var(--sys-color-primary, #00ff87) !important;
+  border-bottom: 0px solid transparent !important;
+  box-shadow: 0 -4px 16px rgba(0, 255, 135, 0.2);
+  z-index: 30;
+  color: var(--sys-color-primary, #00ff87);
+}
+
+.kiosk-tab-bar .tab-btn.inactive-tab,
+.tab-btn.inactive-tab {
+  background: var(--sys-color-surface-lowest, #0a0e18) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-left: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-bottom: 2px solid var(--sys-color-primary, #00ff87) !important;
+  margin-bottom: 0px;
+  z-index: 10;
+  color: var(--sys-color-text-muted, #849585);
+}
+
+.kiosk-tab-bar .tab-btn.inactive-tab:hover,
+.tab-btn.inactive-tab:hover {
+  background: rgba(38, 42, 53, 0.6) !important;
+  color: var(--sys-color-text-primary, #dfe2f1);
+}
+
+.tab-bottom-cover {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background-color: var(--sys-color-surface-low, #171b26);
+  pointer-events: none;
+}
+
+.tab-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: var(--sys-color-primary, #00ff87);
+  box-shadow: 0 0 8px var(--sys-color-primary, #00ff87);
+  flex-shrink: 0;
+}
+
+.tab-icon {
+  font-size: 20px;
+  transition: color var(--sys-transition-fast, 0.15s ease);
+}
+
+.tab-label {
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.tab-btn.active-tab .tab-icon,
+.tab-btn.active-tab .tab-label {
+  color: var(--sys-color-primary, #00ff87);
+}
+
+.tab-btn.inactive-tab .tab-icon,
+.tab-btn.inactive-tab .tab-label {
+  color: var(--sys-color-text-muted, #849585);
+}
+
+.tab-btn.inactive-tab:hover .tab-icon {
+  color: var(--sys-color-secondary, #4cd7f6);
+}
+
+.tab-btn.inactive-tab:hover .tab-label {
+  color: var(--sys-color-text-primary, #dfe2f1);
+}
+
+/* --------------------------------------------------------------------------
+   2. FOLDER BODY CONTAINER (Corps continu sous les onglets)
+   -------------------------------------------------------------------------- */
+.tab-panel-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  margin-top: -2px;
+  background: var(--sys-color-surface-low, #171b26);
+  border: 2px solid var(--sys-color-primary, #00ff87);
+  border-radius: 0 16px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  box-sizing: border-box;
+}
+
+hud-tab-panel,
+m-hud-tab-panel,
+.tab-panel-view {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  scrollbar-width: thin;
+  box-sizing: border-box;
+}
+
+hud-tab-panel.hidden,
+m-hud-tab-panel.hidden,
+.tab-panel-view.hidden {
+  display: none !important;
+}

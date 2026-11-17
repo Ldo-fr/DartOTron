@@ -1,0 +1,567 @@
+/* ==========================================================================
+   DARTOTRON CYBERHUD — SIMULATOR STYLESHEET
+   File: public/simulator/simulator.css
+   Hardware Arduino Dartboard Simulator view.
+   Standard W3C native CSS with zero build tools.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Design Tokens Import
+   -------------------------------------------------------------------------- */
+@import '../css/tokens/tokens.css';
+@import '../css/components/organisms/o-dartboard.css';
+
+/* --------------------------------------------------------------------------
+   2. Contextual Simulator Aliases
+   -------------------------------------------------------------------------- */
+:root {
+  --bg-surface: var(--sys-color-background-void);
+  --bg-surface-low: var(--sys-color-surface-low);
+  --bg-surface-high: var(--sys-color-surface-high);
+  --bg-surface-highest: var(--sys-color-surface-highest);
+  --neon-green: var(--sys-color-primary);
+  --cyber-cyan: var(--sys-color-secondary);
+  --laser-crimson: var(--sys-color-danger);
+  --tournament-amber: var(--sys-color-warning);
+  --text-primary: var(--sys-color-text-primary);
+  --text-muted: var(--sys-color-text-muted);
+  --font-display: var(--sys-font-family-display);
+  --font-body: var(--sys-font-family-body);
+  --font-digital: var(--sys-font-family-mono);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+  -webkit-user-select: none;
+  overflow-x: hidden;
+}
+
+.companion-app {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sys-spacing-sm);
+  min-height: 100vh;
+}
+
+/* ==================== HEADER & LIVE STATUS ==================== */
+.companion-header {
+  background: var(--bg-surface-low);
+  border: var(--sys-border-ghost);
+  border-radius: var(--sys-radius-lg);
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sys-spacing-md);
+  flex-wrap: wrap;
+  box-shadow: var(--sys-shadow-panel);
+}
+
+.companion-title-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.companion-icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--sys-radius-md);
+  background: var(--bg-surface-high);
+  border: var(--sys-border-neon);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--neon-green);
+  box-shadow: var(--sys-shadow-glow-neon);
+}
+
+.companion-brand-logo {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.companion-icon-box .material-symbols-outlined {
+  font-size: 28px;
+}
+
+.companion-badge-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sys-spacing-xs);
+  margin-bottom: 2px;
+}
+
+.badge-tag-neon {
+  padding: 2px 8px;
+  border-radius: var(--sys-radius-full);
+  background: var(--neon-green);
+  color: var(--sys-color-primary-on);
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.status-indicator-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px;
+  border-radius: var(--sys-radius-full);
+  background: var(--sys-color-border-ghost);
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.status-dot-blink {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--sys-radius-full);
+  background: var(--tournament-amber);
+}
+
+.status-indicator-pill.connected .status-dot-blink {
+  background: var(--neon-green);
+  box-shadow: 0 0 8px var(--neon-green);
+}
+
+.status-indicator-pill.connected {
+  color: var(--neon-green);
+}
+
+.companion-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--sys-color-text-white);
+  letter-spacing: -0.01em;
+}
+
+.live-match-box {
+  display: flex;
+  align-items: center;
+  gap: var(--sys-spacing-md);
+  background: var(--sys-color-background-void);
+  border: var(--sys-border-ghost);
+  border-radius: var(--sys-radius-md);
+  padding: 6px 14px;
+}
+
+.live-meta-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.live-lbl {
+  font-family: var(--font-display);
+  font-size: 9px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.live-val {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.highlight-neon { color: var(--neon-green); }
+.highlight-cyan { color: var(--cyber-cyan); }
+.highlight-amber { color: var(--tournament-amber); }
+.highlight-crimson { color: var(--laser-crimson); }
+.digital-number { font-family: var(--font-digital); font-size: 16px; }
+
+/* ==================== CABINET BUTTONS BAR ==================== */
+.cabinet-buttons-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.cab-btn {
+  height: 58px;
+  border-radius: var(--sys-radius-md);
+  border: var(--sys-border-ghost);
+  background: var(--bg-surface-high);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 12px;
+  cursor: pointer;
+  transition: all var(--sys-transition-fast);
+  outline: none;
+}
+
+.cab-btn:active {
+  transform: scale(0.96);
+}
+
+.cab-btn .material-symbols-outlined {
+  font-size: 26px;
+}
+
+.cab-btn-labels {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.cab-btn-title {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--sys-color-text-white);
+}
+
+.cab-btn-sub {
+  font-family: var(--font-digital);
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.btn-player-next {
+  border-color: var(--sys-color-primary-alpha-35);
+  background: var(--sys-color-primary-alpha-15);
+}
+.btn-player-next .material-symbols-outlined,
+.btn-player-next .cab-btn-title {
+  color: var(--neon-green);
+}
+.btn-player-next:hover {
+  box-shadow: var(--sys-shadow-glow-neon);
+}
+
+.btn-backup-undo {
+  border-color: var(--sys-color-warning-alpha-35);
+  background: var(--sys-color-warning-alpha-15);
+}
+.btn-backup-undo .material-symbols-outlined,
+.btn-backup-undo .cab-btn-title {
+  color: var(--tournament-amber);
+}
+
+.btn-miss-dart {
+  border-color: var(--sys-color-danger-alpha-35);
+  background: var(--sys-color-danger-alpha-15);
+}
+.btn-miss-dart .material-symbols-outlined,
+.btn-miss-dart .cab-btn-title {
+  color: var(--laser-crimson);
+}
+
+.btn-game-abort {
+  border-color: var(--sys-color-border-ghost);
+}
+.btn-game-abort .material-symbols-outlined {
+  color: var(--text-muted);
+}
+
+/* ==================== WORKSPACE GRID ==================== */
+.companion-main {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: var(--sys-spacing-sm);
+  flex: 1;
+}
+
+.board-column,
+.controls-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sys-spacing-sm);
+}
+
+/* Generic Panel Card */
+.panel-card {
+  background: var(--bg-surface-low);
+  border: var(--sys-border-ghost);
+  border-radius: var(--sys-radius-lg);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: var(--sys-shadow-panel);
+}
+
+.panel-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--sys-color-border-ghost);
+}
+
+.panel-title {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.panel-title .material-symbols-outlined {
+  font-size: 18px;
+  color: var(--cyber-cyan);
+}
+
+/* Dartboard SVG Wrapper */
+.dartboard-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  flex: 1;
+}
+
+.dartboard-container {
+  width: 100%;
+  max-width: 440px;
+  aspect-ratio: 1/1;
+  position: relative;
+}
+
+.dartboard-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.6));
+}
+
+.dart-impact-marker {
+  animation: dart-pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  pointer-events: none;
+  filter: brightness(1.7) drop-shadow(0 0 12px var(--sys-color-primary));
+}
+
+@keyframes dart-pop {
+  0% { transform: scale(0); opacity: 0; }
+  70% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Sector hit feedback panel */
+.last-hit-readout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-surface-high);
+  border-radius: var(--sys-radius-md);
+  padding: 8px 14px;
+}
+
+.hit-desc {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--sys-color-text-white);
+}
+
+.hit-score-badge {
+  font-family: var(--font-digital);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--neon-green);
+}
+
+/* Tab & Keypad Controls */
+.multiplier-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  background: var(--bg-surface);
+  padding: 4px;
+  border-radius: var(--sys-radius-md);
+  border: var(--sys-border-ghost);
+}
+
+.mult-tab {
+  height: 36px;
+  border-radius: var(--sys-radius-sm);
+  background: transparent;
+  border: none;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--sys-transition-instant);
+}
+
+.mult-tab.active {
+  background: var(--bg-surface-high);
+  color: var(--neon-green);
+  box-shadow: 0 0 6px var(--sys-color-primary-alpha-25);
+}
+
+.numbers-keypad-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+}
+
+.num-cell-btn {
+  height: 40px;
+  border-radius: var(--sys-radius-sm);
+  background: var(--bg-surface-high);
+  border: var(--sys-border-ghost);
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--sys-transition-instant);
+}
+
+.num-cell-btn:active {
+  transform: scale(0.95);
+  background: var(--neon-green);
+  color: var(--sys-color-primary-on-dark);
+}
+
+.num-cell-btn:hover {
+  border-color: var(--cyber-cyan);
+  color: var(--cyber-cyan);
+}
+
+/* ==================== RAW ARDUINO SENDER ==================== */
+.raw-input-row {
+  display: flex;
+  gap: 8px;
+}
+
+.raw-char-field {
+  width: 120px;
+  height: 44px;
+  border-radius: var(--sys-radius-md);
+  background: var(--sys-color-background-void);
+  border: 1px solid var(--sys-color-border-subtle);
+  color: var(--neon-green);
+  font-family: var(--font-digital);
+  font-size: 18px;
+  text-align: center;
+  outline: none;
+}
+
+.raw-char-field:focus {
+  border-color: var(--neon-green);
+  box-shadow: 0 0 10px var(--sys-color-primary-alpha-35);
+}
+
+.btn-send-raw {
+  flex: 1;
+  height: 44px;
+  border-radius: var(--sys-radius-md);
+  background: var(--bg-surface-high);
+  border: 1px solid var(--sys-color-border-subtle);
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all var(--sys-transition-fast);
+}
+
+.btn-send-raw:hover {
+  border-color: var(--cyber-cyan);
+  color: var(--cyber-cyan);
+}
+
+.btn-send-raw:active {
+  transform: scale(0.98);
+}
+
+/* ==================== TOAST ==================== */
+.companion-toast {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  background: var(--sys-color-surface-low);
+  border: 1px solid var(--neon-green);
+  box-shadow: var(--sys-shadow-glow-neon);
+  padding: 8px 16px;
+  border-radius: var(--sys-radius-md);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--neon-green);
+  z-index: var(--sys-zindex-toast);
+  transition: opacity var(--sys-transition-normal), transform var(--sys-transition-normal);
+}
+
+.companion-toast.hidden {
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+}
+
+.companion-toast.toast--error {
+  border-color: var(--laser-crimson, var(--sys-color-danger));
+  color: var(--laser-crimson, var(--sys-color-danger));
+}
+
+.companion-toast.toast--success {
+  border-color: var(--neon-green, var(--sys-color-primary));
+  color: var(--neon-green, var(--sys-color-primary));
+}
+
+.num-pts {
+  font-size: 10px;
+  opacity: 0.6;
+  margin-left: 4px;
+}
+
+/* ==================== RESPONSIVE (MOBILE) ==================== */
+@media (max-width: 900px) {
+  .companion-main {
+    grid-template-columns: 1fr;
+  }
+  .cabinet-buttons-bar {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .dartboard-container {
+    max-width: 360px;
+  }
+  .numbers-keypad-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

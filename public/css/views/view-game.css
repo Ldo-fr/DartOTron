@@ -1,0 +1,445 @@
+/* ==========================================================================
+   DARTOTRON CYBERHUD — IN-GAME VIEW STYLESHEET
+   File: public/css/views/view-game.css
+   Architecture: Live match HUD, table scoreboards, darts telemetry, tactile toolbar
+   Standard: Modern CSS Level 4 (Zero dependencies, native CSS Nesting)
+   ========================================================================== */
+
+#view-game,
+.in-game-view {
+  width: 100%;
+  height: 100%;
+  padding: var(--sys-spacing-xs, 8px) var(--sys-spacing-sm, 12px);
+  background: var(--sys-color-background-void, #0a0e18);
+  overflow: hidden;
+  user-select: none;
+  box-sizing: border-box;
+
+  &.active {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   1. IN-GAME CYBERHUD HEADER (TOPBAR PRO)
+   -------------------------------------------------------------------------- */
+.game-hud-stitch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sys-spacing-sm, 12px);
+  padding: 8px 16px;
+  border-radius: var(--sys-radius-md, 8px);
+  background: var(--sys-color-surface-low, #171b26);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  flex-shrink: 0;
+
+  & .hud-left-group {
+    display: flex;
+    align-items: center;
+    gap: var(--sys-spacing-sm, 12px);
+    min-width: 0;
+  }
+
+  & .hud-series-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    border-radius: var(--sys-radius-sm, 4px);
+    background: var(--sys-color-primary-alpha-10, rgba(0, 255, 135, 0.1));
+    border: 1px solid var(--sys-color-primary-alpha-35, rgba(0, 255, 135, 0.3));
+    color: var(--sys-color-primary, #00ff87);
+    font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+    font-size: 11px;
+    font-weight: var(--sys-font-weight-extrabold, 800);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  & .hud-pulse-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: var(--sys-radius-full, 9999px);
+    background: var(--sys-color-primary, #00ff87);
+    box-shadow: 0 0 6px var(--sys-color-primary, #00ff87);
+    animation: pulse-dot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  & .hud-mode-title {
+    font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+    font-size: 1.3rem;
+    font-weight: var(--sys-font-weight-bold, 700);
+    color: var(--sys-color-text-white, #ffffff);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  & .hud-divider {
+    width: 1px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  & .hud-round-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: var(--sys-color-surface-container, #1c1f2a);
+  }
+
+  & .hud-round-label {
+    font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+    font-size: 11px;
+    font-weight: var(--sys-font-weight-bold, 700);
+    color: var(--sys-color-text-secondary, #b9cbb9);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  & .hud-round-num {
+    font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+    font-size: 18px;
+    font-weight: var(--sys-font-weight-bold, 700);
+    color: #ffffff;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+
+  & .hud-round-max {
+    font-family: var(--sys-font-family-body, 'Plus Jakarta Sans', sans-serif);
+    font-size: 14px;
+    color: rgba(185, 203, 185, 0.6);
+    margin-left: 2px;
+  }
+
+  & .hud-right-group {
+    display: flex;
+    align-items: center;
+    gap: var(--sys-spacing-sm, 12px);
+    flex-shrink: 0;
+  }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+/* --------------------------------------------------------------------------
+   2. DARTS IMPACTS & AMMO INDICATORS
+   -------------------------------------------------------------------------- */
+.hud-impacts-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px;
+  border-radius: 6px;
+  background: var(--sys-color-background-void, #0a0e18);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.hud-impact-pill {
+  min-width: 40px;
+  height: 32px;
+  padding: 0 8px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+  font-size: 1.1rem;
+  font-weight: var(--sys-font-weight-bold, 700);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+
+  &.is-gold {
+    background: var(--sys-color-warning-alpha-15, rgba(255, 209, 102, 0.15));
+    border: 1px solid var(--sys-color-warning-alpha-35, rgba(255, 209, 102, 0.4));
+    color: var(--sys-color-warning, #ffd166);
+    box-shadow: 0 0 10px rgba(255, 209, 102, 0.18);
+  }
+
+  &.is-neon {
+    background: var(--sys-color-primary-alpha-25, rgba(0, 255, 135, 0.2));
+    border: 1px solid var(--sys-color-primary-alpha-35, rgba(0, 255, 135, 0.4));
+    color: var(--sys-color-primary, #00ff87);
+    box-shadow: 0 0 10px rgba(0, 255, 135, 0.25);
+  }
+
+  &.is-miss {
+    background: var(--sys-color-danger-alpha-15, rgba(255, 51, 102, 0.15));
+    border: 1px solid rgba(255, 51, 102, 0.5);
+    color: var(--sys-color-danger, #ff3366);
+    box-shadow: 0 0 10px rgba(255, 51, 102, 0.2);
+  }
+
+  &.is-empty {
+    background: rgba(28, 31, 42, 0.6);
+    border: 1px dashed var(--sys-color-primary-alpha-35, rgba(0, 255, 135, 0.4));
+    color: rgba(0, 255, 135, 0.6);
+  }
+}
+
+.hud-ammo-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: var(--sys-color-surface-container, #1c1f2a);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+
+  & .hud-ammo-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--sys-transition-normal, 0.2s ease);
+
+    & .material-symbols-outlined {
+      font-size: 18px;
+      transform: rotate(45deg);
+    }
+
+    &.spent {
+      background: var(--sys-color-background-void, #0a0e18);
+      opacity: 0.25;
+      color: var(--sys-color-text-secondary, #b9cbb9);
+    }
+
+    &.active {
+      background: var(--sys-color-primary-alpha-25, rgba(0, 255, 135, 0.2));
+      border: 1px solid var(--sys-color-primary-alpha-35, rgba(0, 255, 135, 0.4));
+      color: var(--sys-color-primary, #00ff87);
+      box-shadow: 0 0 12px rgba(0, 255, 135, 0.45);
+    }
+  }
+}
+
+.btn-hud-quit {
+  height: 40px;
+  padding: 0 14px;
+  border-radius: var(--sys-radius-md, 8px);
+  background: var(--sys-color-danger-alpha-15, rgba(255, 51, 102, 0.15));
+  border: 1px solid rgba(255, 51, 102, 0.5);
+  color: var(--sys-color-danger, #ff3366);
+  font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+  font-size: 11px;
+  font-weight: var(--sys-font-weight-bold, 700);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  box-shadow: 0 0 14px rgba(255, 51, 102, 0.15);
+  transition: all var(--sys-transition-fast, 0.15s ease);
+
+  &:hover {
+    background: rgba(255, 51, 102, 0.25);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. MIDDLE BOARD: TABLEAU CENTRAL SCOREBOARD
+   -------------------------------------------------------------------------- */
+.game-board-container {
+  flex: 1;
+  min-height: 0;
+  margin: var(--sys-spacing-xs, 8px) 0;
+  border-radius: var(--sys-radius-md, 8px);
+  background: var(--sys-color-background-void, #0a0e18);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: var(--sys-shadow-card, 0 4px 20px rgba(0, 0, 0, 0.5));
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+}
+
+.game-board-table {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: auto;
+
+  & thead {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+
+    & tr {
+      background: var(--sys-color-surface-low, #171b26);
+    }
+
+    & th {
+      padding: 10px 14px;
+      color: var(--sys-color-text-primary, #dfe2f1);
+      font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+      font-weight: var(--sys-font-weight-bold, 700);
+      font-size: 1.15rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      vertical-align: middle;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+
+      &.th-player {
+        text-align: left;
+        padding-left: 20px;
+        width: 100%;
+      }
+
+      &.th-stat {
+        text-align: right;
+        min-width: 65px;
+      }
+    }
+  }
+
+  & tbody tr {
+    transition: background var(--sys-transition-fast, 0.15s ease);
+
+    &.is-active {
+      background: rgba(0, 255, 135, 0.05);
+      border-left: 3px solid var(--sys-color-primary, #00ff87);
+    }
+
+    &.is-inactive {
+      opacity: 0.75;
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4. BOTTOM ACTION BAR: TACTILE TOUCH BUTTONS
+   -------------------------------------------------------------------------- */
+.game-bottom-bar-stitch {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--sys-spacing-xs, 8px);
+  flex-shrink: 0;
+  height: 64px;
+  padding-top: 4px;
+  position: relative;
+  z-index: var(--sys-zindex-fixed, 50);
+
+  body.hide-onscreen-buttons & {
+    display: none !important;
+  }
+
+  &.is-waiting-player .btn-touch-undo,
+  &.is-waiting-player .btn-touch-miss {
+    display: none !important;
+  }
+
+  &.is-waiting-player .btn-touch-next {
+    grid-column: 8 / span 5 !important;
+  }
+}
+
+.btn-game-touch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 100%;
+  border-radius: var(--sys-radius-md, 8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  user-select: none;
+  transition: transform var(--sys-transition-instant, 0.1s ease), background var(--sys-transition-fast, 0.15s ease);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.btn-touch-undo {
+  grid-column: span 3 / span 3;
+  background: var(--sys-color-surface-high, #262a35);
+  color: var(--sys-color-text-primary, #dfe2f1);
+
+  &:hover { background: var(--sys-color-surface-bright, #353944); }
+  & .material-symbols-outlined { font-size: 24px; color: var(--sys-color-danger, #ff3366); }
+}
+
+.btn-touch-miss {
+  grid-column: span 4 / span 4;
+  background: var(--sys-color-surface-high, #262a35);
+  color: var(--sys-color-danger, #ff3366) !important;
+  border-color: rgba(255, 51, 102, 0.3);
+
+  &:hover { background: var(--sys-color-surface-bright, #353944); }
+  & .material-symbols-outlined { font-size: 24px; color: var(--sys-color-danger, #ff3366); }
+}
+
+.btn-touch-next {
+  grid-column: span 5 / span 5;
+  background: var(--sys-color-primary, #00ff87);
+  color: var(--sys-color-primary-on, #003919) !important;
+  border: none;
+  justify-content: space-between;
+  padding: 0 20px;
+  box-shadow: 0 0 20px rgba(0, 255, 135, 0.35);
+
+  &:hover { background: var(--sys-color-primary-dim, #00e478); }
+
+  &.is-waiting-next {
+    animation: pulse-waiting-next 1.2s infinite ease-in-out;
+  }
+}
+
+@keyframes pulse-waiting-next {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(0, 255, 135, 0.5), inset 0 0 6px rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 0 45px rgba(0, 255, 135, 0.95), inset 0 0 16px rgba(255, 255, 255, 0.6);
+  }
+}
+
+.btn-touch-text-wrap {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+
+  & .btn-touch-main {
+    font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+    font-size: 1.15rem;
+    font-weight: var(--sys-font-weight-bold, 700);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  & .btn-touch-sub {
+    font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+    font-size: 0.72rem;
+    font-weight: var(--sys-font-weight-bold, 700);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 3px;
+  }
+}

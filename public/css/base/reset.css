@@ -1,0 +1,198 @@
+/* ==========================================================================
+   DARTOTRON CYBERHUD — BASE RESET
+   File: public/css/base/reset.css
+   Modern box-sizing, touchscreen touch-action, system font smoothing, scrollbars
+   ========================================================================== */
+
+/* Universal Box-Sizing & Margin/Padding Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Kiosk Touchscreen Optimizations: Zero Tap Delay & Tap Highlight */
+* {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Arcade UI User-Selection Control */
+html,
+body,
+button,
+header,
+footer,
+nav,
+table,
+.hud-card,
+.topbar {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Permit text selection strictly on interactive editable controls */
+input,
+textarea,
+[contenteditable="true"],
+.selectable {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+/* Base HTML & Body Viewport Canvas */
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--sys-color-background-void, #0a0e18);
+  color: var(--sys-color-text-primary, #dfe2f1);
+  font-family: var(--sys-font-family-body, 'Plus Jakarta Sans', -apple-system, sans-serif);
+  font-size: var(--sys-font-size-sm, 16px);
+  font-weight: var(--sys-font-weight-medium, 500);
+  line-height: var(--sys-font-leading-normal, 1.5);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* ==========================================================================
+   CyberHUD Custom Scrollbars (CSS Standard & WebKit Touch/Chromium)
+   ========================================================================== */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--sys-color-secondary, #4cd7f6) var(--sys-color-surface-lowest, #0a0e18);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--sys-color-surface-lowest, #0a0e18);
+  border-radius: var(--sys-radius-full, 9999px);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--sys-color-secondary, #4cd7f6);
+  border-radius: var(--sys-radius-full, 9999px);
+  border: 2px solid var(--sys-color-surface-lowest, #0a0e18);
+  box-shadow: 0 0 6px rgba(6, 182, 212, 0.4);
+}
+
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:active {
+  background: var(--sys-color-primary, #00ff87);
+  box-shadow: 0 0 10px rgba(0, 255, 135, 0.6);
+}
+
+/* ==========================================================================
+   Interactive & Form Elements Reset
+   ========================================================================== */
+button {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: transform var(--sys-transition-instant, 0.08s ease),
+              border-color var(--sys-transition-fast, 0.12s ease),
+              box-shadow var(--sys-transition-fast, 0.12s ease),
+              background-color var(--sys-transition-fast, 0.12s ease);
+}
+
+/* Arcade Tactile Feedback: 98% scale depress */
+button:active {
+  transform: scale(0.98);
+}
+
+button:disabled,
+button[disabled] {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.45;
+}
+
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+}
+
+/* Remove spin buttons from number inputs for clean arcade appearance */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Media & Embedded Elements */
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Table Reset */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}
+
+th,
+td {
+  text-align: left;
+  vertical-align: middle;
+}
+
+/* List & Link Resets */
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Accessible Focus Ring */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--sys-color-secondary, #4cd7f6);
+  outline-offset: 2px;
+}
+
+/* Selection Highlight */
+::selection {
+  background-color: var(--sys-color-primary-alpha-35, rgba(0, 255, 135, 0.35));
+  color: var(--sys-color-text-white, #ffffff);
+}

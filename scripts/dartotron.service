@@ -1,0 +1,18 @@
+[Unit]
+Description=Serveur DartOTron (Borne de Fléchettes Électronique JS)
+After=network.target sound.target
+
+[Service]
+Type=simple
+User=__USER__
+Group=dialout
+WorkingDirectory=__WORKDIR__
+Environment=NODE_ENV=production
+Environment=PORT=8180
+ExecStart=/usr/bin/env node __WORKDIR__/server/index.js
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
+

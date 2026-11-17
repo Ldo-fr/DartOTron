@@ -1,0 +1,308 @@
+name: Automated Release
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Create GitHub Release & Build Package
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Determine next version, update package.json and generate release notes
+        id: versioning
+        env:
+          REPO_SLUG: ${{ github.repository }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          node - << 'EOF'
+          import fs from 'node:fs';
+          import { execFileSync } from 'node:child_process';
+
+          const repoSlug = process.env.REPO_SLUG || 'Ldo-fr/DartOTron';
+          const eventName = process.env.EVENT_NAME || 'push';
+          const repoUrl = `https://github.com/${repoSlug}`;
+
+          const pkgPath = 'package.json';
+          const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+          const currentVersion = pkg.version || '2.0.0';
+          const baseMatch = currentVersion.match(/^(\d+)\.(\d+)\.(\d+)/);
+          let [major, minor, patch] = baseMatch
+            ? baseMatch.slice(1, 4).map(Number)
+            : [2, 0, 0];
+
+          let lastTag = '';
+          let logRange = 'HEAD~1..HEAD';
+          try {
+            lastTag = execFileSync('git', ['describe', '--tags', '--abbrev=0'], {
+              stdio: ['ignore', 'pipe', 'ignore'],
+              encoding: 'utf8'
+            }).trim();
+            if (lastTag) logRange = `${lastTag}..HEAD`;
+          } catch {
+            // No tag yet
+          }
+
+          let rawLog = '';
+          try {
+            rawLog = execFileSync('git', ['log', logRange, '--pretty=format:%H%x1f%h%x1f%s%x1f%b%x1e'], {
+              encoding: 'utf8'
+            });
+          } catch {
+            rawLog = '';
+          }
+
+          if (!rawLog.trim()) {
+            rawLog = execFileSync('git', ['log', '-1', '--pretty=format:%H%x1f%h%x1f%s%x1f%b%x1e'], {
+              encoding: 'utf8'
+            });
+          }
+
+          const SCOPE_LABELS = {
+            engine: 'Match Engine & Turn Lifecycle',
+            games: 'Game Rules (X01, Cricket, Zlip, Kinito, By Fives)',
+            ui: 'CyberHUD Kiosk Interface',
+            components: 'Atomic Web Components (Light DOM)',
+            css: 'Design Tokens & Modular CSS',
+            companion: 'Mobile Companion (/companion)',
+            showcase: 'Component Showcase (/showcase)',
+            simulator: 'Hardware Simulator (/simulator)',
+            db: 'SQLite V2 Storage & Records',
+            serial: 'Arduino USB Serial Matrix',
+            kiosk: 'Raspberry Pi Kiosk & Systemd Scripts',
+            prd: 'Product Requirements (PRD)',
+            docs: 'Documentation',
+            release: 'CI/CD & Release Automation',
+            ci: 'Continuous Integration'
+          };
+
+          const CATEGORIES = {
+            breaking: ['⚠️ Breaking Changes', []],
+            feat: ['✨ New Features', []],
+            fix: ['🐛 Bug Fixes & Performance', []],
+            docs: ['📚 Documentation', []],
+            other: ['🔧 Internal, Refactoring & Tests', []]
+          };
+
+          const RELEASE_TRIGGER_TYPES = new Set(['feat', 'fix', 'perf', 'refactor', 'revert']);
+
+          let hasBreaking = false;
+          let hasFeat = false;
+          let hasReleaseTrigger = (eventName === 'workflow_dispatch');
+          let totalChanges = 0;
+
+          const CONVENTIONAL_RE = /^([a-zA-Z]+)(?:\(([^)]+)\))?(!)?:\s*(.+)$/;
+
+          for (const rawRecord of rawLog.split('\x1e')) {
+            const record = rawRecord.trim();
+            if (!record) continue;
+            const parts = record.split('\x1f');
+            if (parts.length < 3) continue;
+
+            const fullHash = parts[0].trim();
+            const shortHash = parts[1].trim();
+            const subject = parts[2].trim();
+            const body = (parts[3] || '').trim();
+
+            if (subject.toLowerCase().includes('[skip ci]') || subject.toLowerCase().startsWith('chore(release):')) {
+              continue;
+            }
+
+            const m = subject.match(CONVENTIONAL_RE);
+            let isBreakingCommit = body.toLowerCase().includes('breaking change');
+            let cType = 'other';
+            let cScope = '';
+            let desc = subject;
+
+            if (m) {
+              cType = m[1].toLowerCase();
+              cScope = (m[2] || '').trim().toLowerCase();
+              if (m[3] === '!') isBreakingCommit = true;
+              desc = m[4].trim();
+            }
+
+            if (isBreakingCommit || RELEASE_TRIGGER_TYPES.has(cType)) {
+              hasReleaseTrigger = true;
+            }
+
+            if (desc) {
+              desc = desc.charAt(0).toUpperCase() + desc.slice(1);
+            }
+
+            const scopeLabel = SCOPE_LABELS[cScope] || (cScope ? cScope.replace(/[_-]/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) : '');
+            const commitLink = `([\`${shortHash}\`](${repoUrl}/commit/${fullHash}))`;
+            const line = scopeLabel ? `- **${scopeLabel}**: ${desc} ${commitLink}` : `- ${desc} ${commitLink}`;
+
+            const bodyLines = [];
+            for (const bLine of body.split(/\r?\n/)) {
+              let bClean = bLine.trim();
+              if (!bClean || bClean.toLowerCase().startsWith('signed-off-by:') || bClean.toLowerCase().startsWith('co-authored-by:')) {
+                continue;
+              }
+              if (bClean.startsWith('- ') || bClean.startsWith('* ')) {
+                bClean = bClean.slice(2).trim();
+              }
+              bodyLines.push(`  - ${bClean}`);
+            }
+
+            const entryText = [line, ...bodyLines].join('\n');
+
+            if (isBreakingCommit) {
+              hasBreaking = true;
+              CATEGORIES.breaking[1].push(entryText);
+            } else if (cType === 'feat') {
+              hasFeat = true;
+              CATEGORIES.feat[1].push(entryText);
+            } else if (cType === 'fix' || cType === 'perf') {
+              CATEGORIES.fix[1].push(entryText);
+            } else if (cType === 'docs') {
+              CATEGORIES.docs[1].push(entryText);
+            } else {
+              CATEGORIES.other[1].push(entryText);
+            }
+
+            totalChanges += 1;
+          }
+
+          const githubOutput = process.env.GITHUB_OUTPUT || '';
+          if (!hasReleaseTrigger) {
+            console.log('No release-triggering commits (feat, fix, perf, refactor, revert, or breaking) found since last tag.');
+            if (githubOutput) {
+              fs.appendFileSync(githubOutput, 'should_release=false\n', 'utf8');
+            }
+            process.exit(0);
+          }
+
+          let releaseBanner = '🩹 Maintenance & Patch Release';
+          let versionBumped = false;
+
+          if (!lastTag) {
+            releaseBanner = '🎉 Initial Release';
+          } else {
+            versionBumped = true;
+            if (hasBreaking) {
+              major += 1;
+              minor = 0;
+              patch = 0;
+              releaseBanner = '⚠️ Breaking Release';
+            } else if (hasFeat) {
+              minor += 1;
+              patch = 0;
+              releaseBanner = '🚀 Feature Release';
+            } else {
+              patch += 1;
+            }
+          }
+
+          const newVersion = `${major}.${minor}.${patch}`;
+          const tagName = `v${newVersion}`;
+          const isPrerelease = ['-alpha', '-beta', '-rc'].some(pre => newVersion.includes(pre)) ? 'true' : 'false';
+
+          console.log(`Current version : ${currentVersion}`);
+          console.log(`New version     : ${newVersion} (bumped=${versionBumped}, prerelease=${isPrerelease})`);
+
+          if (versionBumped) {
+            pkg.version = newVersion;
+            fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n', 'utf8');
+          }
+
+          const changeWord = totalChanges === 1 ? 'change' : 'changes';
+          const notesLines = [
+            `## ${releaseBanner} — \`${tagName}\``,
+            '',
+            lastTag
+              ? `This release includes **${totalChanges} ${changeWord}** since \`${lastTag}\`.`
+              : `This release includes **${totalChanges} ${changeWord}**.`,
+            ''
+          ];
+
+          for (const key of ['breaking', 'feat', 'fix', 'docs', 'other']) {
+            const [title, items] = CATEGORIES[key];
+            if (items.length > 0) {
+              notesLines.push(`### ${title}`);
+              notesLines.push(...items);
+              notesLines.push('');
+            }
+          }
+
+          if (lastTag) {
+            notesLines.push('---', '', `**Full Changelog**: [\`${lastTag}...${tagName}\`](${repoUrl}/compare/${lastTag}...${tagName})`);
+          }
+
+          const releaseNotesContent = notesLines.join('\n').trim() + '\n';
+          fs.writeFileSync('release_notes.md', releaseNotesContent, 'utf8');
+
+          if (githubOutput) {
+            fs.appendFileSync(
+              githubOutput,
+              `should_release=true\nversion_bumped=${versionBumped}\nnew_version=${newVersion}\ntag_name=${tagName}\nis_prerelease=${isPrerelease}\n`,
+              'utf8'
+            );
+          }
+          EOF
+
+      - name: Run Unit & E2E Tests before packaging
+        if: steps.versioning.outputs.should_release == 'true'
+        run: |
+          npm test
+          npm run test:e2e
+
+      - name: Build production release archive (dartotron-release.tar.gz)
+        if: steps.versioning.outputs.should_release == 'true'
+        run: |
+          tar -czf dartotron-release.tar.gz \
+            server \
+            public \
+            sounds \
+            scripts \
+            arduino \
+            package.json \
+            LICENSE \
+            README.md \
+            README.fr.md
+
+      - name: Commit version bump to main
+        if: steps.versioning.outputs.should_release == 'true' && steps.versioning.outputs.version_bumped == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add package.json
+          git commit -m "chore(release): bump version to ${{ steps.versioning.outputs.new_version }} [skip ci]"
+          git push origin main || echo "::warning::Direct push to main was restricted by branch protection. Proceeding with tag and release creation..."
+
+      - name: Create and push Git tag
+        if: steps.versioning.outputs.should_release == 'true'
+        run: |
+          git tag ${{ steps.versioning.outputs.tag_name }}
+          git push origin ${{ steps.versioning.outputs.tag_name }}
+
+      - name: Publish GitHub Release
+        if: steps.versioning.outputs.should_release == 'true'
+        run: |
+          FLAGS="--latest"
+          if [ "${{ steps.versioning.outputs.is_prerelease }}" = "true" ]; then
+            FLAGS="--prerelease"
+          fi
+          gh release create "${{ steps.versioning.outputs.tag_name }}" dartotron-release.tar.gz \
+            --title "Release ${{ steps.versioning.outputs.tag_name }}" \
+            --notes-file release_notes.md \
+            $FLAGS
+        env:
+          GH_TOKEN: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}

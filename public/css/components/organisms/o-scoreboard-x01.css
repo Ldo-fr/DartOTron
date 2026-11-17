@@ -1,0 +1,313 @@
+/* ==========================================================================
+   ORGANISM: SCOREBOARD X01 (<o-scoreboard-x01>, <scoreboard-x01>)
+   CyberHUD X01 match table: player rankings, PPD/PPR stats, checkout guide.
+   Native CSS Nesting (&) with root custom element selector.
+   ========================================================================== */
+
+o-scoreboard-x01,
+scoreboard-x01 {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  box-sizing: border-box;
+
+  /* Scoreboard Table Root */
+  & .game-board-table {
+    flex: 1;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: auto;
+  }
+
+  /* Sticky Header */
+  & thead {
+    position: sticky;
+    top: 0;
+    z-index: var(--sys-zindex-content, 5);
+
+    & tr {
+      background: var(--sys-color-surface-low, #171b26);
+    }
+
+    & th {
+      padding: var(--sys-spacing-xs, 8px) var(--sys-spacing-sm, 14px);
+      color: var(--sys-color-text-primary, #dfe2f1);
+      font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+      font-weight: var(--sys-font-weight-bold, 700);
+      font-size: var(--sys-font-size-md, 1.15rem);
+      letter-spacing: var(--sys-font-tracking-wider, 0.06em);
+      text-transform: uppercase;
+      white-space: nowrap;
+      vertical-align: middle;
+      border-bottom: 1px solid var(--sys-color-border-subtle, rgba(255, 255, 255, 0.12));
+
+      &.th-player {
+        text-align: left;
+        padding-left: var(--sys-spacing-lg, 20px);
+        width: 100%;
+        max-width: 0;
+      }
+
+      &.th-stat {
+        text-align: right;
+        padding: var(--sys-spacing-xs, 8px) var(--sys-spacing-sm, 14px);
+        min-width: 65px;
+      }
+
+      &.th-score {
+        text-align: right;
+        padding-right: var(--sys-spacing-xl, 24px);
+        padding-left: var(--sys-spacing-md, 16px);
+        min-width: 140px;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  & .header-player-icon {
+    font-size: 22px;
+    color: var(--sys-color-primary, #00ff87);
+    vertical-align: middle;
+    margin-right: var(--sys-spacing-2xs, 4px);
+  }
+
+  /* Table Rows & Dynamic States (Flattened nesting depth <= 4) */
+  & tbody tr {
+    position: relative;
+    border-bottom: 1px solid var(--sys-color-border-ghost, rgba(255, 255, 255, 0.08));
+    transition: background-color var(--sys-transition-slow, 0.35s ease),
+                box-shadow var(--sys-transition-slow, 0.35s ease),
+                opacity var(--sys-transition-slow, 0.35s ease),
+                height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: background-color, box-shadow, height;
+
+    &:last-child td {
+      border-bottom: none;
+    }
+
+    &.is-active {
+      background: var(--sys-color-surface-high, #262a35);
+      box-shadow: inset 6px 0 0 var(--sys-color-primary, #00ff87), 0 0 24px var(--sys-color-primary-alpha-15, rgba(0, 255, 135, 0.14));
+      height: 55%;
+      opacity: 1;
+
+      & .player-num-badge {
+        background: var(--sys-color-primary, #00ff87);
+        color: var(--sys-color-primary-on, #003919);
+        box-shadow: 0 0 10px var(--sys-color-primary-alpha-50, rgba(0, 255, 135, 0.4));
+      }
+
+      & .player-name-text {
+        font-size: clamp(2.2rem, 4vw, 3.2rem);
+      }
+
+      & .stat-val-text {
+        font-size: clamp(1.8rem, 3vw, 2.6rem);
+        color: var(--sys-color-text-white, #ffffff);
+      }
+
+      & .player-score-giant {
+        font-size: clamp(4.2rem, 7vw, 6.5rem);
+        color: var(--sys-color-primary, #00ff87);
+        filter: drop-shadow(0 0 16px var(--sys-color-primary-alpha-50, rgba(0, 255, 135, 0.45)));
+      }
+    }
+
+    &.is-inactive {
+      background: var(--sys-color-surface-lowest, #0a0e18);
+      opacity: 0.82;
+      box-shadow: inset 6px 0 0 transparent;
+      height: 20%;
+
+      & .player-num-badge {
+        background: var(--sys-color-surface-bright, #353944);
+        color: var(--sys-color-text-secondary, #b9cbb9);
+      }
+
+      & .player-name-text {
+        font-size: clamp(1.2rem, 2vw, 1.45rem);
+      }
+
+      & .stat-val-text {
+        font-size: clamp(1.15rem, 1.8vw, 1.4rem);
+        color: var(--sys-color-text-secondary, #b9cbb9);
+      }
+
+      & .player-score-giant {
+        font-size: clamp(1.8rem, 2.6vw, 2.2rem);
+        color: var(--sys-color-text-primary, #dfe2f1);
+        filter: none;
+      }
+
+      &:hover {
+        background: var(--sys-color-surface-low, #171b26);
+        opacity: 1;
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--sys-color-secondary, #4cd7f6);
+      outline-offset: -2px;
+    }
+
+    &:active {
+      transform: scale(0.998);
+    }
+  }
+
+  & tbody td {
+    padding: var(--sys-spacing-xs, 10px) var(--sys-spacing-md, 16px);
+    vertical-align: middle;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--sys-color-border-ghost, rgba(255, 255, 255, 0.08));
+
+    &.td-player {
+      text-align: left;
+      padding-left: var(--sys-spacing-lg, 20px);
+      width: 100%;
+      max-width: 0;
+    }
+
+    &.td-stat {
+      text-align: right;
+      padding: var(--sys-spacing-xs, 10px) var(--sys-spacing-sm, 14px);
+    }
+
+    &.td-score {
+      text-align: right;
+      padding-right: var(--sys-spacing-xl, 24px);
+      padding-left: var(--sys-spacing-md, 16px);
+    }
+  }
+
+  /* Identity Block */
+  & .player-identity-wrap {
+    display: flex;
+    align-items: center;
+    gap: var(--sys-spacing-sm, 14px);
+    white-space: nowrap;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  & .player-num-badge {
+    width: 34px;
+    height: 34px;
+    border-radius: var(--sys-radius-sm, 6px);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+    font-weight: var(--sys-font-weight-bold, 700);
+    font-size: 16px;
+    flex-shrink: 0;
+    transition: all var(--sys-transition-slow, 0.3s ease);
+  }
+
+  & .player-name-text {
+    font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+    font-weight: var(--sys-font-weight-bold, 700);
+    color: var(--sys-color-text-white, #ffffff);
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: var(--sys-font-leading-none, 1);
+    transition: font-size 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  /* Stats Summary */
+  & .stat-cell-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    white-space: nowrap;
+  }
+
+  & .stat-val-text {
+    font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+    font-weight: var(--sys-font-weight-bold, 700);
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    line-height: var(--sys-font-leading-none, 1);
+    text-align: right;
+    white-space: nowrap;
+    transition: font-size 0.35s cubic-bezier(0.25, 1, 0.5, 1), color var(--sys-transition-slow, 0.3s ease);
+  }
+
+  & .stat-sub-text {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--sys-spacing-2xs, 4px);
+    font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+    font-size: 11px;
+    font-weight: var(--sys-font-weight-semibold, 600);
+    color: var(--sys-color-text-secondary, #b9cbb9);
+    margin-top: var(--sys-spacing-2xs, 4px);
+    white-space: nowrap;
+    text-align: right;
+  }
+
+  /* Giant Remaining Score */
+  & .score-cell-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    white-space: nowrap;
+  }
+
+  & .player-score-giant {
+    font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+    font-weight: var(--sys-font-weight-bold, 700);
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+    line-height: 0.95;
+    text-align: right;
+    white-space: nowrap;
+    transition: font-size 0.35s cubic-bezier(0.25, 1, 0.5, 1),
+                color var(--sys-transition-slow, 0.3s ease),
+                filter var(--sys-transition-slow, 0.3s ease);
+  }
+
+  /* Checkout Advice Badge */
+  & .checkout-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--sys-spacing-2xs, 6px);
+    padding: 3px 10px;
+    border-radius: var(--sys-radius-sm, 4px);
+    background: var(--sys-color-surface-lowest, #0a0e18);
+    border: 1px solid var(--sys-color-secondary-alpha-35, rgba(76, 215, 246, 0.3));
+    color: var(--sys-color-secondary, #4cd7f6);
+    box-shadow: 0 0 10px var(--sys-color-secondary-alpha-15, rgba(76, 215, 246, 0.15));
+    margin-top: 5px;
+    font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+    font-size: 11px;
+    font-weight: var(--sys-font-weight-bold, 700);
+    letter-spacing: var(--sys-font-tracking-wide, 0.05em);
+    text-transform: uppercase;
+    white-space: nowrap;
+
+    & .material-symbols-outlined {
+      font-size: 14px;
+      color: var(--sys-color-secondary, #4cd7f6);
+    }
+  }
+
+  /* Modifiers */
+  &[disabled] {
+    opacity: 0.5;
+    pointer-events: none;
+    filter: grayscale(0.5);
+  }
+}

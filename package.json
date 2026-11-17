@@ -1,0 +1,31 @@
+{
+  "name": "dartotron",
+  "version": "1.0.0",
+  "description": "Jeu de fléchettes électronique Open-Source et Open-Hardware pour Raspberry Pi et cibles USB",
+  "type": "module",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node --no-warnings server/index.js",
+    "dev": "node --no-warnings --watch server/index.js --dev",
+    "test": "node --no-warnings test/test-games.js",
+    "test:e2e": "node --no-warnings test/e2e/runner.js",
+    "test:all": "node --no-warnings test/test-games.js && node --no-warnings test/e2e/runner.js",
+    "install-rpi": "bash scripts/install-raspberry.sh",
+    "update": "bash scripts/update-raspberry.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ldo-fr/DartOTron.git"
+  },
+  "keywords": [
+    "darts",
+    "dartotron",
+    "arduino",
+    "raspberry-pi",
+    "arcade"
+  ],
+  "license": "GPL-3.0",
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

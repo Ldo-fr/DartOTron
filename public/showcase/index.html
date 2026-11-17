@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DartOTron — CyberHUD Component Showcase</title>
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+  <!-- Google Fonts & Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Rajdhani:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+  <!-- DartOTron Core CyberHUD Styling -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- Showcase Workbench Styling -->
+  <link rel="stylesheet" href="/showcase/showcase.css">
+</head>
+<body class="showcase-body">
+
+  <!-- Header -->
+  <header class="sc-header">
+    <div class="sc-brand">
+      <img src="/images/logo.webp" alt="DartOTron" class="sc-brand-logo">
+      <span class="sc-logo-badge">CYBERHUD</span>
+      <span class="sc-title">DartOTron ATOMIC SHOWCASE</span>
+      <span class="sc-subtitle">0 NPM DEPENDENCIES • PURE W3C</span>
+    </div>
+    <div class="sc-nav-actions">
+      <a href="/" class="sc-btn-back">
+        <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+        <span>RETOUR AU JEU</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Layout -->
+  <div class="sc-layout">
+    <!-- Sidebar: Components Catalog -->
+    <aside class="sc-sidebar">
+      <div class="sc-sidebar-title">Composants UI (Lot 1)</div>
+      <ul class="sc-nav-list" id="sc-nav-list">
+        <li>
+          <button type="button" class="sc-nav-item active" data-component-id="game-card">
+            <span class="material-symbols-outlined">sports_esports</span>
+            <span>&lt;game-card&gt;</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="sc-nav-item" data-component-id="player-select-card">
+            <span class="material-symbols-outlined">person</span>
+            <span>&lt;player-select-card&gt;</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="sc-nav-item" data-component-id="player-name">
+            <span class="material-symbols-outlined">badge</span>
+            <span>&lt;player-name&gt;</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="sc-nav-item" data-component-id="hud-stepper">
+            <span class="material-symbols-outlined">tune</span>
+            <span>&lt;hud-stepper&gt;</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="sc-nav-item" data-component-id="hud-boolean-card">
+            <span class="material-symbols-outlined">toggle_on</span>
+            <span>&lt;hud-boolean-card&gt;</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="sc-nav-item" data-component-id="scoreboard-x01">
+            <span class="material-symbols-outlined">leaderboard</span>
+            <span>&lt;scoreboard-x01&gt;</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="sc-nav-item" data-component-id="scoreboard-cricket">
+            <span class="material-symbols-outlined">grid_view</span>
+            <span>&lt;scoreboard-cricket&gt;</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="sc-nav-item" data-component-id="hud-notification">
+            <span class="material-symbols-outlined">notifications</span>
+            <span>&lt;hud-notification&gt;</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="sc-nav-item" data-component-id="hit-impact">
+            <span class="material-symbols-outlined">flare</span>
+            <span>&lt;hit-impact&gt;</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="sc-nav-item" data-component-id="hud-player-dropdown">
+            <span class="material-symbols-outlined">arrow_drop_down_circle</span>
+            <span>&lt;hud-player-dropdown&gt;</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="sc-nav-item" data-component-id="hud-stats-telemetry">
+            <span class="material-symbols-outlined">analytics</span>
+            <span>&lt;hud-stats-telemetry&gt;</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="sc-nav-item" data-component-id="hud-stats-column">
+            <span class="material-symbols-outlined">view_column</span>
+            <span>&lt;hud-stats-column&gt;</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="sc-nav-item" data-component-id="hud-stats-metric">
+            <span class="material-symbols-outlined">speed</span>
+            <span>&lt;hud-stats-metric&gt;</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="sc-nav-item" data-component-id="hud-stats-preference">
+            <span class="material-symbols-outlined">favorite</span>
+            <span>&lt;hud-stats-preference&gt;</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="sc-nav-item" data-component-id="hud-stats-gauge">
+            <span class="material-symbols-outlined">linear_scale</span>
+            <span>&lt;hud-stats-gauge&gt;</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="sc-nav-item" data-component-id="record-card">
+            <span class="material-symbols-outlined">emoji_events</span>
+            <span>&lt;record-card&gt;</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="sc-nav-item" data-component-id="virtual-keyboard">
+            <span class="material-symbols-outlined">keyboard</span>
+            <span>&lt;virtual-keyboard&gt;</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="sc-nav-item" data-component-id="dartboard">
+            <span class="material-symbols-outlined">adjust</span>
+            <span>&lt;dart-board&gt;</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="sc-nav-item" data-component-id="hud-tabs">
+            <span class="material-symbols-outlined">tab</span>
+            <span>&lt;hud-tabs&gt;</span>
+          </button>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Stage Area -->
+    <main class="sc-stage">
+      <div class="sc-stage-header">
+        <div class="sc-title-group">
+          <h1 class="sc-component-name" id="sc-comp-title">&lt;game-card&gt;</h1>
+          <button type="button" class="sc-btn-copy" id="sc-btn-copy-name" title="Copier le nom du composant" aria-label="Copier le nom du composant">
+            <span class="material-symbols-outlined">content_copy</span>
+          </button>
+        </div>
+        <code class="sc-component-tag" id="sc-comp-tag">GameCard.js</code>
+      </div>
+
+      <div class="sc-canvas">
+        <div class="sc-canvas-inner" id="sc-canvas-target">
+          <!-- Active component injected here -->
+        </div>
+      </div>
+    </main>
+
+    <!-- Inspector Panel (Knobs & Events) -->
+    <aside class="sc-inspector">
+      <div class="sc-inspector-tabs">
+        <button type="button" class="sc-inspector-tab active" id="tab-btn-knobs" data-tab="knobs">Knobs (Props)</button>
+        <button type="button" class="sc-inspector-tab" id="tab-btn-events" data-tab="events">Events Log</button>
+      </div>
+
+      <div class="sc-inspector-content" id="tab-content-knobs">
+        <div class="sc-knob-group" id="sc-knobs-container">
+          <!-- Dynamic Knobs controls injected here -->
+        </div>
+      </div>
+
+      <div class="sc-inspector-content hidden" id="tab-content-events">
+        <div class="sc-events-header">
+          <span class="sc-knob-label">Événements capturés</span>
+          <button type="button" class="sc-events-clear" id="btn-clear-events">Effacer</button>
+        </div>
+        <div class="sc-event-list" id="sc-event-list">
+          <!-- Live events logged here -->
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Showcase Logic and Web Components -->
+  <script type="module" src="/showcase/showcase.js"></script>
+</body>
+</html>
+

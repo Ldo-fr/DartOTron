@@ -1,0 +1,418 @@
+{
+  "common": {
+    "ok": "OK",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "delete": "Löschen",
+    "confirm": "Bestätigen",
+    "close": "Schließen",
+    "back": "Zurück",
+    "restart": "Neu starten",
+    "previous": "Vorherige",
+    "next": "Weiter",
+    "skip": "Überspringen",
+    "understood": "Verstanden",
+    "warning": "Warnung",
+    "danger": "Gefahr",
+    "yes": "JA",
+    "no": "NEIN",
+    "loading": "Laden...",
+    "error": "Fehler",
+    "search": "Suchen",
+    "refresh": "Aktualisieren",
+    "exit": "Beenden",
+    "none": "Keine"
+  },
+  "topbar": {
+    "brand_badge": "CYBERHUD",
+    "players": "SPIELER",
+    "records": "Rekorde",
+    "simu": "SIMU",
+    "ui": "UI",
+    "qr_code_title": "Für mobiles Begleitdisplay scannen",
+    "settings_label": "Einstellungen"
+  },
+  "lobby": {
+    "select_game": "SPIEL WÄHLEN",
+    "select_game_sub": "Spielmodus auf dem Touchscreen auswählen",
+    "selected_game_label": "GEWÄHLTES SPIEL",
+    "start_game": "START",
+    "start_game_sub": "DAS MATCH",
+    "game_options": "Spieloptionen",
+    "flip_variants": "Varianten",
+    "min_players_warning": "Mindestens einen Spieler auswählen, um zu starten",
+    "official_badge": "OFFIZIELL"
+  },
+  "players": {
+    "modal_title": "Spielerauswahl & Statistiken",
+    "active_badge": "{count} AKTIV",
+    "active_badge_singular": "1 AKTIV",
+    "player_count": "{count} SPIELER",
+    "player_count_singular": "1 SPIELER",
+    "toolbar_desc": "Spieler antippen zum Hinzufügen oder Entfernen.",
+    "shuffle": "MISCHEN (ZUFALL)",
+    "add_player": "+ NEUER SPIELER",
+    "input_placeholder": "Name des neuen Spielers...",
+    "validate_selection": "AUSWAHL BESTÄTIGEN",
+    "active": "Aktiv",
+    "inactive": "Inaktiv",
+    "confirm_delete_title": "Diesen Spieler löschen?",
+    "confirm_delete_desc": "Endgültiges Löschen von {name} und allen zugehörigen Statistiken (Scores, Siege und Chimay Bleu) bestätigen?",
+    "delete_forever": "ENDGÜLTIG LÖSCHEN",
+    "already_exists": "Ein Spieler mit diesem Namen existiert bereits",
+    "name_required": "Der Spielername darf nicht leer sein",
+    "rename_title": "UMBENENNEN « {name} »",
+    "new_player_title": "NAME DES NEUEN SPIELERS"
+  },
+  "game_options": {
+    "modal_title": "Spieloptionen",
+    "modal_tag": "KONFIGURATION",
+    "btn_rules": "REGELN",
+    "save": "SPEICHERN",
+    "empty_desc": "Dieses Spiel erfordert keine Vorkonfiguration.",
+    "meta": {
+      "max_round": {
+        "tag": "RUNDENLIMIT",
+        "desc": "Maximale Anzahl an Runden erlaubt"
+      },
+      "double_out": {
+        "tag": "WDF PRO",
+        "desc": "Double-Out zum Sieg erforderlich"
+      },
+      "double_in": {
+        "tag": "START",
+        "desc": "Wertung beginnt erst nach einem Treffer ins Doppel"
+      },
+      "split_bull": {
+        "tag": "ZIEL",
+        "desc": "Äußeres Bull 25 Pkt / Inneres Double Bull 50 Pkt"
+      },
+      "equal": {
+        "tag": "GLEICHE WÜRFE",
+        "desc": "Gleiche Anzahl Pfeile für alle Spieler (Ausgleich & Unentschieden)"
+      }
+    }
+  },
+  "rules": {
+    "modal_title": "Spielregeln",
+    "modal_tag": "ANLEITUNG",
+    "understood": "VERSTANDEN"
+  },
+  "match": {
+    "series_label": "PRO SERIE",
+    "series_x01": "X01 PRO SERIE",
+    "series_cricket": "CRICKET PRO",
+    "series_arcade": "ARCADE PRO",
+    "round_label": "RUNDE",
+    "ammo_title": "Verbleibende Pfeile",
+    "quit": "BEENDEN",
+    "undo": "ZURÜCK",
+    "undo_sub": "PFEIL",
+    "miss": "FEHLWURF",
+    "miss_sub": "NEBEN DAS ZIEL (0 PKT)",
+    "miss_penalty": "STRAFE (+{penalty} PKT)",
+    "next_player": "NÄCHSTER SPIELER",
+    "next_turn": "NÄCHSTE RUNDE",
+    "ready_to_throw": "WURFBEREIT",
+    "validate_turn": "RUNDE BESTÄTIGEN",
+    "confirm_quit_title": "Laufendes Spiel beenden?",
+    "confirm_quit_tag": "WARNUNG",
+    "confirm_quit_desc": "Möchtest du dieses Spiel wirklich abbrechen und zum Hauptmenü zurückkehren?",
+    "continue_game": "SPIEL FORTSETZEN",
+    "stop_game": "SPIEL BEENDEN",
+    "waiting_player": "NÄCHSTER SPIELER",
+    "release_darts": "Pfeile aus der Scheibe ziehen",
+    "release_darts_and_press": "Pfeile ziehen und Nächster Spieler drücken",
+    "bust": "BUST!",
+    "draw": "UNENTSCHIEDEN!",
+    "interrupted": "Spiel unterbrochen",
+    "interrupted_title": "SPIEL UNTERBROCHEN",
+    "interrupted_subtitle": "Zurück zum Hauptmenü",
+    "backup_turn": "Zur vorherigen Runde zurückgekehrt!",
+    "first_turn_cannot_undo": "Beim allerersten Wurf kein Rückgängig möglich!",
+    "last_round_reached": "Letzte Runde erreicht...",
+    "winner_announcement": "Sieger: {name}!",
+    "freeze_loss": "Eingefroren (Freeze) und Null erreicht! Verloren!",
+    "average_ppd_ppr": "Durchschnitt {ppd} PPD ({ppr} PPR) • {darts} Pfeile geworfen",
+    "average_mpr": "Durchschnitt {mpr} MPR • {darts} Pfeile geworfen",
+    "average_pts_round": "Durchschnitt {spr} Pkt/Runde • {darts} Pfeile geworfen",
+    "match_stopped": "• SPIEL GESTOPPT",
+    "match_stopped_title": "SPIEL GESTOPPT",
+    "match_not_finished": "{game} nicht beendet",
+    "round_limit": "• RUNDENLIMIT",
+    "no_winner": "KEIN SIEGER",
+    "th_player": "SPIELER",
+    "th_score": "SCORE",
+    "th_points": "PUNKTE",
+    "th_last": "LETZTE",
+    "th_remaining": "RESTLICH"
+  },
+  "hits": {
+    "simple": "EINFACHTREFFER",
+    "double": "DOPPELTREFFER",
+    "triple": "DREIFACHTREFFER",
+    "bull": "BULLSEYE",
+    "double_bull": "DOUBLE BULLSEYE",
+    "miss": "NEBEN DAS ZIEL",
+    "penalty": "STRAFE",
+    "penalty_pts": "STRAFE • +{penalty}",
+    "bust": "BUST!",
+    "not_multiple_5": "KEIN VIELFACHES VON 5",
+    "double_in_required": "DOUBLE-IN ERFORDERLICH",
+    "out_of_contract": "NICHT IM VERTRAG"
+  },
+  "vk": {
+    "title": "EINGABE",
+    "clear": "LEEREN",
+    "cancel": "ABBRECHEN",
+    "validate": "BESTÄTIGEN",
+    "shift": "SHIFT",
+    "space": "LEERTASTE",
+    "backspace": "LÖSCHEN"
+  },
+  "finished": {
+    "victory_badge": "SIEG",
+    "match_end_badge": "• SPIELENDE",
+    "draw_badge": "UNENTSCHIEDEN",
+    "standings_title": "ENDSTAND",
+    "hall_of_fame_title": "HALL OF FAME & REKORDE",
+    "main_menu": "HAUPTMENÜ",
+    "replay": "NOCHMAL (Gleiche Einstellungen)",
+    "rank_col": "RANG",
+    "player_col": "SPIELER",
+    "score_col": "SCORE",
+    "stats_col": "STATS",
+    "winner_text": "Souveräner Sieg im Match!",
+    "draw_text": "Perfektes Unentschieden zwischen den Spielern!"
+  },
+  "settings": {
+    "modal_title": "System- & Hardware-Einstellungen",
+    "quit_app": "ANWENDUNG BEENDEN",
+    "save_settings": "SPEICHERN & VERBINDEN",
+    "save_calib": "KALIBRIERUNG SPEICHERN",
+    "saved_success": "KONFIGURATION GESPEICHERT",
+    "saved_desc": "Systemeinstellungen erfolgreich synchronisiert",
+    "save_error": "FEHLER BEIM SPEICHERN",
+    "tabs": {
+      "system": "SYSTEM & BEDIENUNG",
+      "serial": "USB DARTSCHEIBE",
+      "calib": "KALIBRIERUNG"
+    },
+    "language": {
+      "title": "SPRACHE DER OBERFLÄCHE",
+      "desc": "Anzeigesprache für die Dartscheibe und den mobilen Begleiter wählen",
+      "fr": "Français",
+      "en": "English",
+      "nl": "Nederlands",
+      "de": "Deutsch"
+    },
+    "audio": {
+      "title": "AUDIO & SOUNDEFFEKTE",
+      "mute_label": "Gesamter Sound",
+      "mute_desc": "Alle Soundeffekte stummschalten oder aktivieren",
+      "volume_label": "Gesamtlautstärke",
+      "volume_tag": "PEGEL"
+    },
+    "controls": {
+      "title": "BEDIENUNG & ANZEIGE",
+      "onscreen_label": "Touchtasten am unteren Rand",
+      "onscreen_desc": "Aktionsleiste (Nächster Spieler, Zurück, Fehlwurf...) am Bildschirmrand",
+      "release_label": "Zeit zum Pfeileziehen",
+      "release_desc": "Erlaubte Zeit zum Pfeileziehen vor der nächsten Runde (Rundenende, Bust usw.)",
+      "release_tag": "ZEIT (S)"
+    },
+    "serial": {
+      "config_title": "SERIELLE SCHNITTSTELLENKONFIGURATION",
+      "port_label": "Systemgerät",
+      "port_tag": "USB-PORT",
+      "port_desc": "Den seriellen Port des angeschlossenen Arduino auswählen",
+      "baud_label": "Übertragungsgeschwindigkeit",
+      "baud_tag": "BAUDRATE",
+      "baud_desc": "Übertragungsgeschwindigkeit der Schnittstelle (Standard 9600)",
+      "status_title": "VERBINDUNG & HARDWARESTATUS",
+      "status_label": "Dartscheiben-Status",
+      "status_tag": "HARDWARE",
+      "status_desc": "Status der USB-Verbindung zum Arduino-Mikrocontroller",
+      "connected": "Verbunden",
+      "disconnected": "Nicht verbunden",
+      "test_mode": "Testmodus (Ohne Dartscheibe)"
+    },
+    "calib": {
+      "step_badge": "Schritt {current} / {total}",
+      "signal_received": "Empfangenes Signal:",
+      "none": "Keines",
+      "press_target": "Auf das Zielsegment drücken:",
+      "press_button": "Auf die Taste drücken:",
+      "btn_player": "TASTE NÄCHSTER SPIELER",
+      "btn_backup": "TASTE ZURÜCK",
+      "btn_game": "SPIELTASTE",
+      "btn_miss": "FEHLWURFTASTE",
+      "prev": "VORHERIGER",
+      "skip": "ÜBERSPRINGEN",
+      "restart": "START (S20)"
+    }
+  },
+  "records": {
+    "modal_title": "Hall of Fame & Rekorde",
+    "new_record": "NEUER REKORD",
+    "tabs": {
+      "general": "ALLGEMEIN",
+      "players": "SPIELER",
+      "definitions": "REKORDARTEN"
+    },
+    "telemetry": {
+      "games": "Spiele",
+      "wins": "Siege"
+    },
+    "columns": {
+      "multi_game": "MEHRSPIEL-REKORDE",
+      "ho_one": "HO ONE (X01)",
+      "cricket": "CRICKET"
+    },
+    "def_toolbar": {
+      "title": "Katalog der Rekordarten",
+      "desc": "Rekordarten und Wurfmuster in DartOTron ansehen, hinzufügen oder löschen",
+      "btn_add": "Neuer Rekord"
+    },
+    "add_modal": {
+      "title": "Neue Rekordart",
+      "tag": "KONFIGURATION",
+      "calc_type_label": "Berechnungsart",
+      "calc_type_pattern": "Wurfmuster (3 Pfeile in 1 Runde)",
+      "calc_type_match": "Spielergebnis (Niederlage, Highscore...)",
+      "calc_type_pref": "Spieleraffinität / Profilstatistik",
+      "game_label": "Zielspiel",
+      "all_games": "Alle Spiele (* Mehrspiel)",
+      "pattern_label": "Wurfmuster-Bedingung (3 Pfeile)",
+      "pattern_none": "Keine Muster-Bedingung (Freier statistischer Rekord)",
+      "pattern_triples_same": "3 Identische Triples (z.B. Chimay Bleu)",
+      "pattern_triples_any": "3 Beliebige Triples (z.B. White Horse)",
+      "pattern_hat_trick": "3 Bulls (Single oder Double Bull)",
+      "pattern_consecutive_suite": "Fortlaufende Straße aus 3 Zahlen (z.B. 18-19-20)",
+      "pattern_shanghai": "Shanghai (Single + Double + Triple auf derselben Zahl)",
+      "pattern_simple_double_triple": "Single + Double + Triple (beliebige Zahlen)",
+      "pattern_ton_80": "Maximum 180 (3 × T20)",
+      "match_cond_label": "Spielbedingung",
+      "match_cond_loss": "Nur Niederlage",
+      "match_cond_win": "Nur Sieg",
+      "match_cond_any": "Jedes Ergebnis (Alle Spieler)",
+      "match_metric_label": "Gemessene Metrik",
+      "match_metric_total": "Gesamtpunktzahl (Endstand)",
+      "match_metric_darts": "Gesamtzahl geworfener Pfeile",
+      "pref_label": "Affinität / Präferenztyp",
+      "pref_fav_triple": "Lieblings-Triple (am häufigsten getroffen)",
+      "pref_fav_game": "Lieblingsspiel (am meisten gespielt)",
+      "pref_fav_double": "Lieblings-Doppel (am häufigsten getroffen)",
+      "pref_fav_number": "Lieblingszahl (am häufigsten getroffen 1-20)",
+      "name_label": "Anzeigename des Rekords",
+      "name_placeholder": "z.B. Royal Straight",
+      "id_label": "Technische ID (Eindeutiger Code)",
+      "id_placeholder": "z.B. royal_straight",
+      "unit_label": "Maßeinheit",
+      "sort_label": "Rangfolge",
+      "sort_desc": "Absteigend (Höchster gewinnt)",
+      "sort_asc": "Aufsteigend (Niedrigster gewinnt)",
+      "backfill_label": "Spielverlauf scannen, um diesen Rekord rückwirkend zuzuweisen",
+      "btn_save": "SPEICHERN"
+    },
+    "delete_modal": {
+      "title": "Diesen Rekord löschen?",
+      "tag": "GEFAHR",
+      "desc": "Endgültiges Löschen der Rekordart {name} bestätigen?",
+      "warning": "Warnung: Alle unter dieser Rekordart erfassten Scores und Erfolge werden dauerhaft aus der Datenbank entfernt.",
+      "btn_confirm": "ENDGÜLTIG LÖSCHEN"
+    }
+  },
+  "companion": {
+    "title": "DartOTron Companion — Mobiler Spiegel-Bildschirm",
+    "brand_tag": "SPIEGEL",
+    "direct_pill": "LIVE",
+    "at_throw": "AM WURF",
+    "game": "SPIEL",
+    "round": "RUNDE",
+    "recommended_checkout": "EMPFOHLENES FINISH",
+    "waiting_title": "Dartscheibe In Lobby",
+    "waiting_desc": "Das Hauptterminal bereitet ein neues Spiel vor. Dieser Bildschirm synchronisiert automatisch, sobald das Spiel startet!",
+    "next_player_btn": "NÄCHSTER SPIELER",
+    "victory_title": "Sieg!",
+    "victory_sub": "Spiel erfolgreich beendet",
+    "qr_modal_title": "Begleitdisplay",
+    "qr_modal_tag": "MOBILER ZUSCHAUER",
+    "qr_modal_desc": "Diesen QR-Code mit deinem Smartphone scannen, um die Live-Anzeigetafel im selben WLAN anzuzeigen."
+  },
+  "games": {
+    "Ho_One": {
+      "title": "Ho One",
+      "category": "Klassiker X01",
+      "description": "Das weltberühmte 301, 501, 701 oder 1001!\nWähle deinen Startscore.\nDer erste Spieler, der exakt null erreicht, gewinnt das Match.\nÜberwirfst du dich (Bust), wird dein Score auf den Stand zu Rundenbeginn zurückgesetzt.",
+      "options": {
+        "startingat": "Startscore (301, 501, 701...)",
+        "max_round": "Maximale Rundenanzahl",
+        "double_in": "Double In (Start mit einem Doppel)",
+        "double_out": "Double Out (Finish mit einem Doppel)",
+        "master_in": "Master In (Start mit Doppel/Triple/Bull)",
+        "master_out": "Master Out (Finish mit Doppel/Triple/Bull)",
+        "split_bull": "Geteiltes Bull (Single Bull = 25 / Double = 50)",
+        "equal": "Gleiche Würfe / Ausgleich (gleiche Pfeilanzahl)",
+        "startpercent": "Handicap-Verhältnis (%)",
+        "noout": "Strafe für nicht gespielte Pfeile (+25 Pkt)",
+        "league": "Liga-Modus (Freeze + Handicap, 4 Spieler)"
+      }
+    },
+    "Cricket": {
+      "title": "Cricket",
+      "category": "Taktik",
+      "description": "Der Klassiker Cricket!\nTriff jede Zahl (15 bis 20 + Bull) 3 Mal, um sie zu öffnen und Punkte zu sammeln.\nOption Cut-Throat: Punkte gehen an Gegner, die noch nicht geschlossen haben!\nOption Crazy: Die aktiven Zahlen wechseln in jeder Runde zufällig!",
+      "options": {
+        "max_round": "Maximale Rundenanzahl",
+        "optioncrazy": "Crazy-Modus (zufällige Zahlen)",
+        "optioncutthroat": "Cut-Throat-Modus (Punkte an Gegner)",
+        "drinkscore": "\"Runde ausgeben!\" Strafpunkte (Cut-Throat)",
+        "Teaming": "Team-Modus (mindestens 4 Spieler, gerade Anzahl)",
+        "optionteamscore": "Gemeinsame Teampunkte",
+        "optionhandicap": "Automatisches Handicap (4 Spieler)",
+        "optionmaster": "Master-Modus (nicht geschlossene Zahlen werden auf null zurückgesetzt)",
+        "optioncrazycutthroatmaster": "Crazy Master Cut-Throat Gesamtmodus!"
+      }
+    },
+    "Practice": {
+      "title": "Practice",
+      "category": "Training",
+      "description": "Übe das Treffen der vom Computer in jeder Runde vorgegebenen Ziele!\nIm Normalmodus triffst du einfach die geforderte Zahl.\nIm Mastermodus musst du präzise Single, Double oder Triple treffen!",
+      "options": {
+        "max_round": "Anzahl der Runden",
+        "master": "Master-Modus (erfordert Single/Double/Triple)"
+      }
+    },
+    "Kinito": {
+      "title": "Kinito",
+      "category": "Partyspiel",
+      "description": "Beginne bei 0 und erreiche 210 Punkte.\nGoldene Regel: Erziele niemals einen niedrigeren Score als die Vorgabe des vorherigen Spielers!\nTriffst du den Kinito-Score (21 oder T7), erscheint ein Bonus-Ziel auf deinen Gegnern: Triff es, um ihren Score zu halbieren!",
+      "options": {
+        "max_round": "Maximale Rundenanzahl",
+        "winscore": "Gewinnscore",
+        "kinito": "Spezieller Kinito-Zielscore",
+        "master": "Master-Modus (exakter Score erforderlich)"
+      }
+    },
+    "By_Fives": {
+      "title": "By Fives",
+      "category": "Kopfrechnen",
+      "description": "Sorge dafür, dass die Summe deiner 3 Pfeile in jeder Runde ein Vielfaches von 5 ist!\nIst das Rundentotal durch 5 teilbar (5, 10, 15, 20... 180), erhältst du 1 Punkt.\nAndernfalls gibt es in dieser Runde keine Punkte.\nWer zuerst den Zielscore erreicht, gewinnt!",
+      "options": {
+        "winscore": "Gewinnscore (Punkte)",
+        "startingat": "Gewinnscore (Punkte)"
+      }
+    },
+    "321_Zlip": {
+      "title": "321 Zlip",
+      "category": "Spannend & Gnadenlos",
+      "description": "Ein umgekehrtes 301 voller Wendungen und Nervenkitzel!\nStarte bei 0 und erreiche exakt 321 Punkte.\nLandest du genau auf dem Score eines Gegners, wird dieser GEZLIPPT und fällt auf null zurück!\nIm Master- oder Advanced-Modus musst du mindestens einmal gezlippt haben, um gewinnen zu können.",
+      "options": {
+        "max_round": "Maximale Rundenanzahl",
+        "advanced": "Advanced-Modus (321 ohne Zlip gewährt freien Zlip)",
+        "master": "Master-Modus (Zlip vor Erreichen von 321 zwingend erforderlich)"
+      }
+    }
+  }
+}

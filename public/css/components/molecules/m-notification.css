@@ -1,0 +1,154 @@
+/* ==========================================================================
+   MOLECULE: CyberHUD Bottom-Sheet Toast (<m-notification>, <hud-notification>)
+   ========================================================================== */
+
+m-notification,
+hud-notification {
+  display: block;
+
+  & .hud-notification-sheet {
+    width: 360px;
+    max-width: calc(100vw - 32px);
+    border-radius: var(--sys-radius-lg);
+    background: var(--sys-color-surface-low);
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sys-spacing-sm);
+    user-select: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+    will-change: transform, opacity;
+
+    &:hover {
+      filter: brightness(1.1);
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--sys-color-primary);
+      outline-offset: 2px;
+    }
+
+    &.is-fixed {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      z-index: var(--sys-zindex-toast);
+    }
+
+    &.is-hidden {
+      transform: translateY(120%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    &.is-visible {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    &.type-info {
+      border: 1.5px solid var(--sys-color-primary-alpha-35);
+      box-shadow: 0 0 24px var(--sys-color-primary-alpha-15), 0 10px 30px rgba(0, 0, 0, 0.6);
+
+      & .hud-notif-icon {
+        color: var(--sys-color-primary);
+      }
+      & .hud-notif-badge {
+        background: var(--sys-color-primary-alpha-15);
+        color: var(--sys-color-secondary);
+        border: 1px solid var(--sys-color-secondary-alpha-35);
+      }
+    }
+
+    &.type-danger {
+      border: 1.5px solid var(--sys-color-danger-alpha-50);
+      box-shadow: 0 0 28px var(--sys-color-danger-alpha-25), 0 10px 30px rgba(0, 0, 0, 0.7);
+
+      & .hud-notif-icon {
+        color: var(--sys-color-danger);
+      }
+      & .hud-notif-badge {
+        background: var(--sys-color-danger-alpha-15);
+        color: var(--sys-color-danger);
+        border: 1px solid var(--sys-color-danger-alpha-50);
+      }
+    }
+  }
+
+  &[type="info"] .hud-notification-sheet {
+    border: 1.5px solid var(--sys-color-primary-alpha-35);
+    box-shadow: 0 0 24px var(--sys-color-primary-alpha-15), 0 10px 30px rgba(0, 0, 0, 0.6);
+  }
+
+  &[type="danger"] .hud-notification-sheet {
+    border: 1.5px solid var(--sys-color-danger-alpha-50);
+    box-shadow: 0 0 28px var(--sys-color-danger-alpha-25), 0 10px 30px rgba(0, 0, 0, 0.7);
+  }
+
+  & .hud-notif-main {
+    display: flex;
+    align-items: center;
+    gap: var(--sys-spacing-sm);
+    min-width: 0;
+    flex: 1;
+  }
+
+  & .hud-notif-icon-box {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: #1c1f2a;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  & .hud-notif-text-col {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  & .hud-notif-title {
+    font-family: var(--sys-font-family-display);
+    font-size: 13px;
+    font-weight: var(--sys-font-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #f1ffef;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  & .hud-notif-subtitle {
+    font-size: 12px;
+    color: var(--sys-color-text-secondary);
+    line-height: 1.25;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  & .hud-notif-badge {
+    padding: 3px 8px;
+    border-radius: var(--sys-radius-sm);
+    font-family: var(--sys-font-family-display);
+    font-size: 10px;
+    font-weight: var(--sys-font-weight-extrabold);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+}

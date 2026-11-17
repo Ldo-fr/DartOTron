@@ -1,0 +1,179 @@
+/* ==========================================================================
+   DARTOTRON CYBERHUD — RECORDS & HALL OF FAME STYLESHEET
+   File: public/css/views/view-records.css
+   Architecture: Records modal, player multi-session telemetry, catalog of definitions
+   Standard: Modern CSS Level 4 (Zero dependencies, native CSS Nesting)
+   ========================================================================== */
+
+#modal-records {
+  & .modal-large-stitch {
+    width: 100%;
+    height: calc(100vh - 16px);
+    max-width: 100%;
+    max-height: calc(100vh - 16px);
+    background: var(--sys-color-surface-base, #0f131d);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--sys-radius-xl, 16px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: var(--sys-shadow-modal, 0 24px 60px rgba(0, 0, 0, 0.85));
+  }
+}
+
+/* --------------------------------------------------------------------------
+   TAB 1: GENERAL RECORDS GRID
+   -------------------------------------------------------------------------- */
+.records-general-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--sys-spacing-md, 14px);
+}
+
+.records-empty-state {
+  grid-column: 1 / -1;
+  margin: auto;
+  text-align: center;
+  padding: 40px var(--sys-spacing-lg, 20px);
+  color: var(--sys-color-text-muted, #849585);
+}
+
+.records-section-header--spaced,
+.records-section-header:not(:first-of-type) {
+  margin-top: 18px;
+}
+
+/* --------------------------------------------------------------------------
+   TAB 2: PLAYER TELEMETRY & MULTI-SESSION STATS
+   -------------------------------------------------------------------------- */
+.records-player-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--sys-spacing-md, 14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+  & .records-player-telemetry {
+    display: flex;
+    align-items: center;
+    gap: var(--sys-spacing-lg, 20px);
+  }
+
+  & .records-telemetry-divider {
+    width: 1px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.12);
+  }
+}
+
+.records-player-columns-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--sys-spacing-md, 14px);
+  margin-top: var(--sys-spacing-md, 14px);
+}
+
+/* --------------------------------------------------------------------------
+   TAB 3: RECORD DEFINITIONS CATALOG & FORMS
+   -------------------------------------------------------------------------- */
+.records-def-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sys-spacing-md, 16px);
+
+  & .records-def-toolbar-info {
+    display: flex;
+    align-items: center;
+    gap: var(--sys-spacing-md, 14px);
+  }
+
+  & .records-def-toolbar-title {
+    font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+    font-size: 16px;
+    font-weight: var(--sys-font-weight-bold, 700);
+    color: var(--sys-color-text-primary, #dfe2f1);
+    margin: 0;
+  }
+
+  & .records-def-toolbar-desc {
+    font-size: 12px;
+    color: var(--sys-color-text-secondary, #b9cbb9);
+    margin: 2px 0 0 0;
+  }
+}
+
+.record-def-pattern-badge {
+  padding: 3px 8px;
+  border-radius: var(--sys-radius-sm, 4px);
+  font-family: var(--sys-font-family-display, 'Space Grotesk', sans-serif);
+  font-size: 11px;
+  font-weight: var(--sys-font-weight-bold, 700);
+  border: 1px solid;
+
+  &.badge-amber,
+  &.pattern-badge--amber {
+    background: var(--sys-color-warning-alpha-15, rgba(255, 170, 0, 0.15));
+    color: var(--sys-color-warning, #ffaa00);
+    border-color: var(--sys-color-warning-alpha-35, rgba(255, 170, 0, 0.3));
+  }
+
+  &.badge-cyan,
+  &.pattern-badge--cyan {
+    background: var(--sys-color-secondary-alpha-15, rgba(0, 229, 255, 0.15));
+    color: var(--sys-color-secondary, #00e5ff);
+    border-color: var(--sys-color-secondary-alpha-35, rgba(0, 229, 255, 0.3));
+  }
+}
+
+.records-def-empty-hint {
+  color: #64748b;
+  font-size: 0.88rem;
+  font-style: italic;
+  padding: 6px 0;
+}
+
+.record-empty-row {
+  padding: 16px 8px;
+  text-align: center;
+  color: #6b7a8d;
+  font-size: 0.85rem;
+}
+
+.record-empty-hint,
+.record-empty-subtext {
+  color: #a0a6bd;
+  font-size: 0.78rem;
+}
+
+/* --------------------------------------------------------------------------
+   FORM CONTROLS & CHECKBOX REPLACEMENTS
+   -------------------------------------------------------------------------- */
+.hud-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.hud-checkbox,
+.cyber-checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--sys-color-primary, #00ff87);
+}
+
+.form-error-msg,
+.form-error-feedback {
+  color: var(--sys-color-danger, #ff3366);
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 4px 0;
+}
+
+.form-row-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sys-spacing-sm, 12px);
+}

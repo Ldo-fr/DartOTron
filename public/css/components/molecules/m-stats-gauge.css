@@ -1,0 +1,119 @@
+/* ==========================================================================
+   MOLECULE: Precision Meter Gauge (<m-stats-gauge>, <hud-stats-gauge>)
+   Dynamic runtime progress fill preserved via style="width: ${progress}%"
+   ========================================================================== */
+
+m-stats-gauge,
+hud-stats-gauge {
+  display: block;
+  width: 100%;
+  min-width: 0;
+
+  & .hud-stats-gauge-card {
+    background: #181d2a;
+    border: 1px solid rgba(43, 52, 69, 0.5);
+    border-radius: var(--sys-radius-md);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  & .hud-gauge-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  & .hud-gauge-target-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  & .hud-gauge-target-pill {
+    padding: 2px 6px;
+    border-radius: var(--sys-radius-sm);
+    font-family: var(--sys-font-family-display);
+    font-size: 11px;
+    font-weight: var(--sys-font-weight-bold);
+    background: #222736;
+  }
+
+  & .hud-gauge-label {
+    font-size: 11px;
+    color: #6b7a8d;
+    font-weight: var(--sys-font-weight-medium);
+  }
+
+  & .hud-gauge-value {
+    font-family: var(--sys-font-family-display);
+    font-size: 15px;
+    font-weight: var(--sys-font-weight-bold);
+    color: var(--sys-color-text-white);
+  }
+
+  & .hud-gauge-track {
+    width: 100%;
+    height: 8px;
+    background: #2c3244;
+    border-radius: var(--sys-radius-full);
+    overflow: hidden;
+  }
+
+  & .hud-gauge-fill {
+    height: 100%;
+    border-radius: var(--sys-radius-full);
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Color Theme Modifiers */
+  & .hud-stats-gauge-card.color-cyan,
+  &[color="cyan"] {
+    & .hud-gauge-target-pill {
+      border: 1px solid var(--sys-color-secondary-alpha-35);
+      color: var(--sys-color-secondary);
+    }
+    & .hud-gauge-fill {
+      background: var(--sys-color-secondary);
+    }
+  }
+
+  & .hud-stats-gauge-card.color-neon,
+  &[color="neon"] {
+    & .hud-gauge-target-pill {
+      border: 1px solid var(--sys-color-primary-alpha-35);
+      color: var(--sys-color-primary);
+    }
+    & .hud-gauge-fill {
+      background: var(--sys-color-primary);
+    }
+    & .hud-gauge-value {
+      color: var(--sys-color-primary);
+    }
+  }
+
+  & .hud-stats-gauge-card.color-amber,
+  &[color="amber"] {
+    & .hud-gauge-target-pill {
+      border: 1px solid var(--sys-color-warning-alpha-35);
+      color: var(--sys-color-warning);
+    }
+    & .hud-gauge-fill {
+      background: var(--sys-color-warning);
+    }
+  }
+
+  & .hud-stats-gauge-card.color-crimson,
+  &[color="crimson"] {
+    & .hud-gauge-target-pill {
+      border: 1px solid var(--sys-color-danger-alpha-35);
+      color: var(--sys-color-danger);
+    }
+    & .hud-gauge-fill {
+      background: var(--sys-color-danger);
+    }
+  }
+}
