@@ -1,6 +1,6 @@
 {
   "name": "dartotron",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Jeu de fléchettes électronique Open-Source et Open-Hardware pour Raspberry Pi et cibles USB",
   "type": "module",
   "main": "server/index.js",
