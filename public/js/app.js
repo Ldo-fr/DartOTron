@@ -39,6 +39,10 @@ class DartOTronApp {
     this.playersStatsMap = new Map();
     this.matchState = null;
     this.serialStatus = null;
+    this.updateStatus = null;
+    this._notifiedAvailableVersion = null;
+    this._notifiedDownloadedVersion = null;
+    this.restartingForUpdate = false;
     this.ws = null;
 
     // Contrôleurs spécialisés
@@ -118,6 +122,10 @@ class DartOTronApp {
       const rawLocale = this.config?.SectionGlobals?.locale || 'fr';
       await this.i18n.init(rawLocale);
 
+      if (boot.update) {
+        this.handleUpdateStatus(boot.update, { isStartup: true });
+      }
+
       this.applyThemeAndAudio();
 
       const devSimulatorBtn = document.getElementById('btn-dev-simulator');
@@ -168,6 +176,12 @@ class DartOTronApp {
     const wsUrl = `${proto}//${window.location.host}/?role=kiosk&tabId=${encodeURIComponent(this.tabId)}`;
     this.ws = new WebSocket(wsUrl);
 
+    this.ws.addEventListener('open', () => {
+      if (this.restartingForUpdate) {
+        window.location.reload();
+      }
+    });
+
     this.ws.addEventListener('message', (ev) => {
       try {
         const msg = JSON.parse(ev.data);
@@ -205,9 +219,14 @@ class DartOTronApp {
         this.updateSerialBadge(data.serial);
         this.settingsController.refreshSerialStatusUI();
       }
+      if (data.update) {
+        this.handleUpdateStatus(data.update, { isStartup: true });
+      }
       if (data.match && data.match.status !== 'lobby') {
         this.applyMatchState(data.match);
       }
+    } else if (type === 'update_status') {
+      this.handleUpdateStatus(data);
     } else if (type === 'serial_status') {
       const wasConnected = this.serialStatus ? Boolean(this.serialStatus.connected) : null;
       const isConnected = Boolean(data?.connected);
@@ -269,6 +288,52 @@ class DartOTronApp {
   }
 
   /* ==================== NOTIFICATIONS & ANNONCES CYBERHUD ==================== */
+  handleUpdateStatus(status) {
+    if (!status) return;
+    this.updateStatus = status;
+    this.settingsController?.refreshUpdateStatusUI();
+
+    const versionTag = status.latestTag || (status.latestVersion ? `v${status.latestVersion}` : '');
+
+    if (
+      status.status === 'available' &&
+      (!status.autoDownload || status.isDev) &&
+      versionTag &&
+      this._notifiedAvailableVersion !== versionTag
+    ) {
+      this._notifiedAvailableVersion = versionTag;
+      this.notify({
+        title: this.i18n?.t('settings.updates.notif_available_title', {}, 'MISE À JOUR DISPONIBLE'),
+        subtitle: this.i18n?.t(
+          'settings.updates.notif_available_sub',
+          { version: versionTag },
+          `DartOTron ${versionTag} est disponible dans les Paramètres`
+        ),
+        icon: 'system_update',
+        type: 'info',
+        duration: 10000
+      });
+    } else if (
+      status.status === 'downloaded' &&
+      status.downloadedVersion &&
+      this._notifiedDownloadedVersion !== status.downloadedVersion
+    ) {
+      this._notifiedDownloadedVersion = status.downloadedVersion;
+      const dlTag = `v${status.downloadedVersion}`;
+      this.notify({
+        title: this.i18n?.t('settings.updates.notif_ready_title', {}, 'MISE À JOUR PRÊTE'),
+        subtitle: this.i18n?.t(
+          'settings.updates.notif_ready_sub',
+          { version: dlTag },
+          `DartOTron ${dlTag} a été téléchargée et sera installée au prochain redémarrage`
+        ),
+        icon: 'download_done',
+        type: 'info',
+        duration: 10000
+      });
+    }
+  }
+
   notify({ title, subtitle, icon, type = 'info', duration = 3000 } = {}) {
     this.audio.playNotification();
     const notif = document.getElementById('app-notification');

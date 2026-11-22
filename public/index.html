@@ -568,6 +568,46 @@
                 unit="s"
               ></hud-stepper>
             </div>
+
+            <!-- BLOC 4 : MISES À JOUR SYSTÈME -->
+            <div class="hud-settings-block" id="settings-block-updates">
+              <div class="settings-block-header">
+                <div class="settings-header-title">
+                  <span class="material-symbols-outlined text-bullseye-neon">system_update</span>
+                  <h3 data-i18n="settings.updates.title">MISES À JOUR SYSTÈME</h3>
+                </div>
+                <span class="settings-update-version-badge" id="settings-current-version">v1.0.0</span>
+              </div>
+
+              <div class="hud-card settings-update-status-card">
+                <div class="settings-update-status-row">
+                  <span class="settings-update-status-text" id="settings-update-status-text" data-i18n="settings.updates.status_idle">Vérification disponible</span>
+                </div>
+                <div class="hud-card-desc settings-update-hint" id="settings-update-hint" data-i18n="settings.updates.install_hint">Les mises à jour téléchargées sont installées automatiquement au prochain démarrage.</div>
+                <div class="settings-update-actions">
+                  <button type="button" class="btn-update-action" id="btn-update-check">
+                    <span class="material-symbols-outlined">refresh</span>
+                    <span data-i18n="settings.updates.btn_check">Vérifier</span>
+                  </button>
+                  <button type="button" class="btn-update-action btn-update-primary hidden" id="btn-update-download">
+                    <span class="material-symbols-outlined">download</span>
+                    <span id="btn-update-download-label" data-i18n="settings.updates.btn_download">Télécharger</span>
+                  </button>
+                  <button type="button" class="btn-update-action btn-update-restart hidden" id="btn-update-restart">
+                    <span class="material-symbols-outlined">restart_alt</span>
+                    <span data-i18n="settings.updates.btn_restart">Redémarrer maintenant</span>
+                  </button>
+                </div>
+              </div>
+
+              <hud-boolean-card
+                id="setting-auto-update"
+                label="Téléchargement automatique"
+                tag="AUTO-UPDATE"
+                desc="Télécharger automatiquement les nouvelles versions en arrière-plan (installées au prochain redémarrage)"
+                data-i18n-attr="label:settings.updates.auto_label;desc:settings.updates.auto_desc;tag:settings.updates.auto_tag"
+              ></hud-boolean-card>
+            </div>
           </hud-tab-panel>
 
           <!-- TAB 2: CIBLE ARDUINO USB -->

@@ -52,7 +52,8 @@ export const DEFAULT_CONFIG = {
     soundvolume: 100,
     debuglevel: 2,
     locale: 'fr',
-    onscreenbuttons: true
+    onscreenbuttons: true,
+    autoupdate: false
   },
   SectionAdvanced: {
     noserial: false,

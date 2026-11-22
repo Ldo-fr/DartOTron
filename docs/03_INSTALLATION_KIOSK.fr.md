@@ -87,12 +87,18 @@ sudo journalctl -u dartotron.service -f
 
 ## 🔄 Mise à Jour de DartOTron
 
-Pour mettre à jour DartOTron vers la dernière version stable publiée :
+### Mise à jour intégrée par Staging (Recommandé)
+Au démarrage, DartOTron vérifie automatiquement sur GitHub Releases si une nouvelle version est disponible :
+- Si **Téléchargement automatique** est désactivé (par défaut), une notification `<hud-notification>` (10 s) prévient qu'une mise à jour est disponible. Ouvrez **Réglages → Système & Contrôles → Mises à jour système** pour la télécharger.
+- Si **Téléchargement automatique** est activé dans les Réglages, DartOTron télécharge et valide `dartotron-release.tar.gz` en arrière-plan dans `data/pending-update/` sans modifier les fichiers en cours d'exécution, puis affiche une notification indiquant qu'elle sera installée au prochain redémarrage.
+- Vous pouvez terminer vos parties tranquillement jusqu'au prochain démarrage ou cliquer sur **Redémarrer maintenant** dans les Réglages (arrêt propre relancé automatiquement par `systemd`, sans `sudo`).
+
+### Mise à jour en ligne de commande (CLI)
+Vous pouvez également mettre à jour depuis le terminal :
 
 ```bash
-cd /web/dartotron # ou votre dossier d'installation
-git pull origin main
-sudo systemctl restart dartotron.service
+cd /home/darts/nodarts # ou votre dossier d'installation
+npm run update
 ```
 
 Vos données (profils de joueurs, records historiques, calibration de la cible) sont conservées en toute sécurité dans la base SQLite locale située dans `data/`.

@@ -4,12 +4,13 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { exec, execFileSync } from 'node:child_process';
+import { exec, execFileSync, spawn } from 'node:child_process';
 
 import { CConfig, ORDERED_DART_KEYS, DEFAULT_SCORE_MAP } from './config.js';
 import { CScores } from './scores.js';
 import { SerialManager } from './serial.js';
 import { MatchEngine } from './engine/MatchEngine.js';
+import { UpdateManager, applyPendingUpdate } from './updater.js';
 import { getGamesList } from './games/index.js';
 import { FR_LOCALE } from './locale.js';
 
@@ -45,6 +46,8 @@ export function createDartOTronServer(options = {}) {
   const scores = options.scores || new CScores(config);
   const serial = options.serial || new SerialManager(config);
   const engine = options.engine || new MatchEngine(config, scores);
+  const updater = options.updater || new UpdateManager(config, { isDev });
+  let updateCheckTimer = null;
 
   const wsClients = new Set();
   let activeKioskSocket = null;
@@ -112,6 +115,11 @@ export function createDartOTronServer(options = {}) {
       wsClients.delete(socket);
     }
   }
+
+  // Wire UpdateManager events
+  updater.on('status', (status) => {
+    broadcast('update_status', status);
+  });
 
   // Wire SerialManager events
   serial.on('status', (status) => {
@@ -273,6 +281,7 @@ export function createDartOTronServer(options = {}) {
           orderedDartKeys: ORDERED_DART_KEYS,
           scoreMap: DEFAULT_SCORE_MAP,
           serial: serial.getStatus(),
+          update: updater.getStatus(),
           games: getGamesList(config),
           playersData: getPlayersPayload(),
           match: engine.getStateAndFlushEvents(),
@@ -441,14 +450,49 @@ export function createDartOTronServer(options = {}) {
         if (body.reconnectSerial) {
           await serial.connect();
         }
+        const updateStatus = updater.getStatus();
+        if (updateStatus.autoDownload && !isDev && updateStatus.status === 'available') {
+          updater.downloadUpdate().catch(() => {});
+        }
         broadcast('config_updated', {
           config: config.data,
-          serial: serial.getStatus()
+          serial: serial.getStatus(),
+          update: updater.getStatus()
         });
         return sendJson(res, 200, {
           config: config.data,
-          serial: serial.getStatus()
+          serial: serial.getStatus(),
+          update: updater.getStatus()
         });
+      }
+
+      if (pathname === '/api/update/status' && req.method === 'GET') {
+        return sendJson(res, 200, updater.getStatus());
+      }
+
+      if (pathname === '/api/update/check' && req.method === 'POST') {
+        const body = await readJsonBody(req);
+        const status = await updater.checkForUpdate({
+          triggerAutoDownload: Boolean(body?.autoDownload)
+        });
+        return sendJson(res, 200, status);
+      }
+
+      if (pathname === '/api/update/download' && req.method === 'POST') {
+        const status = await updater.downloadUpdate();
+        return sendJson(res, 200, status);
+      }
+
+      if (pathname === '/api/update/restart' && req.method === 'POST') {
+        sendJson(res, 200, { ok: true, restarting: true });
+        setTimeout(() => {
+          if (typeof options.onRestart === 'function') {
+            options.onRestart();
+          } else {
+            api.stop().finally(() => process.exit(0));
+          }
+        }, 300);
+        return;
       }
 
       if (pathname === '/api/calibration/mode' && req.method === 'POST') {
@@ -725,6 +769,7 @@ export function createDartOTronServer(options = {}) {
     // Send initial state
     sendWs(socket, 'init', {
       serial: serial.getStatus(),
+      update: updater.getStatus(),
       match: engine.getStateAndFlushEvents(),
       dbInitialized: scores.consumeFirstCreationFlag ? scores.consumeFirstCreationFlag() : false
     });
@@ -806,12 +851,13 @@ export function createDartOTronServer(options = {}) {
     }
   }
 
-  return {
+  const api = {
     server,
     config,
     scores,
     serial,
     engine,
+    updater,
     isDev,
     async start(port = Number(process.env.PORT || 8180), host = process.env.HOST || '0.0.0.0') {
       await serial.connect();
@@ -832,11 +878,20 @@ export function createDartOTronServer(options = {}) {
         server.listen(port, host, () => {
           server.removeListener('error', onError);
           console.log(`Serveur DartOTron démarré sur http://localhost:${port}`);
+          if (!options.disableAutoUpdateCheck && process.env.NODE_ENV !== 'test' && port !== 0) {
+            updateCheckTimer = setTimeout(() => {
+              updater.checkForUpdate({ triggerAutoDownload: true }).catch(() => {});
+            }, 1500);
+          }
           resolve(server);
         });
       });
     },
     stop() {
+      if (updateCheckTimer) {
+        clearTimeout(updateCheckTimer);
+        updateCheckTimer = null;
+      }
       serial.disconnect();
       for (const s of wsClients) {
         try {
@@ -852,6 +907,8 @@ export function createDartOTronServer(options = {}) {
       return new Promise((resolve) => server.close(resolve));
     }
   };
+
+  return api;
 }
 
 // Start server if invoked directly (resolves symlinks)
@@ -867,13 +924,39 @@ const isDirectRun = (() => {
 })();
 
 if (isDirectRun) {
-  const app = createDartOTronServer();
-  app.start();
+  const isDevCli = process.argv.includes('--dev') || process.env.NODE_ENV === 'development';
+  const dataDir = process.env.DARTOTRON_DATA_DIR || path.join(ROOT_DIR, 'data');
 
-  const shutdown = () => {
-    app.stop().finally(() => process.exit(0));
-  };
-  process.on('SIGTERM', shutdown);
-  process.on('SIGINT', shutdown);
+  let relaunched = false;
+  if (!isDevCli) {
+    const applied = applyPendingUpdate(ROOT_DIR, dataDir);
+    if (applied.applied) {
+      console.log(`[Updater] Mise à jour ${applied.tag} installée. Redémarrage du serveur...`);
+      if (process.env.INVOCATION_ID) {
+        // Sous systemd (Restart=always), sortir proprement pour charger les nouveaux modules
+        process.exit(0);
+      } else {
+        relaunched = true;
+        const child = spawn(process.execPath, process.argv.slice(1), {
+          stdio: 'inherit',
+          env: process.env
+        });
+        child.on('exit', (code) => process.exit(code ?? 0));
+        process.on('SIGTERM', () => child.kill('SIGTERM'));
+        process.on('SIGINT', () => child.kill('SIGINT'));
+      }
+    }
+  }
+
+  if (!relaunched) {
+    const app = createDartOTronServer();
+    app.start();
+
+    const shutdown = () => {
+      app.stop().finally(() => process.exit(0));
+    };
+    process.on('SIGTERM', shutdown);
+    process.on('SIGINT', shutdown);
+  }
 }
 

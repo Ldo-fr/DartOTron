@@ -3,12 +3,14 @@ import assert from 'node:assert/strict';
 import os from 'node:os';
 import path from 'node:path';
 import fs from 'node:fs';
+import { execFileSync } from 'node:child_process';
 
 import { CConfig } from '../server/config.js';
 import { CScores } from '../server/scores.js';
 import { MatchEngine } from '../server/engine/MatchEngine.js';
 import { GAMES_REGISTRY } from '../server/games/index.js';
 import { createDartOTronServer } from '../server/index.js';
+import { UpdateManager, applyPendingUpdate, compareSemver } from '../server/updater.js';
 import { generateQRCodeSVG } from '../public/js/lib/qrcode.js';
 
 const TEST_DATA_DIR = path.join(os.tmpdir(), 'dartotron-test-data');
@@ -2041,6 +2043,126 @@ test('Client i18n: validates dictionaries integrity, key symmetry & I18nEngine b
   // Test has()
   assert.ok(engine.has('common.save'));
   assert.ok(!engine.has('common.nonexistent'));
+});
+
+test('Auto-Update: compareSemver, staged download, applyPendingUpdate & HTTP endpoints', async () => {
+  assert.equal(compareSemver('1.0.0', '1.0.0'), 0);
+  assert.equal(compareSemver('1.1.0', '1.0.0'), 1);
+  assert.equal(compareSemver('1.0.0', '2.0.0'), -1);
+  assert.equal(compareSemver('v1.2.3', '1.2.2'), 1);
+
+  const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'dartotron-upd-test-'));
+  const appRoot = path.join(tmpRoot, 'app');
+  const dataDir = path.join(appRoot, 'data');
+  const srcReleaseDir = path.join(tmpRoot, 'release-src');
+  const archiveFile = path.join(tmpRoot, 'dartotron-release.tar.gz');
+
+  try {
+    // 1. Setup fake installed app v1.0.0 with local data/
+    fs.mkdirSync(path.join(appRoot, 'server'), { recursive: true });
+    fs.mkdirSync(path.join(appRoot, 'public'), { recursive: true });
+    fs.mkdirSync(dataDir, { recursive: true });
+    fs.writeFileSync(path.join(appRoot, 'package.json'), JSON.stringify({ name: 'dartotron', version: '1.0.0' }));
+    fs.writeFileSync(path.join(appRoot, 'server', 'index.js'), '// v1.0.0');
+    fs.writeFileSync(path.join(appRoot, 'public', 'index.html'), '<h1>v1.0.0</h1>');
+    fs.writeFileSync(path.join(dataDir, 'custom-marker.txt'), 'PERSISTENT_LOCAL_DATA');
+    fs.writeFileSync(path.join(dataDir, 'dartotron.json'), JSON.stringify({ SectionGlobals: { autoupdate: false } }));
+
+    // 2. Build a valid fake v1.2.0 tar.gz release archive
+    fs.mkdirSync(path.join(srcReleaseDir, 'server'), { recursive: true });
+    fs.mkdirSync(path.join(srcReleaseDir, 'public'), { recursive: true });
+    fs.writeFileSync(path.join(srcReleaseDir, 'package.json'), JSON.stringify({ name: 'dartotron', version: '1.2.0' }));
+    fs.writeFileSync(path.join(srcReleaseDir, 'server', 'index.js'), '// v1.2.0');
+    fs.writeFileSync(path.join(srcReleaseDir, 'public', 'index.html'), '<h1>v1.2.0</h1>');
+    execFileSync('tar', ['-czf', archiveFile, '-C', srcReleaseDir, 'package.json', 'server', 'public']);
+    const archiveBytes = fs.readFileSync(archiveFile);
+
+    const mockFetch = async (url) => {
+      if (String(url).includes('/releases/latest')) {
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            tag_name: 'v1.2.0',
+            assets: [{ name: 'dartotron-release.tar.gz', browser_download_url: 'https://example.test/dartotron-release.tar.gz' }]
+          })
+        };
+      }
+      return {
+        ok: true,
+        status: 200,
+        arrayBuffer: async () => archiveBytes.buffer.slice(archiveBytes.byteOffset, archiveBytes.byteOffset + archiveBytes.byteLength)
+      };
+    };
+
+    const config = new CConfig(dataDir);
+    config.SetValue('SectionAdvanced', 'noserial', true);
+    config.SetValue('SectionGlobals', 'autoupdate', false);
+
+    const updater = new UpdateManager(config, {
+      rootDir: appRoot,
+      dataDir,
+      fetchImpl: mockFetch,
+      isDev: false
+    });
+
+    // Check with autoupdate=false -> status must be 'available' (not downloaded yet)
+    const stAvail = await updater.checkForUpdate({ triggerAutoDownload: true });
+    assert.equal(stAvail.status, 'available');
+    assert.equal(stAvail.latestVersion, '1.2.0');
+    assert.equal(stAvail.downloaded, false);
+    assert.equal(stAvail.isBreaking, false);
+
+    // Test HTTP endpoints with injected updater & onRestart hook
+    let restartTriggered = false;
+    const app = createDartOTronServer({
+      config,
+      updater,
+      disableAutoUpdateCheck: true,
+      onRestart: () => { restartTriggered = true; }
+    });
+    await app.start(0, '127.0.0.1');
+    const baseUrl = `http://127.0.0.1:${app.server.address().port}`;
+
+    try {
+      const statusRes = await fetch(`${baseUrl}/api/update/status`);
+      assert.equal(statusRes.status, 200);
+      const statusData = await statusRes.json();
+      assert.equal(statusData.status, 'available');
+
+      const dlRes = await fetch(`${baseUrl}/api/update/download`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({})
+      });
+      assert.equal(dlRes.status, 200);
+      const dlData = await dlRes.json();
+      assert.equal(dlData.status, 'downloaded');
+      assert.equal(dlData.downloadedVersion, '1.2.0');
+
+      // Live files MUST NOT be overwritten before next restart
+      assert.equal(fs.readFileSync(path.join(appRoot, 'server', 'index.js'), 'utf-8'), '// v1.0.0');
+
+      const restartRes = await fetch(`${baseUrl}/api/update/restart`, { method: 'POST' });
+      assert.equal(restartRes.status, 200);
+      await new Promise(r => setTimeout(r, 400));
+      assert.equal(restartTriggered, true);
+    } finally {
+      await app.stop();
+    }
+
+    // 3. Simulate next boot: applyPendingUpdate extracts v1.2.0 and preserves data/
+    const applied = applyPendingUpdate(appRoot, dataDir);
+    assert.equal(applied.applied, true);
+    assert.equal(applied.version, '1.2.0');
+    assert.equal(fs.readFileSync(path.join(appRoot, 'server', 'index.js'), 'utf-8'), '// v1.2.0');
+    assert.equal(fs.readFileSync(path.join(appRoot, 'public', 'index.html'), 'utf-8'), '<h1>v1.2.0</h1>');
+    assert.equal(fs.readFileSync(path.join(dataDir, 'custom-marker.txt'), 'utf-8'), 'PERSISTENT_LOCAL_DATA');
+    assert.equal(fs.existsSync(path.join(dataDir, 'scores.db')), true);
+    assert.equal(fs.existsSync(path.join(dataDir, 'pending-update')), false);
+  } finally {
+    fs.rmSync(tmpRoot, { recursive: true, force: true });
+  }
 });
 
 
