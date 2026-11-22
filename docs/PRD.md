@@ -30,7 +30,7 @@ Fournir un système de borne de fléchettes électronique **100 % Open-Source, O
 1. **Zéro dépendance & Pérennité maximale** : Exécution directe par Node.js (`node:http`, `node:sqlite`, `node:fs`) côté serveur et standards W3C purs (ES Modules, Custom Elements Light DOM, CSS Level 4 Nesting & Design Tokens) côté client.
 2. **Expérience Arcade Tactile CyberHUD Plein Écran** : Interface fluide et responsive adaptée aux écrans tactiles de bornes comme aux écrans TV 16:9, avec retour sonore et visuel contextuel (`<m-hit-impact>`).
 3. **Architecture Kiosque Unique + Compagnon Mobile Wi-Fi** : Garantir qu'une seule instance maîtresse pilote la partie sur la borne (`localhost`), tout en redirigeant automatiquement les smartphones/tablettes connectés sur le réseau local vers l'écran **Compagnon (`/companion`)** synchronisé en temps réel via WebSocket.
-4. **Mise à jour par Release Packagée** : Mise à jour de la borne depuis les archives de release GitHub officielles (`dartotron-release.tar.gz`) sans jamais altérer la base de données locale (`data/scores.db`) ni la configuration (`data/dartotron.json`).
+4. **Mise à jour par Release Packagée & Staging Automatique** : Vérification non bloquante au démarrage via GitHub Releases, téléchargement optionnel en arrière-plan (`SectionGlobals.autoupdate`) dans `data/pending-update/dartotron-release.tar.gz` sans toucher aux fichiers actifs, puis extraction sécurisée au prochain démarrage (`server/updater.js`) sans `sudo` ni altération de `data/scores.db` et `data/dartotron.json`.
 5. **Internationalisation Native Multilingue** : Interface 100 % bilingue/multilingue sans dépendance externe (`0 npm dependency`) supportant le Français (`fr`), l'Anglais (`en`), le Néerlandais (`nl`) et l'Allemand (`de`), avec bascule réactive à chaud sans rechargement de page et adaptation contextuelle du clavier virtuel tactile.
 
 ### 2.3. Hors-Périmètre Explicite (Non-Goals)
@@ -103,11 +103,12 @@ dartotron/
 │   ├── config.js                           # Gestionnaire de configuration JSON (data/dartotron.json)
 │   ├── scores.js                           # Façade de statistiques, records dynamiques et rétro-analyse
 │   ├── serial.js                           # Lecture non-bloquante du port série USB Arduino
+│   ├── updater.js                          # Vérification GitHub Releases, téléchargement en staging & installation au démarrage
 │   ├── db/                                 # Schéma SQLite V2, migrations et requêtes préparées
 │   ├── engine/                             # MatchEngine, CGame, CPlayer, CHandicap
 │   └── games/                              # 6 modules de jeux (Ho_One, Cricket, 321_Zlip, Kinito, By_Fives, Practice)
 ├── test/                                   # Pilier 6 : Banc de tests automatisés (Unitaires + E2E 4 Tiers)
-│   ├── test-games.js                       # 37 tests unitaires et d'intégration moteur/BDD/HTTP
+│   ├── test-games.js                       # 41 tests unitaires et d'intégration moteur/BDD/HTTP/Auto-Update
 │   └── e2e/                                # 187 tests E2E d'architecture CSS, Web Components et scénarios
 ├── sounds/                                 # Effets sonores MP3/WAV servis par /sounds/*
 ├── LICENSE                                 # Licence GNU GPL v3.0

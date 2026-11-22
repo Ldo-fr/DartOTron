@@ -10,7 +10,7 @@
 
 [![Version](https://img.shields.io/github/v/release/Ldo-fr/DartOTron?include_prereleases&color=00ff87&label=version)](https://github.com/Ldo-fr/DartOTron/releases)
 [![Node.js](https://img.shields.io/badge/Node.js-22.5%2B%20%7C%2024%2B-339933.svg)](https://nodejs.org/)
-[![Tests](https://img.shields.io/badge/tests-227%20passed%20(100%25)-brightgreen.svg)]()
+[![Tests](https://img.shields.io/badge/tests-228%20passed%20(100%25)-brightgreen.svg)]()
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
 
 Modern **100% Open-Source & Open-Hardware Electronic Dartboard Arcade System** built with **Zero npm Dependencies** (native Node.js ES Modules, `node:sqlite`, W3C Light DOM Web Components, and CSS Level 4 Design Tokens), designed for **Raspberry Pi**, touchscreens, TV displays, and **Arduino USB** dartboard matrices.
@@ -84,7 +84,7 @@ To set up DartOTron and build your connected arcade dartboard, follow the 4 sequ
 | **Single-Kiosk Lock & Mobile Companion** | ✅ Ready | Single active Kiosk instance locked on `localhost`; Wi-Fi devices (smartphones/tablets) automatically redirect (`302`) to `/companion` with real-time WebSocket sync. |
 | **SQLite V2 Relational Storage (`data/`)** | ✅ Ready | Atomic turn buffering, granular dart hit history (`dart_hits`), player telemetry (PPD, PPR, MPR), and dynamic pattern-based records with retroactive backfill. |
 | **Arduino USB Hardware Integration** | ✅ Ready | Direct non-blocking serial communication (`/dev/ttyACM0`, `/dev/ttyUSB0`) with interactive matrix calibration wizard. |
-| **Release-Based Auto-Updater** | ✅ Ready | One-command update (`npm run update`) fetches the latest packaged release (`dartotron-release.tar.gz`) from GitHub Releases while preserving `data/`. |
+| **Staged Auto-Updater** | ✅ Ready | Startup release check with `<hud-notification>` (10s), optional automatic background download in Settings, and safe boot-time extraction from `data/pending-update/` without `sudo` (plus `npm run update` CLI), always preserving `data/`. |
 
 ---
 

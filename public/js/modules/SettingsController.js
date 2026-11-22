@@ -32,6 +32,7 @@ export class SettingsController {
       soundvolume: Number(globals.soundvolume ?? 100),
       releasedartstime: releaseTime,
       onscreenbuttons: globals.onscreenbuttons !== false && globals.onscreenbuttons !== 'false',
+      autoupdate: globals.autoupdate === true || globals.autoupdate === 'true',
       locale: this.app.i18n?.currentLang || globals.locale || 'fr'
     };
 
@@ -104,6 +105,11 @@ export class SettingsController {
       settingTouch.checked = Boolean(s.onscreenbuttons);
     }
 
+    const settingAutoUpdate = document.getElementById('setting-auto-update');
+    if (settingAutoUpdate) {
+      settingAutoUpdate.checked = Boolean(s.autoupdate);
+    }
+
     const settingRelease = document.getElementById('setting-release-darts-time');
     if (settingRelease) {
       settingRelease.value = String(s.releasedartstime || 10000);
@@ -173,6 +179,130 @@ export class SettingsController {
     }
 
     this.refreshSerialStatusUI();
+    this.refreshUpdateStatusUI();
+  }
+
+  refreshUpdateStatusUI() {
+    const u = this.app.updateStatus;
+    const i18n = this.app.i18n;
+    const versionBadge = document.getElementById('settings-current-version');
+    const statusText = document.getElementById('settings-update-status-text');
+    const btnCheck = document.getElementById('btn-update-check');
+    const btnDownload = document.getElementById('btn-update-download');
+    const btnDownloadLabel = document.getElementById('btn-update-download-label');
+    const btnRestart = document.getElementById('btn-update-restart');
+
+    if (!u) return;
+
+    const curTag = u.currentVersion ? `v${u.currentVersion}` : 'v1.0.0';
+    const latTag = u.latestTag || (u.latestVersion ? `v${u.latestVersion}` : curTag);
+    const dlTag = u.downloadedVersion ? `v${u.downloadedVersion}` : latTag;
+
+    if (versionBadge) {
+      versionBadge.textContent = curTag;
+    }
+
+    if (statusText) {
+      statusText.classList.remove('is-available', 'is-ready', 'is-error');
+      if (this.app.restartingForUpdate) {
+        statusText.textContent = i18n?.t('settings.updates.status_restarting', {}, 'Redémarrage en cours...');
+        statusText.classList.add('is-ready');
+      } else if (u.status === 'checking') {
+        statusText.textContent = i18n?.t('settings.updates.status_checking', {}, 'Recherche d\'une mise à jour...');
+      } else if (u.status === 'downloading') {
+        statusText.textContent = i18n?.t('settings.updates.status_downloading', { version: latTag }, `Téléchargement de ${latTag}...`);
+        statusText.classList.add('is-available');
+      } else if (u.status === 'downloaded') {
+        statusText.textContent = i18n?.t('settings.updates.status_downloaded', { version: dlTag }, `Mise à jour ${dlTag} prête — sera installée au prochain démarrage`);
+        statusText.classList.add('is-ready');
+      } else if (u.status === 'available') {
+        statusText.textContent = i18n?.t('settings.updates.status_available', { version: latTag }, `Mise à jour ${latTag} disponible`);
+        statusText.classList.add('is-available');
+      } else if (u.status === 'up_to_date') {
+        statusText.textContent = i18n?.t('settings.updates.status_up_to_date', { version: curTag }, `DartOTron est à jour (${curTag})`);
+      } else if (u.status === 'error') {
+        statusText.textContent = i18n?.t('settings.updates.status_error', { error: u.error || 'réseau' }, `Vérification impossible (${u.error || 'réseau'})`);
+        statusText.classList.add('is-error');
+      } else {
+        statusText.textContent = i18n?.t('settings.updates.status_idle', {}, 'Vérification disponible');
+      }
+    }
+
+    const busy = u.status === 'checking' || u.status === 'downloading' || this.app.restartingForUpdate;
+    if (btnCheck) {
+      btnCheck.disabled = busy;
+    }
+    if (btnDownload) {
+      const showDownload = u.status === 'available' && !u.downloaded;
+      btnDownload.classList.toggle('hidden', !showDownload);
+      btnDownload.disabled = busy;
+      if (btnDownloadLabel && showDownload) {
+        btnDownloadLabel.textContent = i18n?.t('settings.updates.btn_download_version', { version: latTag }, `Télécharger ${latTag}`);
+      }
+    }
+    if (btnRestart) {
+      const showRestart = u.status === 'downloaded' && !this.app.restartingForUpdate;
+      btnRestart.classList.toggle('hidden', !showRestart);
+      btnRestart.disabled = busy;
+    }
+  }
+
+  async checkUpdatesManually() {
+    try {
+      const res = await fetch('/api/update/check', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ autoDownload: false })
+      });
+      const status = await res.json();
+      if (status) {
+        this.app.handleUpdateStatus(status);
+      }
+    } catch (err) {
+      this.app.notify({
+        title: this.app.i18n?.t('settings.updates.notif_error_title', {}, 'ERREUR MISE À JOUR'),
+        subtitle: err.message,
+        icon: 'error',
+        type: 'danger',
+        duration: 5000
+      });
+    }
+  }
+
+  async downloadUpdateManually() {
+    try {
+      const res = await fetch('/api/update/download', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({})
+      });
+      const status = await res.json();
+      if (status) {
+        this.app.handleUpdateStatus(status);
+      }
+    } catch (err) {
+      this.app.notify({
+        title: this.app.i18n?.t('settings.updates.notif_error_title', {}, 'ERREUR MISE À JOUR'),
+        subtitle: err.message,
+        icon: 'error',
+        type: 'danger',
+        duration: 5000
+      });
+    }
+  }
+
+  async restartForUpdate() {
+    this.app.restartingForUpdate = true;
+    this.refreshUpdateStatusUI();
+    try {
+      await fetch('/api/update/restart', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({})
+      });
+    } catch {
+      // Le serveur coupe la connexion lors de l'arrêt
+    }
   }
 
   refreshSerialStatusUI() {
@@ -207,6 +337,7 @@ export class SettingsController {
       ...globals,
       soundvolume: Number(this.draftSettings.soundvolume ?? 100),
       onscreenbuttons: Boolean(this.draftSettings.onscreenbuttons),
+      autoupdate: Boolean(this.draftSettings.autoupdate),
       releasedartstime: releaseTime,
       serialport: this.draftSettings.serialport || globals.serialport || '/dev/ttyACM0',
       serialspeed: Number(this.draftSettings.serialspeed || globals.serialspeed || 9600),
@@ -1362,6 +1493,7 @@ export class SettingsController {
 
     window.addEventListener('i18n:change', () => {
       this.refreshSerialStatusUI();
+      this.refreshUpdateStatusUI();
       if (document.getElementById('calib-step-counter')) {
         this.renderCalibrationStep();
       }
@@ -1423,6 +1555,15 @@ export class SettingsController {
     };
     document.getElementById('setting-onscreen-buttons')?.addEventListener('toggle-change', handleOnscreenToggle);
     document.getElementById('setting-touch-buttons')?.addEventListener('toggle-change', handleOnscreenToggle);
+
+    document.getElementById('setting-auto-update')?.addEventListener('toggle-change', (e) => {
+      const active = Boolean(e.detail?.checked ?? e.detail?.value);
+      this.draftSettings.autoupdate = active;
+    });
+
+    document.getElementById('btn-update-check')?.addEventListener('click', () => this.checkUpdatesManually());
+    document.getElementById('btn-update-download')?.addEventListener('click', () => this.downloadUpdateManually());
+    document.getElementById('btn-update-restart')?.addEventListener('click', () => this.restartForUpdate());
 
     document.getElementById('setting-sound-volume')?.addEventListener('input', (e) => {
       const val = Number(e.target.value);

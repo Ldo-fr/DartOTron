@@ -10,7 +10,7 @@
 
 [![Version](https://img.shields.io/github/v/release/Ldo-fr/DartOTron?include_prereleases&color=00ff87&label=version)](https://github.com/Ldo-fr/DartOTron/releases)
 [![Node.js](https://img.shields.io/badge/Node.js-22.5%2B%20%7C%2024%2B-339933.svg)](https://nodejs.org/)
-[![Tests](https://img.shields.io/badge/tests-227%20passed%20(100%25)-brightgreen.svg)]()
+[![Tests](https://img.shields.io/badge/tests-228%20passed%20(100%25)-brightgreen.svg)]()
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
 
 Système de borne de fléchettes électronique **100 % Open-Source et Open-Hardware** conçu **sans aucune dépendance npm** (ES Modules natifs Node.js, `node:sqlite`, Web Components W3C Light DOM et Design Tokens CSS Level 4), pensé pour **Raspberry Pi**, écrans tactiles, téléviseurs et matrices de cibles **Arduino USB**.
@@ -84,7 +84,7 @@ Pour installer DartOTron et fabriquer votre borne de fléchettes connectée, sui
 | **Instance Kiosque Unique & Mode Compagnon** | ✅ Opérationnel | Une seule instance Kiosque autorisée sur `localhost` ; les appareils Wi-Fi (smartphones/tablettes) sont automatiquement redirigés (`302`) vers `/companion` en temps réel. |
 | **Stockage Relationnel SQLite V2 (`data/`)** | ✅ Opérationnel | Tampon de tour atomique, historique granulaire (`dart_hits`), télémétrie (PPD, PPR, MPR) et catalogue de records dynamiques avec rétro-analyse automatique. |
 | **Support Matériel Arduino USB** | ✅ Opérationnel | Lecture série non-bloquante (`/dev/ttyACM0`, `/dev/ttyUSB0`) avec assistant graphique de calibration de la matrice. |
-| **Mise à Jour par Release Packagée** | ✅ Opérationnel | Commande `npm run update` téléchargeant la dernière archive officielle (`dartotron-release.tar.gz`) depuis GitHub Releases tout en préservant `data/`. |
+| **Mise à Jour Automatique (Staging)** | ✅ Opérationnel | Vérification au démarrage avec notification `<hud-notification>` (10 s), option *Téléchargement automatique* dans les Paramètres et installation sécurisée au prochain démarrage depuis `data/pending-update/` sans `sudo` (plus CLI `npm run update`), en préservant `data/`. |
 
 ---
 
